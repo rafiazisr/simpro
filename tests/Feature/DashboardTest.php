@@ -75,7 +75,7 @@ class DashboardTest extends TestCase
 
         $qa = $this->actingAs($this->qa)->getJson('/dashboard/data?project='.$this->project->id.'&tab=qa')->json();
         $this->assertStringContainsString('Mine ready', $qa['rows_html']);
-        $this->assertStringContainsString('role-qa', $qa['rows_html']);
+        $this->assertStringContainsString('<span class="tag">QA</span>', $qa['rows_html']);
     }
 
     public function test_klik_slice_memfilter_list_berdasarkan_status(): void
