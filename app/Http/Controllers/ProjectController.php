@@ -23,7 +23,6 @@ class ProjectController extends Controller
     {
         $user = $request->user();
         $status = ProjectStatus::tryFrom((string) $request->query('status'));
-        $view = $request->query('view') === 'table' ? 'table' : 'cards';
 
         $base = Project::query()->visibleTo($user);
 
@@ -43,7 +42,6 @@ class ProjectController extends Controller
 
         return view('projects.index', [
             'projects' => $projects,
-            'view' => $view,
             'status' => $status,
             'total' => (clone $base)->count(),
             'activeCount' => (clone $base)->where('status', ProjectStatus::Active)->count(),

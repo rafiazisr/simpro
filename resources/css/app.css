@@ -33,6 +33,18 @@ html.dark { color-scheme: dark; }
 .tag-strong { background: var(--primary-soft); color: var(--primary-text); }
 .tag-dark { background: var(--text); color: var(--surface); }
 
+.empty { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start !important; text-align: left; gap: 4px 12px; padding: 14px 16px; min-height: 0 !important; }
+.card.empty { background: transparent; border: 0; padding: 4px 0; }
+.empty h3 { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--text-2); }
+.empty p { margin: 0; max-width: none; font-size: 13px; }
+.empty .btn { margin-top: 0 !important; height: 30px; padding: 0 10px; font-size: 13px; }
+.empty .modal-icon { display: none; }
+.gantt-overlay .empty { flex-direction: column; align-items: center; text-align: center; padding: 20px 24px; border-radius: var(--radius); box-shadow: var(--shadow-md); }
+
+.list-row { display: flex; align-items: center; gap: 12px; padding: 0 16px; height: 44px; text-decoration: none; color: var(--text-2); border-bottom: 1px solid var(--border); }
+.list-row:last-child { border-bottom: 0; }
+.list-row:hover { background: var(--surface-2); }
+
 .wordmark { font-size: 19px; line-height: 24px; font-weight: 800; letter-spacing: -.035em; color: var(--primary-text); }
 
 /* Tombol tema */
@@ -225,7 +237,6 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
     .kv { grid-template-columns: 96px minmax(0, 1fr) !important; }
     .prose { font-size: 14px; }
     .prose table { display: block; overflow-x: auto; }
-    .empty { padding: 32px 16px; }
 
     /* Matriks role: kolom permission menempel saat digeser */
     .matrix th:first-child, .matrix td:first-child { position: sticky; left: 0; z-index: 1; background: var(--surface); width: 180px !important; min-width: 180px; white-space: normal; }
@@ -254,10 +265,6 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
     .table-cards td > form, .table-cards td > select, .table-cards td > form > select { flex: 1 1 auto; min-width: 0; max-width: none !important; }
     .table-cards td.actions > form { flex: none; }
 
-    /* Halaman login */
-    .login-aside { flex: 1 1 100% !important; padding: 20px 16px !important; gap: 0 !important; }
-    .login-aside .login-copy, .login-aside .login-foot { display: none !important; }
-    .login-main { flex: 1 1 100% !important; padding: 32px 16px 48px !important; place-items: start center !important; }
     .auth-card { padding: 24px 20px !important; }
 }
 

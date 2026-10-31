@@ -19,7 +19,7 @@ class AuthTest extends TestCase
 
     public function test_halaman_login_tampil(): void
     {
-        $this->get('/login')->assertOk()->assertSee('Masuk ke '.config('app.name'));
+        $this->get('/login')->assertOk()->assertSee('Masuk')->assertSee(config('app.name'));
     }
 
     public function test_tamu_diarahkan_ke_login(): void

@@ -1,6 +1,6 @@
 <x-layouts.guest title="Reset password">
 <div style="min-height: 100vh; padding: 32px 16px; display: flex; flex-direction: column; align-items: center; gap: 32px">
-    <div class="row" style="gap: 10px"><div class="logo">{{ \Illuminate\Support\Str::substr(config('app.name'), 0, 1) }}</div><span class="t-16">{{ config('app.name') }}</span></div>
+    <span class="wordmark" style="font-size: 22px">{{ config('app.name') }}</span>
 
     <form method="POST" action="{{ route('password.store') }}" class="card auth-card" style="width: 100%; max-width: 420px; padding: 32px; display: flex; flex-direction: column; gap: 18px" novalidate
           x-data="{ pw: '' }">

@@ -27,7 +27,6 @@
         <label class="search" aria-label="Cari backlog">
             <x-icon name="search" />
             <input type="search" name="q" x-ref="q" value="{{ request()->routeIs('search') ? request('q') : '' }}" placeholder="Cari backlog (kode atau judul)…">
-            <span class="kbd">Ctrl K</span>
         </label>
     </form>
 

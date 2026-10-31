@@ -1,19 +1,12 @@
 <x-layouts.guest title="Masuk">
-<div style="width: 100%; min-height: 100vh; display: flex; flex-wrap: wrap">
-    <aside class="login-aside" style="flex: 1 1 520px; background: #0F172A; color: #E2E8F0; padding: 48px 56px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px">
-        <div class="row" style="gap: 10px"><div class="logo">{{ \Illuminate\Support\Str::substr(config('app.name'), 0, 1) }}</div><span class="t-16" style="color: #fff">{{ config('app.name') }}</span></div>
-        <div class="col login-copy" style="gap: 16px; max-width: 460px">
-            <h1 style="font-size: 32px; line-height: 40px; font-weight: 600; color: #fff; letter-spacing: -0.02em">Dari sprint sampai QA, semua tercatat di satu tempat.</h1>
-            <p style="color: #94A3B8; font-size: 15px">Pantau backlog, timeline project, dan serah terima Programmer → QA secara real-time.</p>
-        </div>
-        <span class="t-12 login-foot" style="color: #94A3B8">© {{ date('Y') }} {{ config('app.name') }}</span>
-    </aside>
+<div style="min-height: 100vh; padding: 32px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+    <span class="wordmark" style="font-size: 22px">{{ config('app.name') }}</span>
 
-    <main class="login-main" style="flex: 1 1 520px; display: grid; place-items: center; padding: 48px 24px; background: var(--surface)">
-        <form class="col" method="POST" action="{{ route('login.store') }}" style="width: 100%; max-width: 380px; gap: 20px" novalidate>
+    <div class="card auth-card" style="width: 100%; max-width: 380px; padding: 28px">
+        <form class="col" method="POST" action="{{ route('login.store') }}" style="gap: 18px" novalidate>
             @csrf
             <div class="col" style="gap: 6px">
-                <h2 class="t-24">Masuk ke {{ config('app.name') }}</h2>
+                <h1 class="t-20">Masuk</h1>
                 <p class="muted">Gunakan email kantor Anda.</p>
             </div>
 
@@ -73,6 +66,6 @@
             <button class="btn btn-primary btn-lg btn-block" type="submit">Masuk</button>
             <p class="t-12 muted" style="text-align: center">Akun dibuat oleh Admin.</p>
         </form>
-    </main>
+    </div>
 </div>
 </x-layouts.guest>
