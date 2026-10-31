@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\BacklogController;
 use App\Http\Controllers\BacklogStatusController;
 use App\Http\Controllers\DashboardController;
@@ -22,12 +20,6 @@ Route::redirect('/', '/dashboard');
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
-
-    Route::get('lupa-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-    Route::post('lupa-password', [PasswordResetLinkController::class, 'store'])->middleware('throttle:6,1')->name('password.email');
-
-    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-    Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
 });
 
 Route::middleware(['auth', 'active'])->group(function () {

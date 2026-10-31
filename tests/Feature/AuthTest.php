@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Database\Seeders\SuperAdminSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -91,5 +92,29 @@ class AuthTest extends TestCase
     {
         $this->actingAs(User::factory()->create())->post('/logout')->assertRedirect('/login');
         $this->assertGuest();
+    }
+
+    public function test_fitur_lupa_password_dihapus(): void
+    {
+        $this->get('/login')->assertOk()->assertSee('Lupa password? Hubungi Admin.')->assertDontSee('lupa-password');
+        $this->get('/lupa-password')->assertNotFound();
+    }
+
+    public function test_perintah_reset_password_dari_server(): void
+    {
+        $user = User::factory()->create(['email' => 'budi@example.test']);
+
+        $this->artisan('user:reset-password', ['email' => 'budi@example.test', '--password' => 'PasswordBaru123'])
+            ->assertSuccessful();
+
+        $this->assertTrue(Hash::check('PasswordBaru123', $user->fresh()->password));
+    }
+
+    public function test_perintah_reset_password_menolak_email_tidak_dikenal_dan_password_pendek(): void
+    {
+        User::factory()->create(['email' => 'budi@example.test']);
+
+        $this->artisan('user:reset-password', ['email' => 'tidak@ada.test', '--password' => 'PasswordBaru123'])->assertFailed();
+        $this->artisan('user:reset-password', ['email' => 'budi@example.test', '--password' => 'pendek'])->assertFailed();
     }
 }

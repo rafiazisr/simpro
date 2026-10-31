@@ -22,7 +22,11 @@ npm run dev
 php artisan serve
 ```
 
-Login memakai email dan password Super Admin dari `.env`.
+Login memakai email dan password Super Admin dari `.env`. Password user diganti oleh Admin lewat menu Manajemen User; untuk Super Admin atau keadaan darurat:
+
+```bash
+php artisan user:reset-password email@kantor.com
+```
 
 ## Test
 

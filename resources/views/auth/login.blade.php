@@ -48,7 +48,6 @@
             <div class="field" x-data="{ show: false }">
                 <div class="row between">
                     <label class="label" for="password">Password</label>
-                    <a class="link t-12" href="{{ route('password.request') }}">Lupa password?</a>
                 </div>
                 <div class="input-icon">
                     <x-icon name="lock" />
@@ -64,7 +63,7 @@
             <label class="check"><input type="checkbox" name="remember" value="1" @checked(old('remember'))>Ingat saya</label>
 
             <button class="btn btn-primary btn-lg btn-block" type="submit">Masuk</button>
-            <p class="t-12 muted" style="text-align: center">Akun dibuat oleh Admin.</p>
+            <p class="t-12 muted" style="text-align: center">Lupa password? Hubungi Admin.</p>
         </form>
     </div>
 </div>
