@@ -1,0 +1,49 @@
+/* Variabel warna DHTMLX Gantt v10 dipetakan ke token desain aplikasi,
+   sehingga Gantt otomatis ikut tema terang/gelap (kelas .dark di <html>). */
+.app-gantt, .gantt_tooltip {
+    --dhx-gantt-font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    --dhx-gantt-base-colors-background: var(--surface);
+    --dhx-gantt-base-colors-background-alt: var(--surface-2);
+    --dhx-gantt-base-colors-border: var(--border);
+    --dhx-gantt-base-colors-border-light: var(--border);
+    --dhx-gantt-base-colors-text-base: var(--text-2);
+    --dhx-gantt-base-colors-text-light: var(--text-3);
+    --dhx-gantt-base-colors-icons: var(--text-3);
+    --dhx-gantt-base-colors-select: var(--primary-soft);
+    --dhx-gantt-base-colors-hover-color: var(--surface-2);
+
+    --dhx-gantt-container-background: var(--surface);
+    --dhx-gantt-container-color: var(--text-2);
+    --dhx-gantt-offtime-background: var(--surface-2);
+    --dhx-gantt-scale-background: var(--surface-2);
+    --dhx-gantt-grid-scale-background: var(--surface-2);
+    --dhx-gantt-timeline-scale-background: var(--surface-2);
+    --dhx-gantt-scale-color: var(--text-3);
+    --dhx-gantt-grid-scale-color: var(--text-3);
+    --dhx-gantt-timeline-scale-color: var(--text-3);
+    --dhx-gantt-scale-border-vertical: 1px solid var(--border);
+    --dhx-gantt-scale-border-horizontal: 1px solid var(--border);
+    --dhx-gantt-grid-scale-border-vertical: 1px solid var(--border);
+    --dhx-gantt-timeline-scale-border-vertical: 1px solid var(--border);
+    --dhx-gantt-grid-row-border: 1px solid var(--border);
+    --dhx-gantt-default-border: 1px solid var(--border);
+    --dhx-gantt-header-border: 1px solid var(--border);
+    --dhx-gantt-task-row-border: 1px solid var(--border);
+    --dhx-gantt-task-row-background: var(--surface);
+    --dhx-gantt-task-row-background--odd: var(--surface);
+    --dhx-gantt-task-line-text: var(--text-2);
+    --dhx-gantt-popup-background: var(--surface);
+    --dhx-gantt-popup-color: var(--text);
+    --dhx-gantt-tooltip-background: var(--surface);
+    --dhx-gantt-tooltip-color: var(--text);
+}
+.gantt_tooltip { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; z-index: 35; }
+/* Saat modal sprint terbuka (backdrop z-index 40) tooltip tidak boleh tampil di atasnya. */
+body:has(.backdrop.is-fixed) .gantt_tooltip { display: none !important; }
+
+/* Bar sprint di mode gelap sedikit lebih terang agar Planned/Active tetap terbaca. */
+.dark .app-gantt .gantt_task_line { background: color-mix(in srgb, var(--bar) 50%, #111827); }
+
+/* Bar swimlane project di mode gelap: progres terang agar tetap terlihat. */
+.dark .app-gantt .gantt_task_line.gantt_project { background: #334155; }
+.dark .app-gantt .gantt_task_line.gantt_project .gantt_task_progress { background: #94A3B8; }

@@ -1,0 +1,259 @@
+/* Design system aplikasi (disalin apa adanya dari desain Claude Design). */
+@import './design-system.css';
+
+/* ---- Penyesuaian untuk aplikasi nyata (desain memakai posisi absolut untuk mockup) ---- */
+html, body { height: 100%; margin: 0; }
+html { background: var(--bg); color-scheme: light; }
+html.dark { color-scheme: dark; }
+
+/* Tombol tema */
+.theme-toggle .ico { pointer-events: none; }
+.theme-toggle-floating { position: fixed; top: 12px; right: 12px; z-index: 70; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); color: var(--text-2); }
+.theme-toggle-floating:hover { background: var(--surface-2); }
+
+/* Dialog link Trix mengikuti tema */
+trix-toolbar .trix-dialog { background: var(--surface); border-color: var(--border); color: var(--text); box-shadow: var(--shadow-md); }
+trix-toolbar .trix-input--dialog { background: var(--surface); color: var(--text); border-color: var(--border-strong); }
+trix-editor { color: var(--text); }
+body.pt { min-height: 100vh; }
+[x-cloak] { display: none !important; }
+
+.app { min-height: 100vh; }
+.app-side { position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.app-side .sidebar { min-height: 100%; }
+.app-main { min-height: 100vh; }
+.topbar { position: sticky; top: 0; z-index: 15; }
+
+/* Modal, drawer, dan toast menempel di layar, bukan di dalam artboard. */
+.backdrop.is-fixed { position: fixed; z-index: 40; }
+.modal.is-fixed { position: fixed; z-index: 50; max-height: calc(100vh - 96px); overflow-y: auto; }
+.toast-stack.is-fixed { position: fixed; z-index: 60; }
+
+/* Form di dalam tombol inline (toggle aktif, hapus). */
+form.inline { display: inline-flex; margin: 0; }
+
+/* Elemen sr-only di dalam tabel tidak boleh lolos dari area scroll. */
+.table-wrap { position: relative; }
+
+/* Link pada header tabel yang bisa diurutkan. */
+.table th.sort a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+
+/* Sidebar mobile: tampil sebagai panel geser. */
+@media (max-width: 760px) {
+    .app-side.open { display: block; position: fixed; inset: 0 auto 0 0; z-index: 45; box-shadow: var(--shadow-lg); }
+    .topbar { padding: 0 16px; gap: 10px; }
+    .topbar .search { display: none; }
+}
+.menu-toggle { display: none; }
+@media (max-width: 760px) { .menu-toggle { display: inline-flex; } }
+
+/* Baris "Assign ke Project" di form user */
+.assign-row { display: grid; grid-template-columns: minmax(0, 1fr) 170px 30px; gap: 8px; align-items: center; }
+@media (max-width: 480px) {
+    .assign-row { grid-template-columns: minmax(0, 1fr) 30px; }
+    .assign-row > select:nth-child(2) { grid-row: 2; grid-column: 1; }
+}
+
+/* Segmented control berbasis radio (pilihan prioritas di form backlog). */
+.seg label { height: 28px; padding: 0 10px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.seg label.on { background: var(--surface); box-shadow: var(--shadow-sm); }
+.seg label:focus-within { outline: 2px solid var(--ring); outline-offset: 1px; }
+
+/* Board Kanban: jumlah kolom mengikuti jumlah status. */
+.board { grid-template-columns: none; }
+.kcard { cursor: pointer; }
+.kcard:hover { border-color: var(--border-strong); }
+
+/* Editor rich text (Trix) disesuaikan dengan gaya desain. */
+trix-toolbar { padding: 6px 8px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+trix-toolbar .trix-button-group { border-color: var(--border); margin-bottom: 0; }
+trix-toolbar .trix-button-group--file-tools { display: none; }
+.allow-uploads trix-toolbar .trix-button-group--file-tools { display: flex; }
+.prose figure { margin: 12px 0; }
+.prose figure img, .prose img { max-width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+.prose figcaption { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
+.editor:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
+.dark trix-toolbar .trix-button { filter: invert(1); }
+
+/* Tombol nonaktif berbentuk span (fitur fase berikutnya). */
+.btn.is-disabled { pointer-events: none; }
+
+/* ===== Skin DHTMLX Gantt mengikuti desain (.app-gantt) ===== */
+.app-gantt { font-family: inherit; }
+.app-gantt .gantt_container { border: 0; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 13px; background: var(--surface); color: var(--text-2); }
+.app-gantt .gantt_grid_scale, .app-gantt .gantt_task_scale { background: var(--surface-2); border-color: var(--border); }
+.app-gantt .gantt_grid_head_cell, .app-gantt .gantt_scale_cell { color: var(--text-3); font-size: 12px; font-weight: 600; border-color: var(--border); }
+.app-gantt .gantt_scale_line { border-color: var(--border); }
+.app-gantt .gantt_scale_cell.weekend, .app-gantt .gantt_task_cell.weekend { background: rgba(148, 163, 184, .08); }
+.app-gantt .gantt_grid_data .gantt_row, .app-gantt .gantt_task_row { border-color: var(--border); background: var(--surface); }
+.app-gantt .gantt_grid_data .gantt_row:hover, .app-gantt .gantt_task_row:hover { background: var(--surface-2); }
+.app-gantt .gantt_row.gantt_parent, .app-gantt .gantt_task_row.gantt_parent { background: var(--bg); }
+.app-gantt .gantt_row.gantt_parent .gantt_tree_content { color: var(--text); font-weight: 600; }
+.app-gantt .gantt_tree_content { display: flex; align-items: center; gap: 6px; overflow: hidden; text-overflow: ellipsis; }
+.app-gantt .gantt_cell { color: var(--text-2); }
+.app-gantt .gantt_task_cell { border-color: var(--border); }
+.app-gantt .gantt_grid { border-right: 1px solid var(--border-strong); }
+
+.app-gantt .gantt_task_line { --bar: #3B82F6; border: 0; border-radius: 5px; background: color-mix(in srgb, var(--bar) 45%, white); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); cursor: pointer; }
+.app-gantt .gantt_task_line .gantt_task_progress { background: var(--bar); opacity: 1; }
+.app-gantt .gantt_task_line .gantt_task_content { color: #fff; font-size: 12px; font-weight: 500; text-align: left; padding: 0 8px; text-shadow: 0 1px 1px rgba(0, 0, 0, .2); }
+.app-gantt .gantt_task_line.bar-planned { --bar: #94A3B8; }
+.app-gantt .gantt_task_line.bar-active { --bar: #3B82F6; }
+.app-gantt .gantt_task_line.bar-done { --bar: #22C55E; }
+.app-gantt .gantt_task_line.bar-planned .gantt_task_content { color: #0F172A; text-shadow: none; }
+.app-gantt .gantt_task_line.gantt_project { --bar: #475569; height: 12px !important; margin-top: 6px; border-radius: 3px; box-shadow: none; }
+.app-gantt .gantt_task_line.gantt_project .gantt_task_progress { background: #1E293B; }
+.app-gantt .gantt_task_line:not(.is-draggable) .gantt_task_drag { display: none; }
+.app-gantt .gantt_task_line.is-draggable { cursor: grab; }
+.app-gantt .gantt_task_line .gantt_task_drag { background: rgba(255, 255, 255, .95); width: 6px; border-radius: 3px; }
+.dark .app-gantt .gantt_task_line { background: color-mix(in srgb, var(--bar) 35%, #111827); }
+
+.gantt-sw { width: 8px; height: 8px; border-radius: 2px; flex: none; display: inline-block; }
+.gantt-sw-dot { border-radius: 50%; background: #3B82F6; }
+.gantt-sw-dot.bar-planned { background: #94A3B8; } .gantt-sw-dot.bar-done { background: #22C55E; }
+
+.gantt-today { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--s-reopen); z-index: 3; pointer-events: none; }
+.gantt-today span { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); background: var(--s-reopen); color: #fff; font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+
+.gantt-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; background: color-mix(in srgb, var(--surface) 70%, transparent); z-index: 10; color: var(--text-3); }
+.gantt-mini-row { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: center; padding: 10px 12px; border-radius: var(--radius); text-decoration: none; color: inherit; border: 1px solid transparent; }
+.gantt-mini-row:hover { background: var(--surface-2); border-color: var(--border); }
+.gantt-mini-track { position: relative; height: 10px; border-radius: 5px; background: var(--surface-3); overflow: hidden; }
+.gantt-mini-track span { position: absolute; top: 0; bottom: 0; border-radius: 5px; }
+.gantt_tooltip { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 12px; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-md); }
+
+/* Nama sprint di kanan bar */
+.app-gantt .gantt_side_content.gantt_right { color: var(--text-2); font-size: 12px; font-weight: 500; padding-left: 8px; }
+
+/* Dashboard: donut + aktivitas berdampingan, menumpuk di layar sempit */
+.dash-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 16px; }
+@media (max-width: 1100px) { .dash-grid { grid-template-columns: minmax(0, 1fr); } }
+.donut { position: relative; }
+.act { color: inherit; }
+
+/* =====================================================================
+   Responsive (tablet & mobile)
+   - .m-full    : di layar sempit ambil lebar penuh & lepas sticky
+   - .m-stack   : grid jadi satu kolom di layar sempit
+   - .m-hide / .m-only : sembunyikan / tampilkan hanya di mobile
+   - .table-cards : tabel berubah jadi daftar kartu di mobile (pakai data-label)
+   ===================================================================== */
+@media (min-width: 761px) { .m-only { display: none !important; } }
+.side-backdrop { display: none; }
+
+@media (max-width: 1024px) {
+    .content { padding: 20px 20px 32px; }
+    .topbar { padding: 0 20px; gap: 12px; }
+    .topbar .search { width: 220px; }
+    .topbar .search .kbd { display: none; }
+    .breadcrumb { overflow: hidden; }
+    .breadcrumb .current { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+@media (max-width: 900px) {
+    .topbar .user-meta, .topbar .user-chev { display: none; }
+    .topbar .user-btn { padding: 0 4px !important; }
+}
+
+@media (max-width: 760px) {
+    .m-hide { display: none !important; }
+    .m-full { flex: 1 1 100% !important; width: 100% !important; max-width: 100% !important; position: static !important; }
+    .m-stack { grid-template-columns: minmax(0, 1fr) !important; }
+
+    /* Shell */
+    .app-main { overflow-x: clip; }
+    .side-backdrop.open { display: block; position: fixed; inset: 0; background: var(--overlay); z-index: 44; }
+    .app-side.open { width: min(260px, 86vw); }
+    .app-side.open .sidebar { width: 100%; }
+    .content { padding: 16px 16px 32px; gap: 16px; }
+    .t-24 { font-size: 20px; line-height: 28px; }
+
+    /* Topbar: breadcrumb hanya halaman aktif, sembunyikan nama user */
+    .topbar { height: 56px; padding: 0 8px 0 12px; gap: 4px; }
+    .breadcrumb > :not(.current) { display: none; }
+    .breadcrumb .current { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .topbar .user-meta, .topbar .user-chev, .topbar .topbar-sep { display: none; }
+    .topbar .user-btn { padding: 0 4px !important; }
+    .notif-pop { position: fixed !important; left: 8px !important; right: 8px !important; top: 60px !important; width: auto !important; max-width: none !important; }
+    .notif-ask { left: 12px !important; right: 12px !important; bottom: 12px !important; width: auto !important; max-width: none !important; }
+    .toast-stack.is-fixed { left: 12px; right: 12px; bottom: 12px; }
+    .toast { width: auto; }
+
+    /* Header halaman & toolbar */
+    .page-head { gap: 12px; }
+    .page-head > .row { flex-wrap: wrap; }
+    .card-head { flex-wrap: wrap; }
+    .toolbar { gap: 8px; }
+    .toolbar > .grow { display: none; }
+    .toolbar .input-icon { flex: 1 1 100%; width: auto !important; min-width: 0 !important; }
+    .toolbar > .select { flex: 1 1 calc(50% - 4px); width: auto !important; min-width: 0 !important; }
+    .toolbar > div:has(> .fake-input) { flex: 1 1 100%; min-width: 0; }
+    .toolbar > div > .fake-input { width: 100%; min-width: 0 !important; }
+    .toolbar .input[type="date"] { flex: 1 1 0; width: auto !important; min-width: 0; }
+    .toolbar > .row:has(> .input[type="date"]) { flex: 1 1 100%; min-width: 0; }
+    .seg { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .seg > * { flex: none; }
+
+    /* Modal & drawer */
+    .modal.is-fixed { top: 12px !important; left: 12px; right: 12px; width: auto !important; max-width: none; transform: none; max-height: calc(100dvh - 24px); }
+    .modal-head { padding: 16px 16px 0; }
+    .modal-body { padding: 14px 16px 16px; }
+    .modal-foot { padding: 12px 16px; flex-wrap: wrap; }
+    .drawer-head { padding: 14px 16px; gap: 12px; }
+    .drawer-body { padding: 16px; }
+    .drawer-foot { padding: 12px 16px; flex-wrap: wrap; }
+
+    /* Komponen */
+    .board { grid-auto-columns: minmax(78vw, 1fr) !important; scroll-snap-type: x mandatory; }
+    .kcol { min-height: 200px; scroll-snap-align: start; }
+    .gantt-mini-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .legend { min-width: 0; }
+    .kv { grid-template-columns: 96px minmax(0, 1fr) !important; }
+    .prose { font-size: 14px; }
+    .prose table { display: block; overflow-x: auto; }
+    .empty { padding: 32px 16px; }
+
+    /* Matriks role: kolom permission menempel saat digeser */
+    .matrix th:first-child, .matrix td:first-child { position: sticky; left: 0; z-index: 1; background: var(--surface); width: 180px !important; min-width: 180px; white-space: normal; }
+    .matrix th:first-child { background: var(--surface-2); }
+    .matrix tr.group td:first-child { background: var(--bg); }
+    .matrix td:first-child { padding-left: 12px !important; }
+
+    /* Tabel jadi kartu */
+    .table-cards { min-width: 0 !important; }
+    .table-cards thead { display: none; }
+    .table-cards, .table-cards tbody, .table-cards tr { display: block; width: 100%; }
+    .table-cards tr { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .table-cards tbody:last-child tr:last-child { border-bottom: 0; }
+    .table-cards td { display: flex; align-items: center; gap: 10px; height: auto; padding: 3px 0; border: 0; white-space: normal; min-width: 0; }
+    .table-cards td[data-label]::before { content: attr(data-label); flex: 0 0 96px; font-size: 12px; color: var(--text-3); }
+    .table-cards td.title { min-width: 0; font-size: 15px; padding: 2px 0 6px; }
+    .table-cards td.code { padding-bottom: 0; }
+    .table-cards td.num { text-align: left; }
+    .table-cards td.actions { justify-content: flex-end; margin-top: 4px; }
+    .table-cards td.actions > .row { justify-content: flex-end; }
+    .table-cards tr.group { background: var(--bg); padding: 10px 16px; }
+    .table-cards tr.group td { background: none; height: auto; padding: 0; }
+    .table-cards tr.group button { flex-wrap: wrap; text-align: left; row-gap: 4px; }
+    .table-cards td[colspan] { justify-content: center; }
+    .table-cards .person { white-space: normal; }
+    .table-cards td > form, .table-cards td > select, .table-cards td > form > select { flex: 1 1 auto; min-width: 0; max-width: none !important; }
+    .table-cards td.actions > form { flex: none; }
+
+    /* Halaman login */
+    .login-aside { flex: 1 1 100% !important; padding: 20px 16px !important; gap: 0 !important; }
+    .login-aside .login-copy, .login-aside .login-foot { display: none !important; }
+    .login-main { flex: 1 1 100% !important; padding: 32px 16px 48px !important; place-items: start center !important; }
+    .auth-card { padding: 24px 20px !important; }
+}
+
+@media (max-width: 480px) {
+    .m-stack-sm { grid-template-columns: minmax(0, 1fr) !important; }
+    .btn-lg { height: 40px; padding: 0 14px; }
+    .page-actions { width: 100%; }
+    .page-actions > *, .page-actions > form > .btn { flex: 1 1 auto; }
+    .page-actions > form { display: flex; flex: 1 1 auto; }
+    .page-actions .btn { width: 100%; }
+    .stat { padding: 12px 14px; }
+    .stat .num { font-size: 20px; line-height: 28px; }
+}

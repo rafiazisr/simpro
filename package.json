@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "alpinejs": "^3.14.8",
+        "axios": "^1.7.4",
+        "concurrently": "^9.0.1",
+        "dhtmlx-gantt": "^10.0.3",
+        "laravel-vite-plugin": "^1.2.0",
+        "trix": "^2.1.15",
+        "vite": "^6.0.11"
+    }
+}
