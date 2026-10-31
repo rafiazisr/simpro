@@ -14,7 +14,7 @@
         <div class="page-head">
             <div>
                 <h1 class="t-24">{{ $title }}</h1>
-                <p class="sub">{{ $isEdit ? 'Perubahan tanggal harus tetap mencakup semua sprint.' : 'Project baru akan muncul di Gantt Chart setelah disimpan.' }}</p>
+                <p class="sub">{{ $isEdit ? 'Perubahan tanggal harus tetap mencakup semua sprint.' : 'Project baru akan muncul di Timeline setelah disimpan.' }}</p>
             </div>
             <div class="row">
                 <a class="btn btn-secondary" href="{{ $isEdit ? route('projects.show', $project) : route('projects.index') }}">Batal</a>

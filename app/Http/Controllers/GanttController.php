@@ -20,10 +20,25 @@ use Illuminate\View\View;
  */
 class GanttController extends Controller
 {
+    /** Timeline semua project (menu utama). */
     public function index(Request $request): View
     {
         return view('gantt.index', [
             'projects' => Project::query()->visibleTo($request->user())->orderBy('name')->get(['id', 'code', 'name', 'color']),
+            'project' => null,
+        ]);
+    }
+
+    /** Tab Timeline di dalam project: Gantt yang sama, terkunci ke satu project. */
+    public function project(Project $project): View
+    {
+        Gate::authorize('view', $project);
+
+        $project->load(['members' => fn ($q) => $q->withTrashed()->orderBy('name')]);
+
+        return view('gantt.index', [
+            'projects' => collect([$project]),
+            'project' => $project,
         ]);
     }
 

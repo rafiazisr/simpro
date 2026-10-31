@@ -5,20 +5,32 @@
         'backlogsUrl' => route('gantt.sprint-backlogs', '__ID__'),
         'updateUrl' => route('gantt.sprints.update', '__ID__'),
         'allProjects' => $projects->map(fn ($p) => ['id' => $p->id, 'name' => $p->name, 'code' => $p->code, 'color' => $p->color])->values(),
-        'initialProjects' => $initial,
+        'initialProjects' => $project ? [$project->id] : $initial,
+        'lockedProject' => $project?->id,
     ];
+    $title = $project ? 'Timeline · '.$project->name : 'Timeline';
+    $crumbs = $project
+        ? ['Project' => route('projects.index'), $project->name => route('projects.show', $project), 'Timeline']
+        : ['Timeline'];
 @endphp
-<x-layouts.app title="Gantt Chart" :crumbs="['Gantt Chart']">
+<x-layouts.app :title="$title" :crumbs="$crumbs">
+    @if ($project)
+        <x-project-header :project="$project" tab="timeline" />
+    @endif
+
     <div class="col" style="gap: 20px" x-data="ganttPage(@js($cfg))">
-        <div class="page-head">
-            <div>
-                <h1 class="t-24">Gantt Chart</h1>
-                <p class="sub">Swimlane per project · bar = sprint · progres terisi di dalam bar</p>
+        @unless ($project)
+            <div class="page-head">
+                <div>
+                    <h1 class="t-24">Timeline</h1>
+                    <p class="sub">Gantt chart semua project · swimlane = project · bar = sprint · progres terisi di dalam bar</p>
+                </div>
             </div>
-        </div>
+        @endunless
 
         <div class="toolbar">
-            {{-- Filter project (multi) --}}
+            {{-- Filter project (multi); di tab Timeline project, project sudah terkunci --}}
+            @unless ($project)
             <div style="position: relative" @click.outside="projectMenu = false" @keydown.escape="projectMenu = false">
                 <button type="button" class="fake-input" style="min-width: 260px; font: inherit; cursor: pointer" @click="projectMenu = !projectMenu" :aria-expanded="projectMenu" aria-label="Filter project">
                     <x-icon name="filter" style="color: var(--text-3)" />
@@ -37,6 +49,8 @@
                     @endforelse
                 </div>
             </div>
+
+            @endunless
 
             <select class="select" style="width: 180px" aria-label="Filter sprint" x-model="sprintStatus">
                 <option value="">Semua sprint</option>

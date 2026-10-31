@@ -74,7 +74,9 @@ Route::middleware(['auth', 'active'])->group(function () {
     Route::patch('backlogs/{backlog}/status', BacklogStatusController::class)->name('backlogs.status');
 
     // Swimlane Gantt Chart
-    Route::get('gantt', [GanttController::class, 'index'])->name('gantt.index');
+    Route::get('timeline', [GanttController::class, 'index'])->name('gantt.index');
+    Route::redirect('gantt', 'timeline', 301);
+    Route::get('projects/{project}/timeline', [GanttController::class, 'project'])->name('projects.timeline');
     Route::get('gantt/data', [GanttController::class, 'data'])->name('gantt.data');
     Route::get('gantt/sprints/{sprint}/backlogs', [GanttController::class, 'sprintBacklogs'])->name('gantt.sprint-backlogs');
     Route::put('gantt/sprints/{sprint}', [GanttController::class, 'updateSprint'])->name('gantt.sprints.update');

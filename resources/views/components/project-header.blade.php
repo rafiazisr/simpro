@@ -21,7 +21,6 @@
             </div>
         </div>
         <div class="row">
-            <a class="btn btn-secondary" href="{{ route('gantt.index', ['projects' => [$project->id]]) }}"><x-icon name="gantt" />Lihat di Gantt</a>
             @can('update', $project)
                 <a class="btn btn-secondary" href="{{ route('projects.edit', $project) }}"><x-icon name="edit" />Ubah</a>
             @endcan
@@ -41,6 +40,7 @@
         <a class="{{ $tabCls('ringkasan') }}" href="{{ route('projects.show', $project) }}">Ringkasan</a>
         <a class="{{ $tabCls('sprint') }}" href="{{ route('projects.sprints.index', $project) }}">Sprint<span class="count">{{ $project->sprints_count ?? $project->sprints()->count() }}</span></a>
         <a class="{{ $tabCls('backlog') }}" href="{{ route('projects.backlogs.index', $project) }}">Backlog<span class="count">{{ $project->backlogs_count ?? $project->backlogs()->count() }}</span></a>
+        <a class="{{ $tabCls('timeline') }}" href="{{ route('projects.timeline', $project) }}">Timeline</a>
         <a class="{{ $tabCls('anggota') }}" href="{{ route('projects.members.index', $project) }}">Anggota<span class="count">{{ $project->members->count() }}</span></a>
         <a class="{{ $tabCls('docs') }}" href="{{ route('projects.docs.index', $project) }}">Dokumentasi</a>
     </nav>

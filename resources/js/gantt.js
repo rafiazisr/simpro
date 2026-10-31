@@ -256,7 +256,7 @@ window.Alpine.data('ganttPage', (cfg) => ({
     },
 
     reset() {
-        this.projects = [];
+        this.projects = cfg.lockedProject ? [cfg.lockedProject] : [];
         this.sprintStatus = '';
         this.from = '';
         this.to = '';

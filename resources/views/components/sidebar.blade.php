@@ -16,7 +16,7 @@
 
     <a class="{{ $nav('dashboard') }}" href="{{ route('dashboard') }}"><x-icon name="dashboard" />Dashboard</a>
     <a class="{{ request()->routeIs('projects.docs.*') ? 'nav-item' : $nav('projects.*', 'backlogs.*') }}" href="{{ route('projects.index') }}"><x-icon name="folder" />Project</a>
-    <a class="{{ $nav('gantt.*') }}" href="{{ route('gantt.index') }}"><x-icon name="gantt" />Gantt Chart</a>
+    <a class="{{ $nav('gantt.*') }}" href="{{ route('gantt.index') }}"><x-icon name="gantt" />Timeline</a>
     <a class="{{ $nav('docs.*', 'projects.docs.*') }}" href="{{ route('docs.index') }}"><x-icon name="book" />Dokumentasi</a>
 
     @can('user.manage')

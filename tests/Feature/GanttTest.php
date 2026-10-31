@@ -36,9 +36,28 @@ class GanttTest extends TestCase
         $this->active = $this->project->sprints()->create(['name' => 'Sprint 2', 'start_date' => '2026-03-01', 'end_date' => '2026-03-14', 'status' => 'active']);
     }
 
-    public function test_halaman_gantt_tampil(): void
+    public function test_halaman_timeline_tampil(): void
     {
-        $this->actingAs($this->prog)->get('/gantt')->assertOk()->assertSee('Gantt Chart')->assertSee('Portal HR');
+        $this->actingAs($this->prog)->get('/timeline')->assertOk()->assertSee('Timeline')->assertSee('Portal HR');
+    }
+
+    public function test_url_gantt_lama_diarahkan_ke_timeline(): void
+    {
+        $this->actingAs($this->prog)->get('/gantt')->assertRedirect('/timeline');
+    }
+
+    public function test_tab_timeline_project_terkunci_ke_project_itu(): void
+    {
+        $this->actingAs($this->prog)->get("/projects/{$this->project->code}/timeline")->assertOk()
+            ->assertSee('Portal HR')
+            ->assertSee('Filter sprint')
+            ->assertDontSee('aria-label="Filter project"', false)
+            ->assertDontSee('Lihat di Gantt');
+    }
+
+    public function test_tab_timeline_project_ditolak_untuk_non_anggota(): void
+    {
+        $this->actingAs(User::factory()->create())->get("/projects/{$this->project->code}/timeline")->assertForbidden();
     }
 
     public function test_data_gantt_swimlane_project_dan_bar_sprint(): void
