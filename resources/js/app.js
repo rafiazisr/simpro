@@ -189,28 +189,43 @@ Alpine.data('dashboardPage', (cfg) => ({
     data: cfg.initial ?? { slices: [], total: 0, project: { name: '' }, selected: null, tab: 'programmer' },
     projectId: cfg.initial?.project?.id ?? null,
     loading: false,
-    C: 2 * Math.PI * 80,
 
-    // Panjang dan posisi tiap busur donut (stroke-dasharray).
+    // Irisan pie: sudut mulai/selesai tiap status (mulai dari jam 12, searah jarum jam).
     get arcs() {
-        let offset = 0;
         const total = this.data.total || 1;
-        return this.data.slices.map((s) => {
-            const len = (s.count / total) * this.C;
-            const arc = { ...s, len: Math.max(len - 1.5, 0.5), offset };
-            offset += len;
+        let angle = 0;
+        return this.data.slices.filter((s) => s.count > 0).map((s) => {
+            const sweep = (s.count / total) * Math.PI * 2;
+            const arc = { ...s, start: angle, end: angle + sweep };
+            angle += sweep;
             return arc;
         });
     },
 
-    // String SVG busur donut (x-for tidak bisa dipakai di dalam <svg>).
+    // String SVG irisan pie (x-for tidak bisa dipakai di dalam <svg>).
     get arcsSvg() {
         const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-        return this.arcs.map((s) => {
-            const dim = this.data.selected && this.data.selected.id !== s.id ? 0.25 : 1;
-            return `<circle data-id="${s.id}" cx="100" cy="100" r="80" fill="none" stroke-width="30" stroke="${esc(s.color)}"`
-                + ` stroke-dasharray="${s.len} ${this.C - s.len}" stroke-dashoffset="${-s.offset}"`
-                + ` style="cursor:pointer;transition:opacity .15s;opacity:${dim}"><title>${esc(s.name)}: ${s.count}</title></circle>`;
+        const cx = 100, cy = 100, r = 90;
+        const pt = (a, rad = r) => [cx + rad * Math.sin(a), cy - rad * Math.cos(a)].map((n) => n.toFixed(2));
+        const arcs = this.arcs;
+        return arcs.map((s) => {
+            const sel = this.data.selected?.id === s.id;
+            const dim = this.data.selected && !sel ? 0.3 : 1;
+            // Irisan terpilih sedikit "ditarik" keluar.
+            const mid = (s.start + s.end) / 2;
+            const [dx, dy] = sel && arcs.length > 1 ? [6 * Math.sin(mid), -6 * Math.cos(mid)] : [0, 0];
+            let shape;
+            if (s.end - s.start >= Math.PI * 2 - 1e-6) {
+                shape = `<circle cx="${cx}" cy="${cy}" r="${r}"`;
+            } else {
+                const [x1, y1] = pt(s.start);
+                const [x2, y2] = pt(s.end);
+                const large = s.end - s.start > Math.PI ? 1 : 0;
+                shape = `<path d="M${cx} ${cy} L${x1} ${y1} A${r} ${r} 0 ${large} 1 ${x2} ${y2} Z"`;
+            }
+            return `${shape} data-id="${s.id}" fill="${esc(s.color)}" transform="translate(${dx.toFixed(2)} ${dy.toFixed(2)})"`
+                + ` style="cursor:pointer;stroke:var(--surface);stroke-width:2;stroke-linejoin:round;transition:opacity .15s,transform .15s;opacity:${dim}">`
+                + `<title>${esc(s.name)}: ${s.count} (${s.pct}%)</title>${shape.startsWith('<circle') ? '</circle>' : '</path>'}`;
         }).join('');
     },
 

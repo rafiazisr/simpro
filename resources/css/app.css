@@ -126,10 +126,10 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 /* Nama sprint di kanan bar */
 .app-gantt .gantt_side_content.gantt_right { color: var(--text-2); font-size: 12px; font-weight: 500; padding-left: 8px; }
 
-/* Dashboard: donut + aktivitas berdampingan, menumpuk di layar sempit */
+/* Dashboard: pie chart + aktivitas berdampingan, menumpuk di layar sempit */
 .dash-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 16px; }
 @media (max-width: 1100px) { .dash-grid { grid-template-columns: minmax(0, 1fr); } }
-.donut { position: relative; }
+.pie { overflow: visible; max-width: 100%; height: auto; }
 .act { color: inherit; }
 
 /* =====================================================================

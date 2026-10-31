@@ -43,7 +43,7 @@
             </div>
         @else
             <div class="dash-grid">
-                {{-- Pie/donut status (FR-51 / FR-53) --}}
+                {{-- Pie chart status (FR-51 / FR-53) --}}
                 <section class="card">
                     <div class="card-head">
                         <div>
@@ -57,13 +57,13 @@
                             <p class="muted" style="margin: 0 auto">Belum ada backlog di project ini.</p>
                         </template>
                         <template x-if="data.total > 0">
-                            <div class="donut" style="width: 220px; height: 220px">
-                                <svg viewBox="0 0 200 200" width="220" height="220" role="img" :aria-label="`Distribusi status ${data.total} backlog`">
-                                    <g transform="rotate(-90 100 100)" x-html="arcsSvg" @click="$event.target.dataset.id && pick(Number($event.target.dataset.id))"></g>
+                            <div class="col" style="align-items: center; gap: 10px; flex: none">
+                                <svg class="pie" viewBox="-6 -6 212 212" width="220" height="220" role="img" :aria-label="`Pie chart distribusi status ${data.total} backlog`">
+                                    <g x-html="arcsSvg" @click="$event.target.dataset.id && pick(Number($event.target.dataset.id))"></g>
                                 </svg>
-                                <div class="col" style="position: absolute; inset: 0; align-items: center; justify-content: center; pointer-events: none; text-align: center">
-                                    <span style="font-size: 32px; line-height: 36px; font-weight: 700; letter-spacing: -0.02em" x-text="data.selected ? selectedCount : data.done_pct + '%'"></span>
-                                    <span class="t-12 muted" style="max-width: 110px" x-text="data.selected ? data.selected.name : 'selesai (Done)'"></span>
+                                <div class="col" style="align-items: center; text-align: center; gap: 0">
+                                    <span style="font-size: 24px; line-height: 30px; font-weight: 700; letter-spacing: -0.02em" x-text="data.selected ? selectedCount + ' backlog' : data.done_pct + '%'"></span>
+                                    <span class="t-12 muted" x-text="data.selected ? data.selected.name : 'selesai (Done)'"></span>
                                 </div>
                             </div>
                         </template>
