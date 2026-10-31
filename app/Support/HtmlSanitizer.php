@@ -69,14 +69,14 @@ class HtmlSanitizer
                     continue;
                 }
 
-                $href = $tag === 'a' ? trim($child->getAttribute('href')) : null;
+                $href = $tag === 'a' ? preg_replace('/[\x00-\x20\x7F]+/', '', $child->getAttribute('href')) : null;
                 $src = $tag === 'img' ? trim($child->getAttribute('src')) : null;
 
                 foreach (iterator_to_array($child->attributes) as $attr) {
                     $child->removeAttribute($attr->nodeName);
                 }
 
-                if ($href !== null && preg_match('#^(https?://|mailto:|/)#i', $href)) {
+                if ($href !== null && preg_match('#^(https?://|mailto:|/(?![/\\\\]))#i', $href)) {
                     $child->setAttribute('href', $href);
                     $child->setAttribute('rel', 'noopener noreferrer');
                     $child->setAttribute('target', '_blank');

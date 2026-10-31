@@ -29,3 +29,7 @@ Login memakai email dan password Super Admin dari `.env`.
 ```bash
 php artisan test
 ```
+
+## Production
+
+Di `.env` server: `APP_ENV=production`, `APP_DEBUG=false`, `SESSION_SECURE_COOKIE=true`, dan `SUPERADMIN_PASSWORD` minimal 12 karakter (seeder menolak password bawaan).

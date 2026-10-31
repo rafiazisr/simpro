@@ -78,7 +78,7 @@
                                             <input type="checkbox" checked aria-label="Status aktif {{ $u->name }}"
                                                    @click.prevent="$dispatch('confirm', {
                                                        title: @js('Nonaktifkan '.$u->name.'?'),
-                                                       message: '<b style=\'color: var(--text)\'>Sesi user akan langsung diputus</b> dan ia tidak bisa login sampai diaktifkan kembali. Backlog yang di-assign tetap tersimpan.',
+                                                       message: 'Sesinya langsung diputus dan ia tidak bisa login sampai diaktifkan kembali. Backlog yang di-assign tetap tersimpan.',
                                                        action: @js(route('users.toggle-active', $u)),
                                                        method: 'PATCH',
                                                        confirmLabel: 'Ya, nonaktifkan'

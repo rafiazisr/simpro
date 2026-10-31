@@ -47,7 +47,7 @@
                         <div class="modal-icon danger"><x-icon name="ban" size="20" /></div>
                         <div class="col" style="gap: 6px">
                             <h2 id="cd-title" class="t-16" x-text="title"></h2>
-                            <p id="cd-desc" class="muted" x-html="message"></p>
+                            <p id="cd-desc" class="muted" x-text="message"></p>
                         </div>
                     </div>
                 </div>
