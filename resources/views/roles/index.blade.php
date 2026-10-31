@@ -7,7 +7,6 @@
     <div class="page-head">
         <div>
             <h1 class="t-24">Role &amp; Hak Akses</h1>
-            <p class="sub">Atur permission untuk level user dan role di dalam project.</p>
         </div>
         <div class="row" x-data="{ adding: {{ $errors->has('label') ? 'true' : 'false' }} }">
             <button class="btn btn-secondary" type="button" @click="adding = true" x-show="!adding"><x-icon name="plus" />Role Baru</button>
@@ -62,7 +61,7 @@
             <div class="card-head">
                 <div>
                     <span class="t-16">Matriks Permission</span>
-                    <p class="t-12 muted">Kolom tersorot = role yang dipilih. Super Admin selalu memiliki semua akses.</p>
+                    <p class="t-12 muted">Super Admin selalu punya semua akses.</p>
                 </div>
                 <span class="badge" style="background: var(--warning-soft); color: var(--warning-text)"
                       x-data x-cloak x-show="$store.matrix.dirty">Ada perubahan belum disimpan</span>

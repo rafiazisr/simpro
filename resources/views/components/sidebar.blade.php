@@ -8,7 +8,7 @@
 @endphp
 <nav class="sidebar" aria-label="Navigasi utama">
     <div class="brand">
-        <span class="t-16" style="flex: 1">{{ config('app.name') }}</span>
+        <span class="wordmark" style="flex: 1">{{ config('app.name') }}</span>
         <button class="btn btn-ghost btn-sm btn-icon menu-toggle" type="button" aria-label="Tutup menu" @click="sidebarOpen = false">
             <x-icon name="x" />
         </button>

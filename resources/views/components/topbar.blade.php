@@ -88,7 +88,7 @@
                 <div class="modal-icon info"><x-icon name="bell" size="20" /></div>
                 <div class="col" style="gap: 4px">
                     <span class="t-16">Aktifkan notifikasi browser?</span>
-                    <span class="t-12 muted">Dapatkan pemberitahuan saat Anda di-assign ke project atau backlog, dan saat backlog siap dites, meskipun tab {{ config('app.name') }} sedang tidak dibuka.</span>
+                    <span class="t-12 muted">Muncul saat Anda di-assign atau saat backlog siap dites, meski tab ini tidak dibuka.</span>
                 </div>
             </div>
             <div class="row" style="justify-content: flex-end; gap: 8px">

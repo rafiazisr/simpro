@@ -10,10 +10,10 @@
     <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start">
         <div class="col" style="flex: 999 1 620px; min-width: 0; gap: 20px">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
-                <div class="card stat"><span class="lbl">Total backlog</span><span class="num">{{ $stats['total'] }}</span><span class="trend">+{{ $stats['new_this_week'] }} minggu ini</span></div>
-                <div class="card stat"><span class="lbl">Selesai</span><span class="num">{{ $stats['done'] }}</span><span class="trend">{{ $stats['total'] ? round($stats['done'] / $stats['total'] * 100) : 0 }}% dari total</span></div>
-                <div class="card stat"><span class="lbl">Menunggu QA</span><span class="num">{{ $stats['ready_for_qa'] }}</span><span class="trend">Ready for QA</span></div>
-                <div class="card stat"><span class="lbl">Terlambat</span><span class="num" @if ($stats['late']) style="color: var(--danger-text)" @endif>{{ $stats['late'] }}</span><span class="trend">lewat tanggal selesai</span></div>
+                <div class="card stat"><span class="lbl">Total backlog</span><span class="num">{{ $stats['total'] }}</span></div>
+                <div class="card stat"><span class="lbl">Selesai</span><span class="num">{{ $stats['done'] }}</span></div>
+                <div class="card stat"><span class="lbl">Menunggu QA</span><span class="num">{{ $stats['ready_for_qa'] }}</span></div>
+                <div class="card stat"><span class="lbl">Terlambat</span><span class="num" @if ($stats['late']) style="color: var(--danger-text)" @endif>{{ $stats['late'] }}</span></div>
             </div>
 
             <section class="card">
@@ -90,7 +90,6 @@
             @can('markDone', $project)
                 <section class="card card-body col" style="gap: 12px">
                     <span class="t-16">Tandai Project Selesai</span>
-                    <p class="t-12 muted">Project akan berstatus Done dan seluruh sprint dikunci.</p>
                     @if ($notDone > 0)
                         <div class="alert alert-warn" style="padding: 8px 10px"><x-icon name="alert-triangle" style="margin-top: 2px" /><span class="t-12">Masih ada {{ $notDone }} backlog yang belum Done.</span></div>
                     @endif

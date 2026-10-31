@@ -165,7 +165,7 @@
                 {{-- Task terkait (FR-32) --}}
                 <section class="card">
                     <div class="card-head">
-                        <div><span class="t-16">Task Terkait</span><p class="t-12 muted">Status selalu diambil langsung dari backlog.</p></div>
+                        <span class="t-16">Task Terkait</span>
                         @if ($canEdit && $mode !== 'link')
                             <a class="btn btn-secondary btn-sm" href="{{ route('projects.docs.show', [$project, $feature, 'mode' => 'link']) }}"><x-icon name="link" size="sm" />Hubungkan Backlog</a>
                         @endif
@@ -225,9 +225,8 @@
                 </section>
             @else
                 <div class="card empty" style="min-height: 360px; justify-content: center">
-                    <svg class="illu" viewBox="0 0 120 96" aria-hidden="true"><rect x="28" y="10" width="64" height="76" rx="6" style="fill: var(--surface-2); stroke: var(--border-strong)"></rect><rect x="38" y="24" width="44" height="6" rx="3" style="fill: var(--surface-3)"></rect><rect x="38" y="38" width="36" height="6" rx="3" style="fill: var(--surface-3)"></rect><rect x="38" y="52" width="40" height="6" rx="3" style="fill: var(--surface-3)"></rect></svg>
                     <h3 class="t-16">Belum ada dokumentasi</h3>
-                    <p>{{ $canEdit ? 'Mulai dengan membuat modul (mis. "Autentikasi") di panel kiri, lalu tambahkan fitur-fiturnya.' : 'Dokumentasi project ini belum ditulis.' }}</p>
+                    <p>{{ $canEdit ? 'Buat modul di panel kiri, lalu tambahkan fiturnya.' : 'Dokumentasi project ini belum ditulis.' }}</p>
                 </div>
             @endif
         </div>

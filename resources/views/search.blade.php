@@ -2,7 +2,7 @@
     <div class="page-head">
         <div>
             <h1 class="t-24">Hasil pencarian</h1>
-            <p class="sub">@if ($term) {{ $results->count() }} backlog cocok dengan "{{ $term }}"@else Ketik kode (mis. PHR-12) atau judul backlog di kotak pencarian.@endif</p>
+            <p class="sub">@if ($term) {{ $results->count() }} backlog cocok dengan "{{ $term }}"@else Cari berdasarkan kode atau judul.@endif</p>
         </div>
     </div>
 

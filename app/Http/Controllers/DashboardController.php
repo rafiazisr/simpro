@@ -132,10 +132,10 @@ class DashboardController extends Controller
         $base = fn () => Backlog::query()->whereIn('project_id', $ids);
 
         return [
-            ['label' => 'Project aktif', 'value' => $projects->where('status', ProjectStatus::Active)->count(), 'trend' => $projects->count().' project total', 'icon' => 'folder'],
-            ['label' => 'Total backlog', 'value' => $base()->count(), 'trend' => $base()->notDone()->count().' belum selesai', 'icon' => 'list'],
-            ['label' => 'Ready for QA', 'value' => $base()->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa))->count(), 'trend' => 'menunggu QA mengambil', 'icon' => 'check'],
-            ['label' => 'Terlambat', 'value' => $late = $base()->notDone()->whereDate('end_date', '<', today())->count(), 'trend' => 'lewat tanggal selesai', 'icon' => 'alert-triangle', 'danger' => $late > 0],
+            ['label' => 'Project aktif', 'value' => $projects->where('status', ProjectStatus::Active)->count(), 'icon' => 'folder'],
+            ['label' => 'Total backlog', 'value' => $base()->count(), 'icon' => 'list'],
+            ['label' => 'Ready for QA', 'value' => $base()->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa))->count(), 'icon' => 'check'],
+            ['label' => 'Terlambat', 'value' => $late = $base()->notDone()->whereDate('end_date', '<', today())->count(), 'icon' => 'alert-triangle', 'danger' => $late > 0],
         ];
     }
 
@@ -145,10 +145,10 @@ class DashboardController extends Controller
         $mine = fn () => Backlog::query()->assignedTo($user);
 
         return [
-            ['label' => 'Tugas aktif', 'value' => $mine()->notDone()->count(), 'trend' => 'sebagai Programmer atau QA', 'icon' => 'list'],
-            ['label' => 'Menunggu QA', 'value' => Backlog::where('programmer_id', $user->id)->whereHas('status', fn ($q) => $q->whereIn('category', self::TAB_CATEGORIES['qa']))->count(), 'trend' => 'pekerjaan Anda sedang dites', 'icon' => 'send'],
-            ['label' => 'Perlu Anda tes', 'value' => Backlog::where('qa_id', $user->id)->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa))->count(), 'trend' => 'Ready for QA', 'icon' => 'check'],
-            ['label' => 'Selesai minggu ini', 'value' => $mine()->where('completed_at', '>=', now()->startOfWeek())->count(), 'trend' => 'berstatus Done', 'icon' => 'zap'],
+            ['label' => 'Tugas aktif', 'value' => $mine()->notDone()->count(), 'icon' => 'list'],
+            ['label' => 'Menunggu QA', 'value' => Backlog::where('programmer_id', $user->id)->whereHas('status', fn ($q) => $q->whereIn('category', self::TAB_CATEGORIES['qa']))->count(), 'icon' => 'send'],
+            ['label' => 'Perlu Anda tes', 'value' => Backlog::where('qa_id', $user->id)->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa))->count(), 'icon' => 'check'],
+            ['label' => 'Selesai minggu ini', 'value' => $mine()->where('completed_at', '>=', now()->startOfWeek())->count(), 'icon' => 'zap'],
         ];
     }
 }

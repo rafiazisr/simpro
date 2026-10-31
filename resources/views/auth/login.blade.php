@@ -71,7 +71,7 @@
             <label class="check"><input type="checkbox" name="remember" value="1" @checked(old('remember'))>Ingat saya</label>
 
             <button class="btn btn-primary btn-lg btn-block" type="submit">Masuk</button>
-            <p class="t-12 muted" style="text-align: center">Belum punya akun? Akun dibuat oleh Admin — hubungi tim IT.</p>
+            <p class="t-12 muted" style="text-align: center">Akun dibuat oleh Admin.</p>
         </form>
     </main>
 </div>

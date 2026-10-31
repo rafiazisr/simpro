@@ -44,5 +44,5 @@
             </button>
         </template>
     </div>
-    <span class="help">Status baru otomatis berkategori To Do; kategorinya bisa diubah Admin/PM nanti.</span>
+    <span class="help">Ketik nama baru untuk membuat status.</span>
 </div>

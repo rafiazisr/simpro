@@ -24,7 +24,6 @@
             <div class="empty" style="min-height: 240px; justify-content: center">
                 <div class="modal-icon info"><x-icon name="bell" size="20" /></div>
                 <h3 class="t-16">{{ $onlyUnread ? 'Semua notifikasi sudah dibaca' : 'Belum ada notifikasi' }}</h3>
-                <p>Notifikasi muncul saat Anda di-assign ke project atau backlog, dan saat backlog siap dites.</p>
             </div>
         @else
             <div class="col" style="padding: 6px; gap: 2px">

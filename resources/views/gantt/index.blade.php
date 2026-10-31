@@ -23,7 +23,7 @@
             <div class="page-head">
                 <div>
                     <h1 class="t-24">Timeline</h1>
-                    <p class="sub">Gantt chart semua project · swimlane = project · bar = sprint · progres terisi di dalam bar</p>
+                    <p class="sub">Swimlane per project, satu bar per sprint.</p>
                 </div>
             </div>
         @endunless
@@ -80,7 +80,6 @@
 
             <div x-cloak x-show="!loading && empty" class="gantt-overlay">
                 <div class="empty" style="background: var(--surface)">
-                    <svg class="illu" viewBox="0 0 120 96" aria-hidden="true"><rect x="10" y="14" width="100" height="70" rx="8" style="fill: var(--surface-2); stroke: var(--border-strong)"></rect><rect x="22" y="30" width="40" height="8" rx="3" style="fill: var(--surface-3)"></rect><rect x="40" y="46" width="52" height="8" rx="3" style="fill: var(--surface-3)"></rect><circle cx="88" cy="70" r="14" style="fill: var(--surface); stroke: var(--text-3); stroke-width: 2"></circle><path d="m98 80 8 8" style="stroke: var(--text-3); stroke-width: 3; stroke-linecap: round"></path></svg>
                     <h3 class="t-16">Tidak ada sprint pada filter ini</h3>
                     <p>Ubah rentang tanggal atau reset filter.</p>
                     <button type="button" class="btn btn-secondary" style="margin-top: 8px" @click="reset()">Reset filter</button>
@@ -93,8 +92,6 @@
             <span class="row" style="gap: 6px"><span style="width: 14px; height: 8px; border-radius: 2px; background: #3B82F6"></span>Active</span>
             <span class="row" style="gap: 6px"><span style="width: 14px; height: 8px; border-radius: 2px; background: #22C55E"></span>Done</span>
             <span class="row" style="gap: 6px"><span style="width: 2px; height: 12px; background: #EF4444"></span>Hari ini</span>
-            <span class="grow"></span>
-            <span>Klik bar sprint untuk melihat backlog · bar bisa ditarik jika Anda berhak mengatur timeline</span>
         </div>
 
         {{-- Modal backlog sprint (FR-22) --}}

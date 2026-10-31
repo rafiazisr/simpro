@@ -83,5 +83,4 @@
         </div>
     </div>
 
-    <div class="alert alert-info"><x-icon name="info" style="margin-top: 2px" /><span class="t-12">Anggota yang masih punya backlog aktif tidak bisa dikeluarkan atau diganti role-nya sebelum backlog-nya di-assign ulang. Pilihan Programmer/QA di form backlog hanya menampilkan anggota dengan role tersebut.</span></div>
 </x-layouts.app>

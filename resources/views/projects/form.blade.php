@@ -14,7 +14,7 @@
         <div class="page-head">
             <div>
                 <h1 class="t-24">{{ $title }}</h1>
-                <p class="sub">{{ $isEdit ? 'Perubahan tanggal harus tetap mencakup semua sprint.' : 'Project baru akan muncul di Timeline setelah disimpan.' }}</p>
+                <p class="sub">{{ $isEdit ? 'Anggota diatur di tab Anggota.' : 'Isi informasi project dan anggotanya.' }}</p>
             </div>
             <div class="row">
                 <a class="btn btn-secondary" href="{{ $isEdit ? route('projects.show', $project) : route('projects.index') }}">Batal</a>
@@ -113,13 +113,6 @@
                 @endunless
             </div>
 
-            <aside class="col" style="flex: 1 1 300px; gap: 16px">
-                @if ($isEdit)
-                    <div class="alert alert-info"><x-icon name="info" style="margin-top: 2px" /><span class="t-12">Anggota project dikelola di tab <a class="link" href="{{ route('projects.members.index', $project) }}">Anggota</a>.</span></div>
-                @else
-                    <div class="alert alert-info"><x-icon name="info" style="margin-top: 2px" /><span class="t-12">Role project menentukan siapa yang muncul di pilihan Programmer dan QA pada form backlog.</span></div>
-                @endif
-            </aside>
         </div>
     </form>
 </x-layouts.app>

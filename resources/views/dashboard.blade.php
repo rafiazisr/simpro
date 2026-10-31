@@ -9,7 +9,6 @@
         <div class="page-head">
             <div>
                 <h1 class="t-24">{{ $isAdmin ? 'Dashboard' : 'Backlog Saya' }}</h1>
-                <p class="sub">{{ $isAdmin ? 'Progres semua project dan semua user.' : 'Halo, '.$user->name.'. Ini backlog yang di-assign kepada Anda.' }}</p>
             </div>
             @if ($projects->isNotEmpty())
                 <div class="row m-full">
@@ -26,9 +25,8 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
             @foreach ($stats as $s)
                 <div class="card stat">
-                    <div class="row between"><span class="lbl">{{ $s['label'] }}</span><span class="stat-ico"><x-icon :name="$s['icon']" size="sm" /></span></div>
+                    <span class="lbl">{{ $s['label'] }}</span>
                     <span class="num" @if (! empty($s['danger'])) style="color: var(--danger-text)" @endif>{{ $s['value'] }}</span>
-                    <span class="trend">{{ $s['trend'] }}</span>
                 </div>
             @endforeach
         </div>
@@ -36,7 +34,7 @@
         @if (! $project)
             <div class="card empty" style="min-height: 260px; justify-content: center">
                 <h3 class="t-16">Belum ada project</h3>
-                <p>{{ $isAdmin ? 'Buat project pertama untuk mulai memantau progres.' : 'Anda belum menjadi anggota project mana pun.' }}</p>
+                @unless ($isAdmin)<p>Anda belum menjadi anggota project mana pun.</p>@endunless
                 @can('create', App\Models\Project::class)
                     <a class="btn btn-primary" href="{{ route('projects.create') }}" style="margin-top: 8px"><x-icon name="plus" />Buat Project</a>
                 @endcan
@@ -50,7 +48,6 @@
                             <span class="t-16">{{ $isAdmin ? 'Status progres pengerjaan' : 'Progres pengerjaan Anda' }}</span>
                             <p class="t-12 muted" x-text="data.project.name + ' · ' + data.total + ' backlog'"></p>
                         </div>
-                        <span class="t-12 muted">Klik slice atau legenda untuk memfilter list</span>
                     </div>
                     <div class="card-body row wrap" style="gap: 24px 32px; align-items: center; justify-content: center; padding: 24px; position: relative">
                         <template x-if="data.total === 0">

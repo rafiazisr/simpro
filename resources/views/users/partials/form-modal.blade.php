@@ -54,11 +54,7 @@
                         <option value="{{ $level->value }}" @selected($levelValue === $level->value)>{{ $level->label() }}</option>
                     @endforeach
                 </select>
-                @error('user_level')
-                    <x-field-error name="user_level" />
-                @else
-                    <span class="help">Super Admin hanya bisa ditetapkan lewat seeder.</span>
-                @enderror
+                <x-field-error name="user_level" />
             </div>
         </div>
 
@@ -83,7 +79,6 @@
             <div class="row between wrap" style="gap: 8px; align-items: flex-start">
                 <div class="col" style="gap: 2px">
                     <h3 class="t-16">Assign ke Project</h3>
-                    <p class="t-12 muted">Role project (PM / Programmer / QA) menentukan hak akses user di project itu. User mendapat notifikasi saat ditambahkan.</p>
                 </div>
                 @if ($assignableProjects->isNotEmpty())
                     <button class="btn btn-secondary btn-sm" type="button" @click="rows.push({ project_id: '', role: 'programmer' })"><x-icon name="plus" size="sm" />Tambah project</button>
@@ -98,7 +93,7 @@
             @endif
 
             @if ($assignableProjects->isEmpty())
-                <p class="t-12 muted">Belum ada project yang bisa Anda atur. Buat project dulu di menu Project.</p>
+                <p class="t-12 muted">Belum ada project.</p>
             @else
                 <div class="col" style="gap: 8px">
                     <template x-for="(row, i) in rows" :key="i">

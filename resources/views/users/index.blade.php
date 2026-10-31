@@ -2,7 +2,6 @@
     <div class="page-head">
         <div>
             <h1 class="t-24">Manajemen User</h1>
-            <p class="sub">Kelola akun, level akses, dan penugasan project.</p>
         </div>
         @can('create', App\Models\User::class)
             <a class="btn btn-primary" href="{{ route('users.create', request()->query()) }}"><x-icon name="plus" />Tambah User</a>
@@ -35,9 +34,8 @@
 
         @if ($users->isEmpty())
             <div class="empty" style="min-height: 280px; justify-content: center">
-                <svg class="illu" viewBox="0 0 120 96" aria-hidden="true"><rect x="10" y="14" width="100" height="70" rx="8" style="fill: var(--surface-2); stroke: var(--border-strong)"></rect><circle cx="88" cy="70" r="14" style="fill: var(--surface); stroke: var(--text-3); stroke-width: 2"></circle><path d="m98 80 8 8" style="stroke: var(--text-3); stroke-width: 3; stroke-linecap: round"></path></svg>
                 <h3 class="t-16">Tidak ada user yang cocok</h3>
-                <p>Ubah kata kunci atau filter, lalu coba lagi.</p>
+                <p>Coba kata kunci atau filter lain.</p>
             </div>
         @else
             @php
@@ -133,7 +131,6 @@
         @endif
     </div>
 
-    <div class="row t-12 muted" style="gap: 6px"><x-icon name="lock" size="sm" />Super Admin ditandai badge gelap; toggle status dan tombol hapus dikunci.</div>
 
     @if ($modal === 'form')
         @include('users.partials.form-modal', ['editing' => $editing])

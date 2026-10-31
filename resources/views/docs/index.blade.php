@@ -2,7 +2,6 @@
     <div class="page-head">
         <div>
             <h1 class="t-24">Dokumentasi</h1>
-            <p class="sub">Dokumentasi fitur disusun per project: Modul → Fitur.</p>
         </div>
     </div>
 

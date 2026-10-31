@@ -101,7 +101,6 @@
     @elseif ($backlogs->isEmpty() && $sprints->isEmpty())
         <div class="card empty" style="min-height: 240px; justify-content: center">
             <h3 class="t-16">Belum ada backlog</h3>
-            <p>Mulai dengan menambahkan backlog; masukkan ke sprint saat sudah siap dikerjakan.</p>
             @can('createBacklog', $project)
                 <a class="btn btn-primary" href="{{ route('projects.backlogs.create', $project) }}" style="margin-top: 8px"><x-icon name="plus" />Tambah Backlog</a>
             @endcan

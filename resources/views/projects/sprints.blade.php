@@ -20,9 +20,7 @@
 
     @if ($sprints->isEmpty())
         <div class="card empty" style="min-height: 260px; justify-content: center">
-            <svg class="illu" viewBox="0 0 120 96" aria-hidden="true"><rect x="14" y="24" width="60" height="12" rx="6" style="fill: var(--surface-3)"></rect><rect x="40" y="44" width="66" height="12" rx="6" style="fill: var(--surface-3)"></rect><rect x="24" y="64" width="44" height="12" rx="6" style="fill: var(--surface-3)"></rect></svg>
             <h3 class="t-16">{{ $statusFilter ? 'Tidak ada sprint dengan status ini' : 'Belum ada sprint' }}</h3>
-            <p>Sprint membagi pekerjaan project ke periode 1–4 minggu.</p>
             @can('manageSprints', $project)
                 @unless ($statusFilter)
                     <a class="btn btn-primary" href="{{ route('projects.sprints.create', $project) }}" style="margin-top: 8px"><x-icon name="plus" />Tambah Sprint</a>
@@ -126,9 +124,6 @@
                                min="{{ $project->start_date->format('Y-m-d') }}" max="{{ $project->end_date->format('Y-m-d') }}" required>
                         <x-field-error name="end_date" />
                     </div>
-                </div>
-                <div class="row t-12 muted" style="gap: 8px; padding: 10px 12px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border)">
-                    <x-icon name="info" size="sm" /><span>Tanggal sprint harus di dalam rentang project. Sprint boleh tumpang tindih dengan sprint lain.</span>
                 </div>
                 <div class="field m-full" style="max-width: 240px">
                     <label class="label" for="s-st">Status <span class="req">*</span></label>

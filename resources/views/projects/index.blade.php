@@ -34,14 +34,12 @@
 
     @if ($projects->isEmpty())
         <div class="card empty" style="min-height: 320px; justify-content: center">
-            <svg class="illu" viewBox="0 0 120 96" aria-hidden="true"><rect x="10" y="20" width="100" height="64" rx="8" style="fill: var(--surface-2); stroke: var(--border-strong)"></rect><path d="M10 34h100" style="stroke: var(--border-strong)"></path><rect x="22" y="46" width="44" height="8" rx="3" style="fill: var(--surface-3)"></rect><rect x="22" y="62" width="30" height="8" rx="3" style="fill: var(--surface-3)"></rect></svg>
             @if (request()->hasAny(['q', 'status']))
                 <h3 class="t-16">Tidak ada project yang cocok</h3>
                 <p>Ubah kata kunci atau filter status.</p>
                 <a class="btn btn-secondary" href="{{ route('projects.index', ['view' => $view]) }}" style="margin-top: 8px">Reset filter</a>
             @else
                 <h3 class="t-16">Belum ada project</h3>
-                <p>Project yang Anda ikuti akan tampil di sini.</p>
                 @can('create', App\Models\Project::class)
                     <a class="btn btn-primary" href="{{ route('projects.create') }}" style="margin-top: 8px"><x-icon name="plus" />Buat Project</a>
                 @endcan
