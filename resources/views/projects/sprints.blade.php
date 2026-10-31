@@ -39,7 +39,7 @@
                         <div class="col grow" style="gap: 6px; flex: 1 1 320px">
                             <div class="row" style="gap: 10px"><span class="t-16">{{ $s->name }}</span><span class="{{ $s->status->badgeClass() }}"><span class="dot"></span>{{ $s->status->label() }}</span></div>
                             @if ($s->goal)<p class="muted" style="font-size: 13px"><span class="fw-500" style="color: var(--text-2)">Goal:</span> {{ $s->goal }}</p>@endif
-                            <span class="row t-12 muted" style="gap: 6px"><x-icon name="calendar" size="sm" />{{ $s->rangeLabel() }} · {{ $s->weeks() }} minggu</span>
+                            <span class="row t-12 muted" style="gap: 6px"><x-icon name="calendar" size="sm" />{{ $s->rangeLabel() }} ({{ $s->weeks() }} minggu)</span>
                         </div>
                         <div class="col m-full" style="gap: 6px; width: 240px">
                             <div class="row between t-12"><span class="muted">{{ $s->done_count }}/{{ $s->total_count }} backlog selesai</span><span class="fw-600">{{ $pct }}%</span></div>

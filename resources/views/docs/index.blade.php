@@ -19,7 +19,7 @@
                         <x-icon name="book" style="color: var(--primary)" />
                     </div>
                     <span class="t-16">{{ $p->name }}</span>
-                    <span class="t-12 muted">{{ $p->doc_modules_count }} modul · {{ (int) $p->features_count }} fitur terdokumentasi</span>
+                    <span class="t-12 muted">{{ $p->doc_modules_count }} modul, {{ (int) $p->features_count }} fitur</span>
                 </a>
             @endforeach
         </div>

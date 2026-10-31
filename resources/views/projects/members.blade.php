@@ -14,7 +14,7 @@
                     <select id="m-user" name="user_id" class="select @error('user_id') is-invalid @enderror">
                         <option value="">Pilih user aktif…</option>
                         @foreach ($candidates as $u)
-                            <option value="{{ $u->id }}" @selected(old('user_id') == $u->id)>{{ $u->name }} — {{ $u->email }}</option>
+                            <option value="{{ $u->id }}" @selected(old('user_id') == $u->id)>{{ $u->name }} ({{ $u->email }})</option>
                         @endforeach
                     </select>
                 </div>
@@ -44,7 +44,7 @@
                                 <x-avatar :user="$m" />
                                 <div class="col" style="line-height: 1.3">
                                     <span class="fw-500" style="color: var(--text)">{{ $m->name }}</span>
-                                    <span class="t-12 muted">{{ $m->email }}@if (! $m->is_active || $m->trashed()) · nonaktif @endif</span>
+                                    <span class="t-12 muted">{{ $m->email }}@if (! $m->is_active || $m->trashed()) (nonaktif)@endif</span>
                                 </div>
                             </div>
                         </td>

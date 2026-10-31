@@ -93,7 +93,7 @@
                                                    @checked($locked || in_array($permName, $granted[$r->name] ?? [], true))
                                                    @disabled($locked)
                                                    @change="$store.matrix.dirty = true"
-                                                   aria-label="{{ $permLabel }} — {{ $r->label ?? $r->name }}">
+                                                   aria-label="{{ $permLabel }}: {{ $r->label ?? $r->name }}">
                                         </label>
                                     </td>
                                 @endforeach

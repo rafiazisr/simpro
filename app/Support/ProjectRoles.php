@@ -23,11 +23,6 @@ class ProjectRoles
 
     public static function badgeClass(?string $name): string
     {
-        return match ($name) {
-            'pm' => 'badge role-pm',
-            'programmer' => 'badge role-prog',
-            'qa' => 'badge role-qa',
-            default => 'badge badge-neutral',
-        };
+        return $name === 'pm' ? 'tag tag-strong' : 'tag';
     }
 }

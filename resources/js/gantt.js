@@ -152,7 +152,7 @@ function setup(el, { updateUrl }) {
         const line = document.createElement('div');
         line.className = 'gantt-today';
         line.style.left = `${gantt.posFromDate(now)}px`;
-        line.innerHTML = `<span>Hari ini · ${dayMonth(now)}</span>`;
+        line.innerHTML = `<span>Hari ini, ${dayMonth(now)}</span>`;
         area.appendChild(line);
     };
     gantt.attachEvent('onGanttRender', drawToday);

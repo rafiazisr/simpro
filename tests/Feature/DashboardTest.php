@@ -53,7 +53,7 @@ class DashboardTest extends TestCase
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)->get('/dashboard')->assertOk()
-            ->assertSee('Dashboard')->assertSee('Project aktif')->assertSee('Terlambat');
+            ->assertSee('Dashboard')->assertSee('project aktif')->assertSee('terlambat');
 
         $data = $this->actingAs($admin)->getJson('/dashboard/data?project='.$this->project->id)->assertOk()->json();
         $this->assertSame(5, $data['total']);
@@ -66,7 +66,7 @@ class DashboardTest extends TestCase
 
     public function test_dashboard_non_admin_hanya_backlog_miliknya(): void
     {
-        $this->actingAs($this->prog)->get('/dashboard')->assertOk()->assertSee('Backlog Saya')->assertSee('Tugas aktif');
+        $this->actingAs($this->prog)->get('/dashboard')->assertOk()->assertSee('Backlog Saya')->assertSee('tugas aktif');
 
         $data = $this->actingAs($this->prog)->getJson('/dashboard/data?project='.$this->project->id)->json();
         $this->assertSame(4, $data['total']);

@@ -73,11 +73,11 @@
         </div>
     </div>
 
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start">
-        <div class="col" style="flex: 999 1 600px; min-width: 0; gap: 20px">
-            <section class="card">
-                <div class="card-head"><span class="t-16">Detail</span></div>
-                <div class="card-body prose" style="font-size: 14px">
+    <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start">
+        <div class="col" style="flex: 999 1 600px; min-width: 0">
+            <section class="section">
+                <div class="section-head"><h2 class="section-title">Detail</h2></div>
+                <div class="prose" style="font-size: 14px">
                     @if ($backlog->detail)
                         {!! $backlog->detail !!}
                     @else
@@ -86,23 +86,23 @@
                 </div>
             </section>
 
-            <section class="card">
-                <div class="card-head">
-                    <span class="t-16">Dokumentasi fitur terhubung</span>
+            <section class="section">
+                <div class="section-head">
+                    <h2 class="section-title">Dokumentasi terhubung</h2>
                     @can('editDocs', $project)
                         <a class="btn btn-ghost btn-sm" href="{{ route('projects.docs.index', $project) }}"><x-icon name="plus" size="sm" />Hubungkan</a>
                     @endcan
                 </div>
                 @if ($backlog->docFeatures->isEmpty())
-                    <div class="card-body t-12 muted">Belum terhubung ke dokumentasi fitur mana pun. Hubungkan dari halaman Dokumentasi lewat tombol "Hubungkan Backlog".</div>
+                    <p class="t-12 muted">Belum ada.</p>
                 @else
                     <div class="col">
                         @foreach ($backlog->docFeatures as $f)
-                            <a class="row" href="{{ route('projects.docs.show', [$project, $f]) }}" style="padding: 12px 16px; gap: 12px; text-decoration: none; color: inherit; @unless ($loop->last) border-bottom: 1px solid var(--border); @endunless">
+                            <a class="row" href="{{ route('projects.docs.show', [$project, $f]) }}" style="padding: 8px 0; gap: 12px; text-decoration: none; color: inherit">
                                 <x-icon name="book" style="color: var(--primary)" />
                                 <div class="col grow" style="line-height: 1.35">
                                     <span class="fw-500">{{ $f->title }}</span>
-                                    <span class="t-12 muted">{{ $f->module->name }} · diubah {{ $f->editor?->name ?? '—' }}, {{ \App\Support\Format::date($f->updated_at) }}</span>
+                                    <span class="t-12 muted">{{ $f->module->name }}, diubah {{ \App\Support\Format::date($f->updated_at) }}</span>
                                 </div>
                                 <x-icon name="chevron-right" style="color: var(--text-3)" />
                             </a>
@@ -111,15 +111,15 @@
                 @endif
             </section>
 
-            <section class="card" x-data="{ only: 'all' }">
-                <div class="card-head">
-                    <span class="t-16">Riwayat Aktivitas</span>
+            <section class="section" x-data="{ only: 'all' }">
+                <div class="section-head">
+                    <h2 class="section-title">Riwayat</h2>
                     <div class="seg">
                         <button type="button" :class="only === 'all' && 'on'" @click="only = 'all'">Semua</button>
                         <button type="button" :class="only === 'status' && 'on'" @click="only = 'status'">Status</button>
                     </div>
                 </div>
-                <div class="card-body">
+                <div>
                     <div class="activity">
                         @foreach ($backlog->activities as $a)
                             <div class="act" @if ($a->field !== 'status') x-show="only === 'all'" @endif>

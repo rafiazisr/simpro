@@ -15,6 +15,24 @@ html.dark { color-scheme: dark; }
 .t-24 { font-weight: 700; letter-spacing: -.02em; }
 
 /* Wordmark di sidebar */
+.summary { display: flex; flex-wrap: wrap; gap: 4px 24px; color: var(--text-3); font-size: 13px; }
+.summary b { color: var(--text); font-size: 18px; font-weight: 700; margin-right: 4px; letter-spacing: -.01em; }
+.summary .late, .summary .late b { color: var(--danger-text); }
+
+.section { padding: 16px 0 20px; border-top: 1px solid var(--border); }
+.section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.section-title { font-size: 14px; line-height: 20px; font-weight: 600; margin: 0; color: var(--text); }
+
+.status-counts { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.status-counts a { display: inline-flex; align-items: center; gap: 8px; color: var(--text-2); text-decoration: none; font-size: 13px; }
+.status-counts a:hover { color: var(--text); }
+.status-counts .sw { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.status-counts b { color: var(--text); font-weight: 600; }
+
+.tag { display: inline-flex; align-items: center; height: 20px; padding: 0 6px; border-radius: 4px; font-size: 11.5px; font-weight: 500; white-space: nowrap; background: var(--surface-2); color: var(--text-2); }
+.tag-strong { background: var(--primary-soft); color: var(--primary-text); }
+.tag-dark { background: var(--text); color: var(--surface); }
+
 .wordmark { font-size: 19px; line-height: 24px; font-weight: 800; letter-spacing: -.035em; color: var(--primary-text); }
 
 /* Tombol tema */

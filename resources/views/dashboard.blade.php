@@ -22,12 +22,9 @@
             @endif
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+        <div class="summary">
             @foreach ($stats as $s)
-                <div class="card stat">
-                    <span class="lbl">{{ $s['label'] }}</span>
-                    <span class="num" @if (! empty($s['danger'])) style="color: var(--danger-text)" @endif>{{ $s['value'] }}</span>
-                </div>
+                <span @class(['late' => ! empty($s['danger'])])><b>{{ $s['value'] }}</b> {{ $s['label'] }}</span>
             @endforeach
         </div>
 
@@ -41,14 +38,12 @@
             </div>
         @else
             <div class="dash-grid">
-                <section class="card">
-                    <div class="card-head">
-                        <div>
-                            <span class="t-16">{{ $isAdmin ? 'Status progres pengerjaan' : 'Progres pengerjaan Anda' }}</span>
-                            <p class="t-12 muted" x-text="data.project.name + ' · ' + data.total + ' backlog'"></p>
-                        </div>
+                <section class="section" style="border-top: 0; padding-top: 0">
+                    <div class="section-head">
+                        <h2 class="section-title">{{ $isAdmin ? 'Status progres pengerjaan' : 'Progres pengerjaan Anda' }}</h2>
+                        <span class="t-12 muted" x-text="data.total + ' backlog'"></span>
                     </div>
-                    <div class="card-body row wrap" style="gap: 24px 32px; align-items: center; justify-content: center; padding: 24px; position: relative">
+                    <div class="row wrap" style="gap: 24px 40px; align-items: center; padding: 8px 0; position: relative">
                         <template x-if="data.total === 0">
                             <p class="muted" style="margin: 0 auto">Belum ada backlog di project ini.</p>
                         </template>
@@ -76,9 +71,9 @@
                     </div>
                 </section>
 
-                <section class="card">
-                    <div class="card-head"><span class="t-16">Aktivitas terbaru</span><a class="link t-12" href="{{ route('notifications.index') }}">Notifikasi</a></div>
-                    <div class="card-body activity" x-html="data.activities_html"></div>
+                <section class="section" style="border-top: 0; padding-top: 0">
+                    <div class="section-head"><h2 class="section-title">Aktivitas terbaru</h2><a class="link t-12" href="{{ route('notifications.index') }}">Notifikasi</a></div>
+                    <div class="activity" x-html="data.activities_html"></div>
                 </section>
             </div>
 

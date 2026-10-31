@@ -65,7 +65,7 @@
             <label class="toggle toggle-success">
                 <input type="hidden" name="is_active" value="0">
                 <input type="checkbox" name="is_active" value="1" @checked($activeValue)>
-                <span class="fw-500">Status aktif</span><span class="t-12 muted">— user bisa login segera</span>
+                <span class="fw-500">Aktif</span>
             </label>
         @endif
 

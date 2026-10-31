@@ -88,7 +88,7 @@
                                             <select class="select" :name="`members[${i}][user_id]`" x-model="row.user_id" style="max-width: 360px" :aria-label="`User baris ${i + 1}`">
                                                 <option value="">Pilih user…</option>
                                                 @foreach ($users as $u)
-                                                    <option value="{{ $u->id }}">{{ $u->name }} — {{ $u->email }}</option>
+                                                    <option value="{{ $u->id }}">{{ $u->name }} ({{ $u->email }})</option>
                                                 @endforeach
                                             </select>
                                         </td>

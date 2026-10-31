@@ -136,7 +136,7 @@
                                     <td data-label="Prioritas"><span class="{{ $b->priority->cssClass() }}"><i></i>{{ $b->priority->label() }}</span></td>
                                     <td data-label="Programmer">@if ($b->programmer)<span class="person"><x-avatar :user="$b->programmer" size="sm" />{{ $b->programmer->name }}</span>@else<span class="muted">Belum di-assign</span>@endif</td>
                                     <td data-label="QA">@if ($b->qa)<span class="person"><x-avatar :user="$b->qa" size="sm" />{{ $b->qa->name }}</span>@else<span class="muted">Belum di-assign</span>@endif</td>
-                                    <td data-label="Tanggal" class="{{ $b->isLate() ? 'late' : '' }}">{{ $b->start_date || $b->end_date ? \App\Support\Format::dateRange($b->start_date, $b->end_date, false) : '—' }}@if ($b->isLate()) · terlambat @endif</td>
+                                    <td data-label="Tanggal" class="{{ $b->isLate() ? 'late' : '' }}">{{ $b->start_date || $b->end_date ? \App\Support\Format::dateRange($b->start_date, $b->end_date, false) : '—' }}@if ($b->isLate()) (terlambat)@endif</td>
                                 </tr>
                             @empty
                                 <tr x-show="open"><td colspan="7" class="muted t-12">Belum ada backlog di {{ $sprint ? $sprint->name : 'Product Backlog' }}.</td></tr>

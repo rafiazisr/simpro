@@ -129,7 +129,7 @@
                                             </div>
                                             <div class="col" style="gap: 6px">
                                                 <div class="gantt-mini-track"><span :style="barStyle(b)"></span></div>
-                                                <span class="t-12" :class="b.late ? 'late' : 'muted'" x-text="b.range + (b.late ? ' · terlambat' : '')"></span>
+                                                <span class="t-12" :class="b.late ? 'late' : 'muted'" x-text="b.range + (b.late ? ' (terlambat)' : '')"></span>
                                             </div>
                                         </a>
                                     </template>

@@ -20,9 +20,9 @@ enum UserLevel: string
     public function badgeClass(): string
     {
         return match ($this) {
-            self::SuperAdmin => 'badge lvl-super',
-            self::Admin => 'badge badge-primary',
-            self::User => 'badge badge-neutral',
+            self::SuperAdmin => 'tag tag-dark',
+            self::Admin => 'tag tag-strong',
+            self::User => 'tag',
         };
     }
 

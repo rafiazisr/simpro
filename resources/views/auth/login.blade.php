@@ -6,7 +6,7 @@
             <h1 style="font-size: 32px; line-height: 40px; font-weight: 600; color: #fff; letter-spacing: -0.02em">Dari sprint sampai QA, semua tercatat di satu tempat.</h1>
             <p style="color: #94A3B8; font-size: 15px">Pantau backlog, timeline project, dan serah terima Programmer → QA secara real-time.</p>
         </div>
-        <span class="t-12 login-foot" style="color: #94A3B8">© {{ date('Y') }} {{ config('app.name') }} · Aplikasi internal</span>
+        <span class="t-12 login-foot" style="color: #94A3B8">© {{ date('Y') }} {{ config('app.name') }}</span>
     </aside>
 
     <main class="login-main" style="flex: 1 1 520px; display: grid; place-items: center; padding: 48px 24px; background: var(--surface)">
