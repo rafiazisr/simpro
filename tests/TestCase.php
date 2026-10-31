@@ -11,17 +11,12 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    /** Role, permission, dan status bawaan dibutuhkan hampir di semua test. */
     protected function seedRoles(): void
     {
         $this->seed([RolePermissionSeeder::class, StatusSeeder::class]);
     }
 
-    /**
-     * Buat project beserta anggotanya.
-     *
-     * @param  array<string, User>  $members  role => user, mis. ['pm' => $andi]
-     */
+    /** @param  array<string, User>  $members  role => user, mis. ['pm' => $andi] */
     protected function makeProject(array $members = [], array $attrs = []): Project
     {
         static $n = 0;
@@ -36,7 +31,6 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         foreach ($members as $role => $users) {
-            // Jangan pakai (array) $users: cast objek model menghasilkan array propertinya.
             foreach ($users instanceof User ? [$users] : $users as $user) {
                 $project->members()->attach($user->id, ['project_role' => $role]);
             }

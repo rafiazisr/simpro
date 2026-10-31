@@ -33,7 +33,6 @@
 
     <x-theme-toggle />
 
-    {{-- Lonceng notifikasi real-time (FR-40 s.d. FR-42) --}}
     @php
         $bell = [
             'items' => $user->notifications()->limit(8)->get()->map(fn ($n) => \App\Support\NotificationPresenter::present($n))->values(),
@@ -73,7 +72,6 @@
             <a class="row link" href="{{ route('notifications.index') }}" style="justify-content: center; height: 44px; border-top: 1px solid var(--border)">Lihat semua notifikasi</a>
         </div>
 
-        {{-- Toast saat notifikasi baru masuk --}}
         <div class="toast-stack is-fixed" x-cloak x-show="toast" x-transition.opacity aria-live="polite">
             <a class="toast" :href="toast?.url" style="text-decoration: none; color: inherit">
                 <span class="t-ico" style="color: var(--primary)"><x-icon name="bell" /></span>
@@ -81,7 +79,6 @@
             </a>
         </div>
 
-        {{-- Ajakan izin notifikasi browser (layar A03), tampil sekali sampai dijawab --}}
         <div class="card notif-ask" x-cloak x-show="askPermission" x-transition.opacity
              style="position: fixed; left: 24px; bottom: 24px; width: 360px; max-width: calc(100vw - 48px); padding: 16px; z-index: 60; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 10px">
             <div class="row" style="gap: 12px; align-items: flex-start">

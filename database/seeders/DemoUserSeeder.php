@@ -8,7 +8,6 @@ use Illuminate\Database\Seeder;
 
 class DemoUserSeeder extends Seeder
 {
-    /** User contoh sesuai data di desain. Password semua: password */
     public function run(): void
     {
         $users = [

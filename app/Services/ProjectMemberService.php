@@ -9,10 +9,6 @@ use App\Notifications\ProjectAssigned;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 
-/**
- * Aturan keanggotaan project yang dipakai bersama oleh tab Anggota project
- * dan form Manajemen User (bagian "Assign ke Project").
- */
 class ProjectMemberService
 {
     public function pmCount(Project $project): int
@@ -25,7 +21,6 @@ class ProjectMemberService
         return Backlog::where('project_id', $project->id)->assignedTo($user)->notDone()->count();
     }
 
-    /** Project yang boleh diatur anggotanya oleh $actor. */
     public function manageableProjects(User $actor): Collection
     {
         return Project::query()->orderBy('name')->get(['id', 'code', 'name', 'status'])
@@ -34,11 +29,6 @@ class ProjectMemberService
     }
 
     /**
-     * Susun rencana penyamaan keanggotaan $user dengan $rows ([project_id => role])
-     * untuk project yang boleh diatur $actor. Keanggotaan di project lain tidak disentuh.
-     * Semua aturan dicek di sini; bila ada yang melanggar, dilempar ValidationException
-     * sehingga belum ada data yang berubah.
-     *
      * @param  array<int, string>  $rows
      * @return array{add: list<array{Project, string}>, change: list<array{Project, string}>, remove: list<Project>}
      */
@@ -93,11 +83,7 @@ class ProjectMemberService
         return $plan;
     }
 
-    /**
-     * Jalankan rencana dari plan() (dipanggil setelah user tersimpan).
-     *
-     * @return array{added: int, changed: int, removed: int}
-     */
+    /** @return array{added: int, changed: int, removed: int} */
     public function apply(array $plan, User $user, User $actor): array
     {
         foreach ($plan['add'] as [$project, $role]) {

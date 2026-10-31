@@ -18,7 +18,6 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasRoles, Notifiable, SoftDeletes;
 
     protected $fillable = [
@@ -73,10 +72,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class)->withPivot('project_role')->withTimestamps();
     }
 
-    /**
-     * Cek permission di dalam sebuah project: lolos jika permission dimiliki secara
-     * global (lewat level user, mis. Admin) ATAU lewat role project user di project itu.
-     */
     public function canInProject(string $permission, Project $project): bool
     {
         if ($this->can($permission)) {
@@ -96,7 +91,6 @@ class User extends Authenticatable
         }
     }
 
-    /** Inisial untuk avatar, mis. "Budi Santoso" -> "BS". */
     public function initials(): string
     {
         return Str::of($this->name)
@@ -107,13 +101,11 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    /** Warna avatar c1..c8 (class desain) yang stabil per user. */
     public function avatarColor(): string
     {
         return 'c'.(($this->id % 8) + 1);
     }
 
-    /** Putuskan semua sesi login user (session driver database). */
     public function terminateSessions(): void
     {
         if (config('session.driver') === 'database') {

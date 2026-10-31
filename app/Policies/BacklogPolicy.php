@@ -22,10 +22,6 @@ class BacklogPolicy
         return $user->canInProject('backlog.update-delete', $backlog->project);
     }
 
-    /**
-     * Ubah status: PM/Admin (yang boleh mengubah backlog) bebas; Programmer/QA hanya
-     * untuk backlog yang di-assign kepadanya, dan hanya jika role-nya punya izin.
-     */
     public function updateStatus(User $user, Backlog $backlog): bool
     {
         if ($user->canInProject('backlog.update-delete', $backlog->project)) {

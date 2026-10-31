@@ -25,7 +25,6 @@ class PasswordResetLinkController extends Controller
             return back()->withInput()->withErrors(['email' => 'Tunggu sebentar sebelum meminta tautan lagi.']);
         }
 
-        // Pesan sama untuk email terdaftar maupun tidak, agar tidak membocorkan data akun.
         return back()->with('reset_link_sent', $request->input('email'));
     }
 }

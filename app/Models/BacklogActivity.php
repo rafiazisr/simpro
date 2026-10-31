@@ -26,7 +26,6 @@ class BacklogActivity extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
-    /** Kalimat aktivitas untuk riwayat, mis. "mengubah status". */
     public function verb(): string
     {
         return match ($this->field) {

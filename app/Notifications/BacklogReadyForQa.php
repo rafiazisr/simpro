@@ -6,7 +6,6 @@ use App\Models\Backlog;
 use App\Models\User;
 use Illuminate\Notifications\Notification;
 
-/** FR-42: backlog berstatus Ready for QA; dikirim ke QA backlog tersebut. */
 class BacklogReadyForQa extends Notification
 {
     public function __construct(

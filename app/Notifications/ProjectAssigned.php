@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Support\ProjectRoles;
 use Illuminate\Notifications\Notification;
 
-/** FR-40: user ditambahkan ke project. */
 class ProjectAssigned extends Notification
 {
     public function __construct(
@@ -28,7 +27,6 @@ class ProjectAssigned extends Notification
         return [
             'kind' => 'project',
             'title' => 'Ditambahkan ke project',
-            // Teks polos; bagian tebal ditandai lewat "bold" agar aman dari XSS saat dirender.
             'text' => "Anda ditambahkan ke project {$this->project->name} sebagai {$role}",
             'bold' => [$this->project->name, $role],
             'project' => $this->project->name,

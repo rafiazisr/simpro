@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard');
 
-/*
-| Autentikasi (tamu)
-*/
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
@@ -33,9 +30,6 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
 });
 
-/*
-| Aplikasi (wajib login dan akun aktif)
-*/
 Route::middleware(['auth', 'active'])->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
@@ -63,7 +57,6 @@ Route::middleware(['auth', 'active'])->group(function () {
     Route::resource('projects.sprints', SprintController::class)->except('show');
     Route::patch('projects/{project}/sprints/{sprint}/done', [SprintController::class, 'markDone'])->name('projects.sprints.done');
 
-    // Backlog (tab project) + detail backlog berdasarkan kode, mis. /backlogs/PHR-12
     Route::get('projects/{project}/backlogs', [BacklogController::class, 'index'])->name('projects.backlogs.index');
     Route::get('projects/{project}/backlogs/create', [BacklogController::class, 'create'])->name('projects.backlogs.create');
     Route::post('projects/{project}/backlogs', [BacklogController::class, 'store'])->name('projects.backlogs.store');

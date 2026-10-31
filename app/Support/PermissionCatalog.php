@@ -2,13 +2,8 @@
 
 namespace App\Support;
 
-/**
- * Daftar permission aplikasi beserta default per role.
- * Urutan dan pengelompokan mengikuti layar "Role & Hak Akses" di desain.
- */
 class PermissionCatalog
 {
-    /** Role bawaan: name => [label, scope]. Urutan = urutan kolom di matriks. */
     public const SYSTEM_ROLES = [
         'super_admin' => ['Super Admin', 'level'],
         'admin' => ['Admin', 'level'],
@@ -18,10 +13,6 @@ class PermissionCatalog
         'qa' => ['QA', 'project'],
     ];
 
-    /**
-     * Grup => [permission => [label, role default yang memilikinya]].
-     * Super Admin selalu punya semua permission lewat Gate::before.
-     */
     public const GROUPS = [
         'User' => [
             'user.manage' => ['Kelola user', ['admin']],
@@ -58,13 +49,11 @@ class PermissionCatalog
         ],
     ];
 
-    /** @return list<string> */
     public static function names(): array
     {
         return collect(self::GROUPS)->flatMap(fn (array $perms) => array_keys($perms))->values()->all();
     }
 
-    /** @return array<string, list<string>> role => permission default */
     public static function defaultsByRole(): array
     {
         $map = array_fill_keys(array_keys(self::SYSTEM_ROLES), []);

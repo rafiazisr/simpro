@@ -11,7 +11,6 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    /** Maksimal percobaan login per menit (PRD: 5x/menit). */
     public const MAX_ATTEMPTS = 5;
 
     public function authorize(): bool
@@ -32,11 +31,7 @@ class LoginRequest extends FormRequest
         return ['email' => 'email', 'password' => 'password'];
     }
 
-    /**
-     * Cek kredensial, lalu pastikan akun aktif.
-     *
-     * @throws ValidationException
-     */
+    /** @throws ValidationException */
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
@@ -65,7 +60,6 @@ class LoginRequest extends FormRequest
         $user->forceFill(['last_login_at' => now()])->saveQuietly();
     }
 
-    /** @throws ValidationException */
     public function ensureIsNotRateLimited(): void
     {
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), self::MAX_ATTEMPTS)) {

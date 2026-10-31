@@ -20,7 +20,6 @@ class DocFeature extends Model
         return $this->belongsTo(User::class, 'updated_by')->withTrashed();
     }
 
-    /** Backlog terkait; status selalu dibaca langsung dari backlog (FR-32). */
     public function backlogs(): BelongsToMany
     {
         return $this->belongsToMany(Backlog::class, 'backlog_doc_feature');

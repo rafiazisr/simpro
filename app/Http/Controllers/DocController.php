@@ -16,12 +16,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
-/**
- * Dokumentasi per project: Modul → Fitur (FR-30 s.d. FR-33).
- */
 class DocController extends Controller
 {
-    /** Menu "Dokumentasi" di sidebar: daftar project beserta jumlah fiturnya. */
     public function index(Request $request): View
     {
         $projects = Project::query()->visibleTo($request->user())
@@ -34,7 +30,6 @@ class DocController extends Controller
         return view('docs.index', ['projects' => $projects]);
     }
 
-    /** Tab Dokumentasi project: buka fitur pertama, atau tampilkan empty state. */
     public function project(Project $project): View|RedirectResponse
     {
         Gate::authorize('view', $project);
@@ -122,7 +117,6 @@ class DocController extends Controller
         return redirect()->route('projects.docs.index', $project)->with('toast', "Fitur {$feature->title} dihapus.");
     }
 
-    /** Naik/turunkan urutan fitur di dalam modulnya. */
     public function moveFeature(Request $request, Project $project, DocFeature $feature): RedirectResponse
     {
         $this->authorizeFeature($project, $feature, 'editDocs');
@@ -180,8 +174,6 @@ class DocController extends Controller
         return back();
     }
 
-    // ---- Task terkait (FR-32) ----
-
     public function linkBacklogs(Request $request, Project $project, DocFeature $feature): RedirectResponse
     {
         $this->authorizeFeature($project, $feature, 'editDocs');
@@ -206,8 +198,6 @@ class DocController extends Controller
         return back()->with('toast', "{$backlog->code} dilepas dari fitur ini.");
     }
 
-    // ---- Upload gambar editor (FR-33) ----
-
     public function uploadImage(Request $request): JsonResponse
     {
         $request->validate([
@@ -230,7 +220,6 @@ class DocController extends Controller
 
     // ---- Helper ----
 
-    /** @return array<string, mixed> */
     private function treeData(Project $project): array
     {
         $project->load('members')->loadCount(['sprints', 'backlogs']);
@@ -261,7 +250,6 @@ class DocController extends Controller
         ], [], ['title' => 'judul fitur', 'content' => 'isi dokumentasi', 'doc_module_id' => 'modul']);
     }
 
-    /** Tukar sort_order item dengan tetangganya (dir = up|down), lalu normalkan urutan. */
     private function move($items, int $id, ?string $dir): void
     {
         $items = $items->values();

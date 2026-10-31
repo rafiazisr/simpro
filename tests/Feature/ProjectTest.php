@@ -111,7 +111,6 @@ class ProjectTest extends TestCase
 
         $this->assertSame(ProjectStatus::Done, $project->fresh()->status);
         $this->assertSame(SprintStatus::Done, $sprint->fresh()->status);
-        // Project selesai: tidak bisa menambah backlog/sprint baru.
         $this->actingAs($pm)->get("/projects/{$project->code}/backlogs/create")->assertForbidden();
     }
 

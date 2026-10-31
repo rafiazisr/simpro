@@ -1,7 +1,3 @@
-/**
- * Swimlane Gantt (FR-20 s.d. FR-23) memakai DHTMLX Gantt Community Edition (MIT).
- * Swimlane = project (baris induk), bar = sprint (baris anak).
- */
 import { gantt } from 'dhtmlx-gantt';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
 import '../css/gantt-theme.css';
@@ -84,7 +80,6 @@ function setup(el, { updateUrl }) {
         { name: 'pct', label: 'Progres', align: 'center', width: 66, template: (t) => `${Math.round(t.progress * 100)}%` },
     ];
 
-    // Layar sempit (HP): grid cukup kolom nama agar timeline tetap terlihat.
     const applyLayout = () => {
         const narrow = isNarrow();
         gantt.config.grid_width = narrow ? 150 : 430;
@@ -109,14 +104,12 @@ function setup(el, { updateUrl }) {
         : `bar-${t.status}${t.readonly ? '' : ' is-draggable'}`);
     gantt.templates.grid_row_class = (s, e, t) => (t.kind === 'project' ? 'gantt_parent' : '');
     gantt.templates.task_row_class = (s, e, t) => (t.kind === 'project' ? 'gantt_parent' : '');
-    // Teks di dalam bar sering terpotong pada sprint pendek, jadi nama sprint ditaruh di kanan bar.
     gantt.templates.task_text = () => '';
     gantt.templates.rightside_text = (s, e, t) => (t.kind === 'project' ? '' : `${escapeHtml(t.text)} · ${Math.round(t.progress * 100)}%`);
     gantt.templates.tooltip_text = (s, e, t) => (t.kind === 'project'
         ? `<b>${escapeHtml(t.text)}</b><br>${t.start_label} – ${t.end_label}<br>Progres ${Math.round(t.progress * 100)}%`
         : `<b>${escapeHtml(t.project)} — ${escapeHtml(t.text)}</b><br>${escapeHtml(t.range_label)} · ${t.backlogs} backlog<br>${t.readonly ? 'Klik untuk melihat backlog' : 'Klik untuk melihat backlog · tarik untuk menggeser'}`);
 
-    // Hanya sprint yang boleh digeser/diubah ukurannya, dan hanya bila diizinkan server.
     gantt.attachEvent('onBeforeTaskDrag', (id, mode) => {
         const t = gantt.getTask(id);
         return t.kind === 'sprint' && !t.readonly && (mode === 'move' || mode === 'resize');
@@ -149,7 +142,6 @@ function setup(el, { updateUrl }) {
     gantt.attachEvent('onTaskDblClick', () => false);
     gantt.attachEvent('onBeforeLightbox', () => false);
 
-    // Garis "Hari ini" (fitur marker bawaan hanya ada di edisi PRO).
     const drawToday = () => {
         const area = gantt.$task_data;
         if (!area) return;
@@ -275,7 +267,6 @@ window.Alpine.data('ganttPage', (cfg) => ({
         }
     },
 
-    // Posisi bar mini-gantt di modal, relatif terhadap rentang sprint (dalam %).
     barStyle(b) {
         if (!b.start && !b.end) return 'display: none';
         const s = this.modal.sprint;

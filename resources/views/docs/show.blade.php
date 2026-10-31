@@ -10,7 +10,6 @@
     <x-project-header :project="$project" tab="docs" />
 
     <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap">
-        {{-- Tree Modul → Fitur --}}
         <aside class="card m-full" style="flex: 0 0 280px; max-width: 100%; position: sticky; top: 80px">
             <div class="card-head"><span class="t-16">Isi dokumentasi</span></div>
             <div class="card-body tree" style="padding: 8px">
@@ -84,7 +83,6 @@
             </div>
         </aside>
 
-        {{-- Konten --}}
         <div class="col" style="flex: 999 1 560px; min-width: 0; gap: 20px">
             @if ($isEditing)
                 @php
@@ -162,7 +160,6 @@
                     </div>
                 </article>
 
-                {{-- Task terkait (FR-32) --}}
                 <section class="card">
                     <div class="card-head">
                         <span class="t-16">Task Terkait</span>

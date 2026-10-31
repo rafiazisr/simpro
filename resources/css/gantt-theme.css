@@ -1,5 +1,4 @@
-/* Variabel warna DHTMLX Gantt v10 dipetakan ke token desain aplikasi,
-   sehingga Gantt otomatis ikut tema terang/gelap (kelas .dark di <html>). */
+
 .app-gantt, .gantt_tooltip {
     --dhx-gantt-font-family: var(--font);
     --dhx-gantt-base-colors-background: var(--surface);
@@ -38,12 +37,10 @@
     --dhx-gantt-tooltip-color: var(--text);
 }
 .gantt_tooltip { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; z-index: 35; }
-/* Saat modal sprint terbuka (backdrop z-index 40) tooltip tidak boleh tampil di atasnya. */
+
 body:has(.backdrop.is-fixed) .gantt_tooltip { display: none !important; }
 
-/* Bar sprint di mode gelap sedikit lebih terang agar Planned/Active tetap terbaca. */
 .dark .app-gantt .gantt_task_line { background: color-mix(in srgb, var(--bar) 50%, #111827); }
 
-/* Bar swimlane project di mode gelap: progres terang agar tetap terlihat. */
 .dark .app-gantt .gantt_task_line.gantt_project { background: #334155; }
 .dark .app-gantt .gantt_task_line.gantt_project .gantt_task_progress { background: #94A3B8; }

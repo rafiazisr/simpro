@@ -8,7 +8,6 @@ use Illuminate\Database\Seeder;
 
 class SuperAdminSeeder extends Seeder
 {
-    /** Membuat satu akun Super Admin dari config/settings.php (nilai .env). */
     public function run(): void
     {
         $cfg = config('settings.super_admin');

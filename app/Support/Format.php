@@ -9,7 +9,6 @@ class Format
 {
     private const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
-    /** "30 Okt 2026" */
     public static function date(mixed $d, bool $withYear = true): string
     {
         if (! $d) {
@@ -23,10 +22,6 @@ class Format
         return $d->day.' '.self::MONTHS[$d->month - 1].($withYear ? ' '.$d->year : '');
     }
 
-    /**
-     * Rentang tanggal ringkas sesuai desain:
-     * "19 – 30 Okt 2026", "16 Okt – 6 Nov 2026", "15 Agu 2026 – 28 Feb 2027".
-     */
     public static function dateRange(?CarbonInterface $start, ?CarbonInterface $end, bool $withYear = true): string
     {
         if (! $start || ! $end) {

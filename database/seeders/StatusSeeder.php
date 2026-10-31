@@ -8,7 +8,6 @@ use Illuminate\Database\Seeder;
 
 class StatusSeeder extends Seeder
 {
-    /** Status bawaan untuk semua project (FR-14). */
     public const DEFAULTS = [
         ['To Do', StatusCategory::Todo, 'todo'],
         ['In Progress', StatusCategory::InProgress, 'progress'],

@@ -66,7 +66,6 @@ class Backlog extends Model
         return $this->belongsTo(User::class, 'created_by')->withTrashed();
     }
 
-    /** Fitur dokumentasi yang terhubung ke backlog ini. */
     public function docFeatures(): BelongsToMany
     {
         return $this->belongsToMany(DocFeature::class, 'backlog_doc_feature');
@@ -87,7 +86,6 @@ class Backlog extends Model
         return $this->category() === StatusCategory::Done;
     }
 
-    /** Belum Done dan tanggal selesai sudah lewat. */
     public function isLate(): bool
     {
         return $this->end_date !== null && ! $this->isDone() && $this->end_date->lt(today());

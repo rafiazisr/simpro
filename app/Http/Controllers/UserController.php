@@ -26,7 +26,6 @@ class UserController extends Controller
         return view('users.index', $this->listData($request));
     }
 
-    /** Form tambah tampil sebagai modal di atas daftar user (sesuai desain). */
     public function create(Request $request): View
     {
         Gate::authorize('create', User::class);
@@ -110,11 +109,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('toast', "User {$user->name} dihapus.");
     }
 
-    /**
-     * Data bagian "Assign ke Project" di form user.
-     *
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     private function formData(Request $request, ?User $user): array
     {
         $manageable = $this->members->manageableProjects($request->user());
@@ -129,7 +124,6 @@ class UserController extends Controller
         ];
     }
 
-    /** @return array<string, mixed> */
     private function listData(Request $request): array
     {
         $sort = in_array($request->query('sort'), ['name', 'last_login_at'], true) ? $request->query('sort') : 'name';

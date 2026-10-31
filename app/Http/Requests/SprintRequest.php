@@ -40,7 +40,6 @@ class SprintRequest extends FormRequest
                     return;
                 }
 
-                // Sprint harus berada di dalam rentang project (FR-11).
                 $p = $this->project();
 
                 if ($this->date('start_date')->lt($p->start_date)) {

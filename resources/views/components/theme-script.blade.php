@@ -1,5 +1,3 @@
-{{-- Terapkan tema (terang/gelap) sebelum halaman digambar agar tidak berkedip.
-     Pilihan user disimpan di localStorage "theme"; bila belum memilih, ikut pengaturan perangkat. --}}
 <meta name="theme-color" content="#FFFFFF">
 <script>
     (function () {

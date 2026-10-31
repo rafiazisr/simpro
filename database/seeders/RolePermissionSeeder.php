@@ -10,10 +10,6 @@ use Spatie\Permission\PermissionRegistrar;
 
 class RolePermissionSeeder extends Seeder
 {
-    /**
-     * Membuat semua permission dan 6 role bawaan beserta hak akses default.
-     * Aman dijalankan ulang: permission role yang sudah diubah Admin tidak ditimpa.
-     */
     public function run(): void
     {
         app(PermissionRegistrar::class)->forgetCachedPermissions();

@@ -53,7 +53,6 @@ class ProjectPolicy
         return $project->status !== ProjectStatus::Done && $user->canInProject('sprint.mark-done', $project);
     }
 
-    /** Project yang sudah Done terkunci: tidak bisa menambah backlog baru. */
     public function createBacklog(User $user, Project $project): bool
     {
         return $project->status !== ProjectStatus::Done && $user->canInProject('backlog.create', $project);

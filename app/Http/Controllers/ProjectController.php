@@ -78,7 +78,6 @@ class ProjectController extends Controller
             return $project;
         });
 
-        // FR-40: beri tahu anggota baru (kecuali pembuat project).
         foreach ($request->input('members') as $m) {
             if ((int) $m['user_id'] !== $request->user()->id) {
                 User::find($m['user_id'])?->notify(new ProjectAssigned($project, $m['role'], $request->user()));

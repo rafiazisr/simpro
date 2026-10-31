@@ -54,7 +54,6 @@ class RolePermissionTest extends TestCase
             ->assertRedirect('/roles?role=qa');
 
         $this->assertTrue(Role::findByName('qa')->hasPermissionTo('documentation.create-update'));
-        // Admin tetap punya user.manage karena dikirim di matriks.
         $this->assertTrue($admin->fresh()->can('user.manage'));
     }
 

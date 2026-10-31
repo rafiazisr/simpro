@@ -18,9 +18,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Super Admin otomatis punya semua permission (nama permission selalu
-        // memakai titik, mis. "user.manage"). Method Policy tetap dievaluasi,
-        // sehingga aturan seperti "Super Admin tidak bisa dihapus" tetap berlaku.
         Gate::before(fn (User $user, string $ability) => $user->isSuperAdmin() && str_contains($ability, '.') ? true : null);
 
         Paginator::defaultView('vendor.pagination.app');

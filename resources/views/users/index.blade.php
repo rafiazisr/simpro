@@ -74,7 +74,6 @@
                             <td data-label="Status">
                                 @can('toggleActive', $u)
                                     @if ($u->is_active)
-                                        {{-- Menonaktifkan butuh konfirmasi (desain layar 06). --}}
                                         <label class="toggle toggle-success">
                                             <input type="checkbox" checked aria-label="Status aktif {{ $u->name }}"
                                                    @click.prevent="$dispatch('confirm', {
@@ -130,7 +129,6 @@
             {{ $users->links() }}
         @endif
     </div>
-
 
     @if ($modal === 'form')
         @include('users.partials.form-modal', ['editing' => $editing])

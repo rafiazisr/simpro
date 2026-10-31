@@ -14,13 +14,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-/**
- * Swimlane Gantt: satu swimlane per project, satu bar per sprint (FR-20 s.d. FR-23).
- * Data mengikuti format DHTMLX Gantt: {data: [...], links: []}.
- */
 class GanttController extends Controller
 {
-    /** Timeline semua project (menu utama). */
     public function index(Request $request): View
     {
         return view('gantt.index', [
@@ -29,7 +24,6 @@ class GanttController extends Controller
         ]);
     }
 
-    /** Tab Timeline di dalam project: Gantt yang sama, terkunci ke satu project. */
     public function project(Project $project): View
     {
         Gate::authorize('view', $project);
@@ -116,7 +110,6 @@ class GanttController extends Controller
                     'range_label' => $s->rangeLabel(),
                     'progress' => $s->backlogs_count ? round($s->done_count / $s->backlogs_count, 2) : 0,
                     'backlogs' => $s->backlogs_count,
-                    // Sprint yang sudah Done atau project Done tidak bisa digeser.
                     'readonly' => ! ($canDrag && $s->status !== SprintStatus::Done && $p->status->value !== 'done'),
                 ];
             }
@@ -125,7 +118,6 @@ class GanttController extends Controller
         return response()->json(['data' => $rows, 'links' => []]);
     }
 
-    /** Daftar backlog sprint untuk modal saat bar diklik (FR-22). */
     public function sprintBacklogs(Sprint $sprint): JsonResponse
     {
         Gate::authorize('view', $sprint->project);
@@ -165,7 +157,6 @@ class GanttController extends Controller
         ]);
     }
 
-    /** Geser/ubah ukuran bar sprint (FR-23). Hanya untuk user dengan izin timeline. */
     public function updateSprint(Request $request, Sprint $sprint): JsonResponse
     {
         $project = $sprint->project;

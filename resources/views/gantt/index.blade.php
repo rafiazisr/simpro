@@ -29,7 +29,6 @@
         @endunless
 
         <div class="toolbar">
-            {{-- Filter project (multi); di tab Timeline project, project sudah terkunci --}}
             @unless ($project)
             <div style="position: relative" @click.outside="projectMenu = false" @keydown.escape="projectMenu = false">
                 <button type="button" class="fake-input" style="min-width: 260px; font: inherit; cursor: pointer" @click="projectMenu = !projectMenu" :aria-expanded="projectMenu" aria-label="Filter project">
@@ -94,7 +93,6 @@
             <span class="row" style="gap: 6px"><span style="width: 2px; height: 12px; background: #EF4444"></span>Hari ini</span>
         </div>
 
-        {{-- Modal backlog sprint (FR-22) --}}
         <template x-if="modal.open">
             <div @keydown.escape.window="modal.open = false">
                 <div class="backdrop is-fixed" @click="modal.open = false"></div>
@@ -147,7 +145,6 @@
             </div>
         </template>
 
-        {{-- Toast dari aksi Gantt --}}
         <div class="toast-stack is-fixed" aria-live="polite" x-cloak x-show="toast">
             <div class="toast" :class="toast?.type === 'error' ? '' : 'success'">
                 <span class="t-ico" :style="toast?.type === 'error' ? 'color: var(--danger)' : ''"><x-icon name="info" /></span>

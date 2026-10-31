@@ -4,10 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-/**
- * Tabel role & permission untuk spatie/laravel-permission v6 (tanpa fitur teams).
- * Ditulis manual agar tidak perlu menjalankan vendor:publish.
- */
 return new class extends Migration
 {
     public function up(): void
@@ -19,7 +15,6 @@ return new class extends Migration
             'model_has_roles' => 'model_has_roles',
             'role_has_permissions' => 'role_has_permissions',
         ];
-        // Di config spatie, kunci pivot bernilai null secara default, jadi pakai ?: (bukan nilai default config()).
         $morphKey = config('permission.column_names.model_morph_key') ?: 'model_id';
         $pivotRole = config('permission.column_names.role_pivot_key') ?: 'role_id';
         $pivotPermission = config('permission.column_names.permission_pivot_key') ?: 'permission_id';
@@ -36,7 +31,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('guard_name');
-            // Kolom tambahan: label tampilan, jenis role, dan penanda role bawaan.
             $table->string('label')->nullable();
             $table->string('scope', 20)->default('project'); // level | project
             $table->boolean('is_system')->default(false);

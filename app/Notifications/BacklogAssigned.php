@@ -6,7 +6,6 @@ use App\Models\Backlog;
 use App\Models\User;
 use Illuminate\Notifications\Notification;
 
-/** FR-41: user di-assign ke backlog sebagai Programmer atau QA. */
 class BacklogAssigned extends Notification
 {
     public function __construct(

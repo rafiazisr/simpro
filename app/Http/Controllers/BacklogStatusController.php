@@ -10,12 +10,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-/**
- * Ubah status backlog dari halaman detail.
- * - Programmer: "Selesai, kirim ke QA" (action=send_to_qa)
- * - QA: "Lulus (Done)" (action=pass) atau "Reopen" (action=reopen)
- * - PM/Admin: pilih status mana pun (status_name, boleh status baru)
- */
 class BacklogStatusController extends Controller
 {
     public function __invoke(Request $request, Backlog $backlog, BacklogService $backlogs, StatusService $statuses): RedirectResponse
@@ -46,7 +40,6 @@ class BacklogStatusController extends Controller
             abort_unless($allowed, 403, 'Aksi ini tidak tersedia untuk status backlog saat ini.');
             $status = $statuses->default($target);
         } else {
-            // Status bebas hanya untuk yang berhak mengubah backlog; assignee memakai tombol aksi.
             abort_unless($canManage, 403);
             $status = $statuses->resolve($backlog->project, $request->input('status_name'));
         }

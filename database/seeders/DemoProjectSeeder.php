@@ -10,7 +10,6 @@ use App\Services\BacklogService;
 use App\Services\StatusService;
 use Illuminate\Database\Seeder;
 
-/** Project contoh "Portal HR" agar halaman Project langsung berisi data (hanya lokal). */
 class DemoProjectSeeder extends Seeder
 {
     public function run(BacklogService $backlogs, StatusService $statuses): void
@@ -77,7 +76,6 @@ class DemoProjectSeeder extends Seeder
             ], $andi);
         }
 
-        // Dokumentasi contoh: Modul → Fitur, terhubung ke backlog.
         $auth = $project->docModules()->create(['name' => 'Autentikasi', 'sort_order' => 1]);
         $sso = $auth->features()->create([
             'title' => 'Login SSO (OAuth 2.0)',

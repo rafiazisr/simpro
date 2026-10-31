@@ -4,10 +4,8 @@ namespace App\Support;
 
 use Illuminate\Notifications\DatabaseNotification;
 
-/** Bentuk data notifikasi yang dipakai lonceng, halaman notifikasi, dan stream SSE. */
 class NotificationPresenter
 {
-    /** @return array<string, mixed> */
     public static function present(DatabaseNotification $n): array
     {
         $d = $n->data;
@@ -26,7 +24,6 @@ class NotificationPresenter
         ];
     }
 
-    /** Teks di-escape dulu, lalu bagian penting ditebalkan (aman dari XSS). */
     public static function html(string $text, array $bold): string
     {
         $html = e($text);
@@ -39,7 +36,6 @@ class NotificationPresenter
         return $html;
     }
 
-    /** Kelas ikon desain (n-proj, n-assign, n-qa). */
     public static function iconClass(string $kind): string
     {
         return match ($kind) {

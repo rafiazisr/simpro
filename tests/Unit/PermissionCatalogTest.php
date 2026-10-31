@@ -15,7 +15,6 @@ class PermissionCatalogTest extends TestCase
         $this->assertSame($names, array_values(array_unique($names)));
 
         foreach ($names as $name) {
-            // Gate::before mengandalkan titik untuk membedakan permission dari method Policy.
             $this->assertStringContainsString('.', $name);
         }
     }

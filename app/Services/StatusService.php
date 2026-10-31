@@ -9,11 +9,6 @@ use Illuminate\Support\Str;
 
 class StatusService
 {
-    /**
-     * Cari status berdasarkan nama (tidak peka huruf besar/kecil) di antara status
-     * bawaan dan status kustom project. Jika belum ada, buat status kustom baru
-     * berkategori To Do (FR-13).
-     */
     public function resolve(Project $project, string $name): Status
     {
         $name = Str::of($name)->squish()->limit(50, '')->toString();
@@ -34,7 +29,6 @@ class StatusService
         ]);
     }
 
-    /** Status bawaan berdasarkan nama, mis. "Ready for QA". */
     public function default(string $name): Status
     {
         return Status::query()->whereNull('project_id')->where('name', $name)->firstOrFail();

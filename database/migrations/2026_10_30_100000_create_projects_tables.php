@@ -27,7 +27,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            // Nama role spatie dengan scope "project": pm, programmer, qa, atau role kustom.
             $table->string('project_role', 50);
             $table->timestamps();
             $table->unique(['project_id', 'user_id']);
@@ -52,7 +51,7 @@ return new class extends Migration
             $table->foreignId('project_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('name', 50);
             $table->string('category', 20); // todo | in_progress | ready_for_qa | testing | done
-            $table->string('style', 20)->nullable(); // kunci warna desain (todo, progress, readyqa, testing, done, reopen)
+            $table->string('style', 20)->nullable();
             $table->unsignedSmallInteger('sort_order')->default(100);
             $table->timestamps();
             $table->unique(['project_id', 'name']);
@@ -88,7 +87,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('backlog_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('field', 30); // created | status | priority | programmer | qa | sprint | start_date | end_date | title
+            $table->string('field', 30);
             $table->string('old_value')->nullable();
             $table->string('new_value')->nullable();
             $table->timestamp('created_at')->useCurrent();

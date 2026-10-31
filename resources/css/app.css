@@ -1,12 +1,10 @@
-/* Design system aplikasi (disalin apa adanya dari desain Claude Design). */
+
 @import './design-system.css';
 
-/* ---- Penyesuaian untuk aplikasi nyata (desain memakai posisi absolut untuk mockup) ---- */
 html, body { height: 100%; margin: 0; }
 html { background: var(--bg); color-scheme: light; }
 html.dark { color-scheme: dark; }
 
-/* Kepadatan ala alat kerja: baris tabel & badge lebih ringkas */
 .table th { height: 36px; }
 .table td { height: 42px; }
 .badge { height: 20px; padding: 0 7px; font-size: 11.5px; gap: 5px; }
@@ -37,7 +35,6 @@ body.pt { min-height: 100vh; }
 .app-main { min-height: 100vh; }
 .topbar { position: sticky; top: 0; z-index: 15; }
 
-/* Modal, drawer, dan toast menempel di layar, bukan di dalam artboard. */
 .backdrop.is-fixed { position: fixed; z-index: 40; }
 .modal.is-fixed { position: fixed; z-index: 50; max-height: calc(100vh - 96px); overflow-y: auto; }
 .toast-stack.is-fixed { position: fixed; z-index: 60; }
@@ -45,7 +42,6 @@ body.pt { min-height: 100vh; }
 /* Form di dalam tombol inline (toggle aktif, hapus). */
 form.inline { display: inline-flex; margin: 0; }
 
-/* Elemen sr-only di dalam tabel tidak boleh lolos dari area scroll. */
 .table-wrap { position: relative; }
 
 /* Link pada header tabel yang bisa diurutkan. */
@@ -67,7 +63,6 @@ form.inline { display: inline-flex; margin: 0; }
     .assign-row > select:nth-child(2) { grid-row: 2; grid-column: 1; }
 }
 
-/* Segmented control berbasis radio (pilihan prioritas di form backlog). */
 .seg label { height: 28px; padding: 0 10px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
 .seg label.on { background: var(--surface); box-shadow: var(--shadow-sm); }
 .seg label:focus-within { outline: 2px solid var(--ring); outline-offset: 1px; }
@@ -77,7 +72,6 @@ form.inline { display: inline-flex; margin: 0; }
 .kcard { cursor: pointer; }
 .kcard:hover { border-color: var(--border-strong); }
 
-/* Editor rich text (Trix) disesuaikan dengan gaya desain. */
 trix-toolbar { padding: 6px 8px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
 trix-toolbar .trix-button-group { border-color: var(--border); margin-bottom: 0; }
 trix-toolbar .trix-button-group--file-tools { display: none; }
@@ -89,10 +83,8 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 .editor:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
 .dark trix-toolbar .trix-button { filter: invert(1); }
 
-/* Tombol nonaktif berbentuk span (fitur fase berikutnya). */
 .btn.is-disabled { pointer-events: none; }
 
-/* ===== Skin DHTMLX Gantt mengikuti desain (.app-gantt) ===== */
 .app-gantt { font-family: inherit; }
 .app-gantt .gantt_container { border: 0; font-family: var(--font); font-size: 13px; background: var(--surface); color: var(--text-2); }
 .app-gantt .gantt_grid_scale, .app-gantt .gantt_task_scale { background: var(--surface-2); border-color: var(--border); }
@@ -139,19 +131,11 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 /* Nama sprint di kanan bar */
 .app-gantt .gantt_side_content.gantt_right { color: var(--text-2); font-size: 12px; font-weight: 500; padding-left: 8px; }
 
-/* Dashboard: pie chart + aktivitas berdampingan, menumpuk di layar sempit */
 .dash-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 16px; }
 @media (max-width: 1100px) { .dash-grid { grid-template-columns: minmax(0, 1fr); } }
 .pie { overflow: visible; max-width: 100%; height: auto; }
 .act { color: inherit; }
 
-/* =====================================================================
-   Responsive (tablet & mobile)
-   - .m-full    : di layar sempit ambil lebar penuh & lepas sticky
-   - .m-stack   : grid jadi satu kolom di layar sempit
-   - .m-hide / .m-only : sembunyikan / tampilkan hanya di mobile
-   - .table-cards : tabel berubah jadi daftar kartu di mobile (pakai data-label)
-   ===================================================================== */
 @media (min-width: 761px) { .m-only { display: none !important; } }
 .side-backdrop { display: none; }
 
@@ -180,8 +164,7 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
     .app-side.open .sidebar { width: 100%; }
     .content { padding: 16px 16px 32px; gap: 16px; }
     .t-24 { font-size: 20px; line-height: 28px; }
-
-    /* Topbar: breadcrumb hanya halaman aktif, sembunyikan nama user */
+    
     .topbar { height: 56px; padding: 0 8px 0 12px; gap: 4px; }
     .breadcrumb > :not(.current) { display: none; }
     .breadcrumb .current { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

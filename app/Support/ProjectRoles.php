@@ -7,7 +7,6 @@ use Spatie\Permission\Models\Role;
 
 class ProjectRoles
 {
-    /** @return Collection<string, string> name => label, role bawaan dulu lalu kustom. */
     public static function options(): Collection
     {
         $order = ['pm' => 1, 'programmer' => 2, 'qa' => 3];
@@ -22,7 +21,6 @@ class ProjectRoles
         return self::options()[$name] ?? (string) $name;
     }
 
-    /** Class badge desain untuk role project. */
     public static function badgeClass(?string $name): string
     {
         return match ($name) {

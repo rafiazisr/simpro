@@ -17,14 +17,11 @@ use Illuminate\Support\Facades\DB;
 
 class BacklogService
 {
-    /** Field yang dicatat di riwayat aktivitas. */
     private const TRACKED = ['status_id', 'priority', 'programmer_id', 'qa_id', 'sprint_id', 'start_date', 'end_date', 'title'];
 
-    /** Buat backlog dengan kode otomatis PREFIX-N yang aman dari tabrakan (FR-12). */
     public function create(Project $project, array $data, User $actor): Backlog
     {
         $backlog = DB::transaction(function () use ($project, $data, $actor) {
-            // Kunci baris project agar dua request bersamaan tidak mendapat nomor sama.
             Project::query()->whereKey($project->id)->lockForUpdate()->first();
 
             $number = (int) Backlog::withTrashed()->where('project_id', $project->id)->max('number') + 1;
@@ -70,13 +67,8 @@ class BacklogService
         return $backlog;
     }
 
-    /**
-     * Notifikasi setelah transaksi selesai (FR-41, FR-42). Pelaku perubahan
-     * tidak menerima notifikasi atas tindakannya sendiri.
-     */
     private function notifyChanges(Backlog $backlog, array $before, User $actor): void
     {
-        // Relasi dimuat ulang: nilai dari request bisa berupa string dan relasi lama bisa basi.
         $backlog->load(['status', 'project', 'programmer', 'qa']);
 
         foreach (['programmer_id' => 'programmer', 'qa_id' => 'qa'] as $field => $as) {
@@ -140,7 +132,6 @@ class BacklogService
         };
     }
 
-    /** Nilai yang tampil di riwayat (nama, bukan id). */
     private function display(string $field, mixed $value): ?string
     {
         if ($value === null || $value === '') {

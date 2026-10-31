@@ -16,7 +16,6 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /** Warna swatch project bergiliran (sesuai palet desain). */
     public const COLORS = ['#3B82F6', '#8B5CF6', '#F59E0B', '#22C55E', '#EC4899', '#14B8A6', '#F97316', '#6366F1'];
 
     protected $fillable = [
@@ -58,7 +57,6 @@ class Project extends Model
         return $this->hasMany(DocModule::class)->orderBy('sort_order')->orderBy('id');
     }
 
-    /** Status kustom milik project ini (status bawaan punya project_id null). */
     public function customStatuses(): HasMany
     {
         return $this->hasMany(Status::class);
@@ -69,7 +67,6 @@ class Project extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /** Role project user di project ini, atau null jika bukan anggota. */
     public function roleOf(User $user): ?string
     {
         if ($this->relationLoaded('members')) {
@@ -79,13 +76,11 @@ class Project extends Model
         return $this->members()->where('users.id', $user->id)->value('project_role');
     }
 
-    /** Anggota dengan role project tertentu, mis. "programmer". */
     public function membersWithRole(string $role)
     {
         return $this->members->filter(fn (User $u) => $u->pivot->project_role === $role)->values();
     }
 
-    /** Status yang bisa dipakai di project ini: bawaan + kustom. */
     public function availableStatuses()
     {
         return Status::query()
@@ -94,7 +89,6 @@ class Project extends Model
             ->get();
     }
 
-    /** Persentase backlog berkategori Done. */
     public function progress(): int
     {
         $total = $this->backlogs_count ?? $this->backlogs()->count();
@@ -103,7 +97,6 @@ class Project extends Model
         return $total ? (int) round($done / $total * 100) : 0;
     }
 
-    /** Project yang boleh dilihat user: Admin melihat semua, lainnya hanya project tempat ia menjadi anggota. */
     public function scopeVisibleTo(Builder $query, User $user): Builder
     {
         if ($user->isAdmin()) {

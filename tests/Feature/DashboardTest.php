@@ -73,7 +73,6 @@ class DashboardTest extends TestCase
         $this->assertStringContainsString('Mine todo', $data['rows_html']);
         $this->assertStringNotContainsString('Other todo', $data['rows_html']);
 
-        // QA melihat backlog tempat ia menjadi QA, dengan peran "QA".
         $qa = $this->actingAs($this->qa)->getJson('/dashboard/data?project='.$this->project->id.'&tab=qa')->json();
         $this->assertStringContainsString('Mine ready', $qa['rows_html']);
         $this->assertStringContainsString('role-qa', $qa['rows_html']);

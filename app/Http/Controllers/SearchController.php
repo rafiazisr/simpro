@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-/** Pencarian backlog dari topbar (kode atau judul) di project yang boleh dilihat user. */
 class SearchController extends Controller
 {
     public function __invoke(Request $request): View|RedirectResponse
@@ -22,7 +21,6 @@ class SearchController extends Controller
 
         $projectIds = Project::query()->visibleTo($user)->pluck('id');
 
-        // Kode persis (mis. "PHR-12") langsung membuka detail backlog.
         $exact = Backlog::whereIn('project_id', $projectIds)->where('code', strtoupper($term))->first();
         if ($exact) {
             return redirect()->route('backlogs.show', $exact);

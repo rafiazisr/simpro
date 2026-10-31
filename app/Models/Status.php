@@ -31,13 +31,11 @@ class Status extends Model
         return $this->project_id !== null;
     }
 
-    /** Class badge desain: st-todo, st-progress, ..., st-custom untuk status buatan user. */
     public function badgeClass(): string
     {
         return 'badge st-'.($this->style ?? 'custom');
     }
 
-    /** Warna solid untuk chart/legend. */
     public function color(): string
     {
         return [

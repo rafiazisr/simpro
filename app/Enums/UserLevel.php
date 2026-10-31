@@ -17,7 +17,6 @@ enum UserLevel: string
         };
     }
 
-    /** Class badge sesuai desain (lvl-super, badge-primary, badge-neutral). */
     public function badgeClass(): string
     {
         return match ($this) {
@@ -27,13 +26,11 @@ enum UserLevel: string
         };
     }
 
-    /** Nama role spatie yang dipasangkan dengan level ini. */
     public function roleName(): string
     {
         return $this->value;
     }
 
-    /** Level yang boleh dipilih lewat form (Super Admin hanya lewat seeder). */
     public static function assignable(): array
     {
         return [self::User, self::Admin];

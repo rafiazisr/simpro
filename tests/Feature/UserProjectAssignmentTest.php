@@ -10,7 +10,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-/** Bagian "Assign ke Project" di form Manajemen User. */
 class UserProjectAssignmentTest extends TestCase
 {
     use RefreshDatabase;

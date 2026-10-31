@@ -35,13 +35,11 @@ class Sprint extends Model
         return $this->hasMany(Backlog::class);
     }
 
-    /** Label rentang tanggal, mis. "16 Okt – 6 Nov 2026". */
     public function rangeLabel(): string
     {
         return Format::dateRange($this->start_date, $this->end_date);
     }
 
-    /** Durasi dalam minggu (dibulatkan ke atas). */
     public function weeks(): int
     {
         return (int) ceil(($this->start_date->diffInDays($this->end_date) + 1) / 7);

@@ -22,7 +22,6 @@ class BacklogController extends Controller
         private readonly StatusService $statuses,
     ) {}
 
-    /** Tab Backlog: tabel per sprint atau board Kanban. */
     public function index(Request $request, Project $project): View
     {
         return view('projects.backlogs', $this->listData($request, $project));
@@ -91,7 +90,6 @@ class BacklogController extends Controller
         return redirect()->route('projects.backlogs.index', $backlog->project)->with('toast', "{$backlog->code} dihapus.");
     }
 
-    /** Data yang disimpan; prioritas & tanggal hanya diterima dari user yang berhak. */
     private function payload(BacklogRequest $request, Project $project, ?Backlog $backlog): array
     {
         $user = $request->user();
@@ -113,7 +111,6 @@ class BacklogController extends Controller
         return $data;
     }
 
-    /** @return array<string, mixed> */
     private function listData(Request $request, Project $project): array
     {
         Gate::authorize('view', $project);
@@ -134,7 +131,6 @@ class BacklogController extends Controller
 
         $backlogs = $query->orderBy('number')->get();
 
-        // Tampilan board default ke sprint aktif bila tidak difilter.
         $boardSprint = null;
         if ($view === 'board' && ! $request->filled('sprint')) {
             $boardSprint = $sprints->firstWhere('status.value', 'active') ?? $sprints->first();

@@ -83,7 +83,6 @@ class BacklogTest extends TestCase
         $this->assertSame('Blocked vendor', $custom->first()->name);
         $this->assertSame(StatusCategory::Todo, $custom->first()->category);
 
-        // "in progress" memakai status bawaan, bukan membuat baru.
         $this->assertSame('In Progress', Backlog::latest('id')->first()->status->name);
     }
 
@@ -115,7 +114,6 @@ class BacklogTest extends TestCase
     {
         $b = $this->createBacklog(['status_name' => 'In Progress']);
 
-        // QA belum bisa meluluskan backlog yang masih dikerjakan programmer.
         $this->actingAs($this->qa)->patch("/backlogs/{$b->code}/status", ['action' => 'pass'])->assertForbidden();
 
         $this->actingAs($this->prog)->patch("/backlogs/{$b->code}/status", ['action' => 'send_to_qa'])->assertRedirect();

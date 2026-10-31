@@ -3,8 +3,6 @@ import Alpine from 'alpinejs';
 import 'trix';
 import 'trix/dist/trix.css';
 
-// Editor rich text: lampiran hanya diizinkan di editor yang punya data-upload-url
-// (dokumentasi), berupa gambar jpg/png/webp maksimal 2 MB (FR-33).
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 document.addEventListener('trix-file-accept', (e) => {
@@ -48,7 +46,6 @@ Alpine.data('toast', () => ({
     },
 }));
 
-// Dialog konfirmasi generik: <button @click="$dispatch('confirm', {...})">
 Alpine.data('confirmDialog', () => ({
     open: false,
     title: '',
@@ -63,7 +60,6 @@ Alpine.data('confirmDialog', () => ({
     },
 }));
 
-// Combobox status (FR-13): cari status; jika belum ada, tawarkan "Buat status baru".
 Alpine.data('statusCombobox', (options = [], value = '') => ({
     options,          // [{ name, cls, meta }]
     value,            // nama status terpilih (dikirim sebagai status_name)
@@ -117,7 +113,6 @@ Alpine.data('statusCombobox', (options = [], value = '') => ({
     },
 }));
 
-// Lonceng notifikasi + koneksi SSE + notifikasi browser (FR-40 s.d. FR-42).
 Alpine.data('notificationBell', (cfg) => ({
     items: cfg.items ?? [],
     unread: cfg.unread ?? 0,
@@ -140,7 +135,6 @@ Alpine.data('notificationBell', (cfg) => ({
 
         source.addEventListener('notification', (e) => this.receive(JSON.parse(e.data)));
         source.addEventListener('unread', (e) => { this.unread = parseInt(e.data, 10) || 0; });
-        // Jika sesi berakhir (401/419) EventSource berhenti sendiri; tidak perlu tindakan.
     },
 
     receive(n) {
@@ -184,13 +178,11 @@ Alpine.data('notificationBell', (cfg) => ({
     },
 }));
 
-// Dashboard (FR-50 s.d. FR-53): donut status + list backlog yang bisa difilter.
 Alpine.data('dashboardPage', (cfg) => ({
     data: cfg.initial ?? { slices: [], total: 0, project: { name: '' }, selected: null, tab: 'programmer' },
     projectId: cfg.initial?.project?.id ?? null,
     loading: false,
 
-    // Irisan pie: sudut mulai/selesai tiap status (mulai dari jam 12, searah jarum jam).
     get arcs() {
         const total = this.data.total || 1;
         let angle = 0;
@@ -202,7 +194,6 @@ Alpine.data('dashboardPage', (cfg) => ({
         });
     },
 
-    // String SVG irisan pie (x-for tidak bisa dipakai di dalam <svg>).
     get arcsSvg() {
         const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
         const cx = 100, cy = 100, r = 90;
@@ -278,7 +269,6 @@ function applyTheme(dark) {
     if (meta) meta.content = dark ? '#111827' : '#FFFFFF';
 }
 
-// Tombol tema terang/gelap. Kelas .dark dipasang di <html> (lihat components/theme-script).
 Alpine.data('themeToggle', () => ({
     dark: document.documentElement.classList.contains('dark'),
     init() {
@@ -288,7 +278,6 @@ Alpine.data('themeToggle', () => ({
         this.dark = !this.dark;
         applyTheme(this.dark);
         safeStorage('set', 'theme', this.dark ? 'dark' : 'light');
-        // Sinkronkan tombol lain di halaman yang sama (mis. topbar + halaman login).
         window.dispatchEvent(new CustomEvent('theme-changed', { detail: { dark: this.dark } }));
     },
 }));
@@ -301,12 +290,8 @@ window.addEventListener('storage', (e) => {
     window.dispatchEvent(new CustomEvent('theme-changed', { detail: { dark } }));
 });
 
-// Penanda perubahan matriks hak akses yang belum disimpan.
 Alpine.store('matrix', { dirty: false });
 
-// Alpine dijalankan setelah SEMUA modul halaman (mis. gantt.js) selesai mendaftarkan
-// komponennya. Modul ES dieksekusi saat readyState sudah "interactive" tetapi sebelum
-// DOMContentLoaded, jadi tunggu DOMContentLoaded kecuali halaman sudah selesai dimuat.
 if (document.readyState === 'complete') {
     Alpine.start();
 } else {

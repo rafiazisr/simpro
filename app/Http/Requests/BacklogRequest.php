@@ -41,7 +41,6 @@ class BacklogRequest extends FormRequest
             'sprint_id' => ['nullable', Rule::exists('sprints', 'id')->where('project_id', $project->id)],
             'status_name' => ['required', 'string', 'max:50'],
             'priority' => ['required', new Enum(Priority::class)],
-            // Programmer dan QA wajib saat backlog masuk sprint; boleh kosong di Product Backlog.
             'programmer_id' => ['nullable', 'required_with:sprint_id', Rule::in($memberIds('programmer'))],
             'qa_id' => ['nullable', 'required_with:sprint_id', Rule::in($memberIds('qa'))],
             'start_date' => ['nullable', 'date'],

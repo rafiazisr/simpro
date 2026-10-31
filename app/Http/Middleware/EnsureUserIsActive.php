@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Memutus sesi user yang dinonaktifkan pada request berikutnya (FR-04).
- */
 class EnsureUserIsActive
 {
     public function handle(Request $request, Closure $next): Response

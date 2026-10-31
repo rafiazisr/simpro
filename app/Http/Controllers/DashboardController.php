@@ -15,11 +15,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
-/**
- * Dashboard Admin (FR-50, FR-51) dan Non-Admin (FR-52, FR-53).
- * Admin = user dengan permission dashboard.view-all: melihat backlog semua user.
- * Non-Admin: hanya backlog yang di-assign kepadanya (sebagai Programmer atau QA).
- */
 class DashboardController extends Controller
 {
     private const TAB_CATEGORIES = [
@@ -44,7 +39,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /** Data chart + list (dipanggil ulang saat project, slice, atau tab berubah). */
     public function data(Request $request): JsonResponse
     {
         $request->validate([
@@ -60,14 +54,12 @@ class DashboardController extends Controller
         return response()->json($this->payload($user, $project, $request->integer('status') ?: null, $request->query('tab', 'programmer')));
     }
 
-    /** @return array<string, mixed> */
     private function payload(User $user, Project $project, ?int $statusId, string $tab): array
     {
         $isAdmin = $user->can('dashboard.view-all');
         $scope = fn (Builder $q) => $q->where('project_id', $project->id)
             ->when(! $isAdmin, fn ($q) => $q->assignedTo($user));
 
-        // Pie chart: jumlah backlog per status (FR-51 / FR-53).
         $counts = Backlog::query()->tap($scope)
             ->selectRaw('status_id, count(*) as total')->groupBy('status_id')->pluck('total', 'status_id');
         $statuses = $project->availableStatuses()->filter(fn (Status $s) => ($counts[$s->id] ?? 0) > 0)->values();
@@ -83,7 +75,6 @@ class DashboardController extends Controller
 
         $selected = $statuses->firstWhere('id', $statusId);
 
-        // List backlog: difilter status (klik slice) atau tab Programmer/QA (FR-50 / FR-52).
         $list = Backlog::query()->tap($scope)
             ->with(['status', 'programmer', 'qa', 'project'])
             ->when($selected, fn ($q) => $q->where('status_id', $selected->id))
@@ -117,7 +108,6 @@ class DashboardController extends Controller
         ];
     }
 
-    /** Project yang tampil di dropdown: Admin semua project yang terlihat, user hanya project-nya. */
     private function projects(User $user): Collection
     {
         return Project::query()->visibleTo($user)
@@ -125,7 +115,6 @@ class DashboardController extends Controller
             ->orderBy('name')->get(['id', 'code', 'name', 'status', 'color']);
     }
 
-    /** @return list<array<string, mixed>> */
     private function adminStats(Collection $projects): array
     {
         $ids = $projects->pluck('id');
@@ -139,7 +128,6 @@ class DashboardController extends Controller
         ];
     }
 
-    /** @return list<array<string, mixed>> */
     private function userStats(User $user): array
     {
         $mine = fn () => Backlog::query()->assignedTo($user);

@@ -39,7 +39,6 @@ class RoleController extends Controller
         ]);
     }
 
-    /** Simpan seluruh matriks sekaligus (tombol "Simpan Perubahan"). */
     public function updateMatrix(Request $request): RedirectResponse
     {
         $request->validate([
@@ -98,7 +97,6 @@ class RoleController extends Controller
         return redirect()->route('roles.index')->with('toast', "Role {$label} dihapus.");
     }
 
-    /** @return Collection<int, Role> role bawaan sesuai urutan desain, lalu role kustom. */
     private function orderedRoles(): Collection
     {
         $order = array_flip(array_keys(PermissionCatalog::SYSTEM_ROLES));

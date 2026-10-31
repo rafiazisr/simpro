@@ -18,7 +18,6 @@
             <h1 class="t-24">{{ $backlog->title }}</h1>
             <div class="row wrap" style="gap: 12px">
                 @if ($canEdit)
-                    {{-- PM/Admin: ganti status bebas lewat combobox (status baru boleh) --}}
                     <form method="POST" action="{{ route('backlogs.status', $backlog) }}" class="row wrap" style="gap: 8px; margin: 0; max-width: 100%; align-items: flex-start">
                         @csrf @method('PATCH')
                         <div style="flex: 1 1 240px; min-width: 0">
@@ -38,7 +37,6 @@
         </div>
 
         <div class="row wrap page-actions">
-            {{-- Tombol aksi kontekstual sesuai peran di backlog ini --}}
             @if ($canUpdateStatus)
                 @if (($isProgrammer || $canEdit) && $cat->isProgrammerStage())
                     <form method="POST" action="{{ route('backlogs.status', $backlog) }}" style="margin: 0">

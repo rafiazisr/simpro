@@ -77,13 +77,12 @@ class SprintController extends Controller
         abort_unless($sprint->project_id === $project->id, 404);
 
         $moved = $sprint->backlogs()->count();
-        $sprint->delete(); // backlog otomatis kembali ke Product Backlog (sprint_id null)
+        $sprint->delete();
 
         return redirect()->route('projects.sprints.index', $project)
             ->with('toast', "{$sprint->name} dihapus".($moved ? ", {$moved} backlog dipindah ke Product Backlog." : '.'));
     }
 
-    /** @return array<string, mixed> */
     private function listData(Request $request, Project $project): array
     {
         Gate::authorize('view', $project);

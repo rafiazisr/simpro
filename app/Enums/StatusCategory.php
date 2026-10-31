@@ -2,10 +2,6 @@
 
 namespace App\Enums;
 
-/**
- * Kategori tetap di balik status dinamis. Dipakai untuk pie chart,
- * pemicu notifikasi QA, dan perhitungan progres (FR-14).
- */
 enum StatusCategory: string
 {
     case Todo = 'todo';
@@ -25,7 +21,6 @@ enum StatusCategory: string
         };
     }
 
-    /** Kunci warna desain (st-*). */
     public function style(): string
     {
         return match ($this) {
@@ -37,7 +32,6 @@ enum StatusCategory: string
         };
     }
 
-    /** Masih menjadi pekerjaan programmer (termasuk Reopen yang berkategori In Progress). */
     public function isProgrammerStage(): bool
     {
         return in_array($this, [self::Todo, self::InProgress], true);

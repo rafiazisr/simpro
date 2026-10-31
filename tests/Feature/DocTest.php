@@ -107,7 +107,6 @@ class DocTest extends TestCase
         $this->actingAs($this->pm)->post("/projects/PHR/docs/{$f->id}/backlogs", ['backlog_ids' => [$foreign->id]])->assertSessionHasErrors();
         $this->actingAs($this->pm)->post("/projects/PHR/docs/{$f->id}/backlogs", ['backlog_ids' => [$b->id]])->assertRedirect();
 
-        // Status di tabel task terkait diambil langsung dari backlog.
         $this->actingAs($this->qa)->get("/projects/PHR/docs/{$f->id}")->assertSee('PHR-1')->assertSee('Testing');
         // Detail backlog menampilkan dokumentasi yang terhubung.
         $this->actingAs($this->qa)->get('/backlogs/PHR-1')->assertSee('Login SSO');
@@ -126,7 +125,6 @@ class DocTest extends TestCase
         $this->assertSame(['B', 'A'], $this->project->docModules()->pluck('name')->all());
     }
 
-    /** PNG 1x1 asli, agar test tidak butuh ekstensi GD (UploadedFile::fake()->image() memerlukannya). */
     private function png(string $name = 'alur.png'): UploadedFile
     {
         return UploadedFile::fake()->createWithContent($name, base64_decode(

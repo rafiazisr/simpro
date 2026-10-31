@@ -70,7 +70,6 @@ class ProjectRequest extends FormRequest
                     $v->errors()->add('members', 'Minimal 1 Project Manager.');
                 }
 
-                // Rentang project harus tetap mencakup semua sprint yang sudah ada.
                 if ($project instanceof Project && ! $v->errors()->hasAny(['start_date', 'end_date'])) {
                     $first = $project->sprints()->min('start_date');
                     $last = $project->sprints()->max('end_date');

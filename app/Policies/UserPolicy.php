@@ -4,10 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 
-/**
- * Akun Super Admin tidak bisa diubah, dinonaktifkan, atau dihapus lewat UI,
- * dan user tidak bisa menonaktifkan/menghapus dirinya sendiri.
- */
 class UserPolicy
 {
     public function viewAny(User $actor): bool

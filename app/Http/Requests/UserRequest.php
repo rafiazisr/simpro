@@ -62,13 +62,11 @@ class UserRequest extends FormRequest
         ];
     }
 
-    /** Bagian "Assign ke Project" ikut dikirim (form lama/API lain tidak menghapus keanggotaan). */
     public function syncsProjects(): bool
     {
         return $this->boolean('projects_sync');
     }
 
-    /** @return array<int, string> project_id => role */
     public function assignments(): array
     {
         return collect($this->validated('projects', []))
@@ -76,7 +74,6 @@ class UserRequest extends FormRequest
             ->all();
     }
 
-    /** @return array<string, mixed> */
     public function payload(): array
     {
         $data = $this->safe()->only(['name', 'email', 'user_level']);

@@ -2,7 +2,6 @@
     $baseQuery = request()->only(['q', 'sprint', 'status', 'priority', 'assignee']);
     $viewUrl = fn ($v) => route('projects.backlogs.index', array_merge([$project], $baseQuery, ['view' => $v]));
     $sprintById = $sprints->keyBy('id');
-    // Urutan grup: sprint aktif, planned, done (terbaru dulu), lalu Product Backlog.
     $orderedGroups = $sprints->sortBy(fn ($s) => [['active' => 0, 'planned' => 1, 'done' => 2][$s->status->value], -$s->start_date->timestamp])
         ->pluck('id')->push('none')
         ->filter(fn ($k) => $grouped->has($k) || (! $filtered && $k !== 'none'))
@@ -56,7 +55,6 @@
     </form>
 
     @if ($view === 'board')
-        {{-- Board Kanban per sprint (kolom = status) --}}
         <div class="row t-12 muted" style="gap: 8px">
             <x-icon name="columns" size="sm" />
             @if ($boardSprint)

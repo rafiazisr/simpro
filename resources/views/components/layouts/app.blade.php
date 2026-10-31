@@ -27,7 +27,6 @@
     </div>
 </div>
 
-{{-- Toast flash (session "toast") --}}
 @if (session('toast'))
     <div class="toast-stack is-fixed" aria-live="polite">
         <div class="toast success" x-data="toast" x-show="show" x-transition.opacity>
@@ -38,7 +37,6 @@
     </div>
 @endif
 
-{{-- Dialog konfirmasi generik, dipanggil dengan $dispatch('confirm', {...}) --}}
 <div x-data="confirmDialog" @confirm.window="show($event)" @keydown.escape.window="open = false">
     <template x-if="open">
         <div>

@@ -28,7 +28,6 @@ class NotificationController extends Controller
         ]);
     }
 
-    /** Klik notifikasi: tandai dibaca lalu buka tujuannya. */
     public function open(Request $request, string $id): RedirectResponse
     {
         $notification = $request->user()->notifications()->findOrFail($id);
@@ -49,14 +48,6 @@ class NotificationController extends Controller
             : back()->with('toast', 'Semua notifikasi ditandai sudah dibaca.');
     }
 
-    /**
-     * Server-Sent Events (FR-40 s.d. FR-42). Mengirim notifikasi baru milik user.
-     *
-     * Di server web biasa (Apache/Nginx + PHP-FPM) koneksi ditahan beberapa detik
-     * dan dicek tiap 2 detik. Di `php artisan serve` (single thread, khususnya di
-     * Windows) koneksi langsung ditutup agar tidak memblokir request lain; browser
-     * otomatis menyambung ulang setiap 3 detik (retry), sehingga tetap real-time.
-     */
     public function stream(Request $request): StreamedResponse
     {
         $user = $request->user();
@@ -98,8 +89,6 @@ class NotificationController extends Controller
                 echo "event: unread\n";
                 echo 'data: '.$user->unreadNotifications()->count()."\n\n";
 
-                // Dorong data ke browser segera (output_buffering PHP bisa menahannya).
-                // Saat test, buffer dipakai untuk menangkap isi stream, jadi jangan di-flush.
                 if (! app()->runningUnitTests()) {
                     if (ob_get_level() > 0) {
                         ob_flush();

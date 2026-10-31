@@ -41,7 +41,6 @@
             </div>
         @else
             <div class="dash-grid">
-                {{-- Pie chart status (FR-51 / FR-53) --}}
                 <section class="card">
                     <div class="card-head">
                         <div>
@@ -83,7 +82,6 @@
                 </section>
             </div>
 
-            {{-- List backlog (FR-50 / FR-52) --}}
             <section class="card">
                 <div class="row between wrap" style="padding: 0 16px; border-bottom: 1px solid var(--border); gap: 12px">
                     <div class="tabs" style="border-bottom: 0; min-width: 0; max-width: 100%" x-show="!data.selected">

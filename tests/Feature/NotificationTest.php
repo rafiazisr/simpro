@@ -82,7 +82,6 @@ class NotificationTest extends TestCase
         $this->assertSame(1, $this->qa->notifications()->where('type', BacklogAssigned::class)->count());
         $this->assertStringContainsString('PHR-1 Integrasi login SSO', $this->prog->notifications()->first()->data['text']);
 
-        // Simpan ulang tanpa mengganti assignee: tidak ada notifikasi baru.
         $this->actingAs($this->pm)->put("/backlogs/{$b->code}", [
             'title' => 'Judul baru', 'sprint_id' => (string) $this->sprint->id, 'status_name' => 'To Do', 'priority' => 'high',
             'programmer_id' => (string) $this->prog->id, 'qa_id' => (string) $this->qa->id,
@@ -152,7 +151,6 @@ class NotificationTest extends TestCase
         $this->assertStringContainsString('PHR-1 Integrasi login SSO', $body);
         $this->assertStringContainsString("event: unread\ndata: 1", $body);
 
-        // Tanpa notifikasi baru sejak "since": hanya jumlah belum dibaca.
         $later = $this->actingAs($this->qa)->get('/notifications/stream?since='.urlencode(now()->addMinute()->toIso8601String()))->streamedContent();
         $this->assertStringNotContainsString('event: notification', $later);
     }

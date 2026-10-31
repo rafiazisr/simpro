@@ -6,10 +6,6 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 
-/**
- * Membersihkan HTML dari editor rich text (Trix) agar aman ditampilkan (cegah XSS).
- * Hanya tag format dasar yang dipertahankan; semua atribut dibuang kecuali href aman pada <a>.
- */
 class HtmlSanitizer
 {
     private const ALLOWED = [
@@ -17,7 +13,6 @@ class HtmlSanitizer
         'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'a',
     ];
 
-    /** Tag gambar yang diizinkan hanya untuk dokumentasi (upload lokal). */
     private const IMAGE_TAGS = ['figure', 'figcaption', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td'];
 
     private static bool $allowImages = false;
@@ -88,7 +83,6 @@ class HtmlSanitizer
                 }
 
                 if ($tag === 'img') {
-                    // Hanya gambar yang di-upload ke storage aplikasi sendiri.
                     if ($src !== null && self::isLocalUpload($src)) {
                         $child->setAttribute('src', $src);
                         $child->setAttribute('alt', '');
