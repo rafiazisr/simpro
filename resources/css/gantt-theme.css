@@ -39,8 +39,3 @@
 .gantt_tooltip { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; z-index: 35; }
 
 body:has(.backdrop.is-fixed) .gantt_tooltip { display: none !important; }
-
-.dark .app-gantt .gantt_task_line { background: color-mix(in srgb, var(--bar) 50%, #111827); }
-
-.dark .app-gantt .gantt_task_line.gantt_project { background: #334155; }
-.dark .app-gantt .gantt_task_line.gantt_project .gantt_task_progress { background: #94A3B8; }

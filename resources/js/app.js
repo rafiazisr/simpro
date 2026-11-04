@@ -261,35 +261,6 @@ function safeStorage(op, key, value) {
     }
 }
 
-function applyTheme(dark) {
-    const root = document.documentElement;
-    root.classList.toggle('dark', dark);
-    root.style.colorScheme = dark ? 'dark' : 'light';
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = dark ? '#111827' : '#FFFFFF';
-}
-
-Alpine.data('themeToggle', () => ({
-    dark: document.documentElement.classList.contains('dark'),
-    init() {
-        window.addEventListener('theme-changed', (e) => { this.dark = e.detail.dark; });
-    },
-    toggle() {
-        this.dark = !this.dark;
-        applyTheme(this.dark);
-        safeStorage('set', 'theme', this.dark ? 'dark' : 'light');
-        window.dispatchEvent(new CustomEvent('theme-changed', { detail: { dark: this.dark } }));
-    },
-}));
-
-// Tab lain mengganti tema: ikut berganti.
-window.addEventListener('storage', (e) => {
-    if (e.key !== 'theme' || !e.newValue) return;
-    const dark = e.newValue === 'dark';
-    applyTheme(dark);
-    window.dispatchEvent(new CustomEvent('theme-changed', { detail: { dark } }));
-});
-
 Alpine.store('matrix', { dirty: false });
 
 if (document.readyState === 'complete') {

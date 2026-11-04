@@ -1,5 +1,5 @@
 <x-layouts.guest title="Masuk">
-<div style="min-height: 100vh; padding: 32px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
+<div class="auth-bg" style="padding: 32px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
     <span class="wordmark" style="font-size: 22px">{{ config('app.name') }}</span>
 
     <div class="card auth-card" style="width: 100%; max-width: 380px; padding: 28px">

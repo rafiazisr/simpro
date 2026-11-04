@@ -1,5 +1,5 @@
 @php
-    $styleColors = ['todo' => '#94A3B8', 'progress' => '#3B82F6', 'readyqa' => '#F59E0B', 'testing' => '#8B5CF6', 'done' => '#22C55E', 'reopen' => '#EF4444', 'custom' => '#CBD5E1'];
+    $styleColors = ['todo' => '#94A3B8', 'progress' => '#0EA5E9', 'readyqa' => '#F59E0B', 'testing' => '#8B5CF6', 'done' => '#22C55E', 'reopen' => '#EF4444', 'custom' => '#CBD5E1'];
     $filterUrl = fn ($s) => route('projects.sprints.index', [$project, 'status' => $s]);
 @endphp
 <x-layouts.app :title="'Sprint · '.$project->name" :crumbs="['Project' => route('projects.index'), $project->name => route('projects.show', $project), 'Sprint']">

@@ -30,8 +30,6 @@
         </label>
     </form>
 
-    <x-theme-toggle />
-
     @php
         $bell = [
             'items' => $user->notifications()->limit(8)->get()->map(fn ($n) => \App\Support\NotificationPresenter::present($n))->values(),

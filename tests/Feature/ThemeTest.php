@@ -16,18 +16,21 @@ class ThemeTest extends TestCase
         $this->seedRoles();
     }
 
-    public function test_halaman_login_punya_tombol_tema_dan_skrip_tema(): void
+    public function test_halaman_login_memakai_tema_teal_tanpa_tombol_tema(): void
     {
         $this->get('/login')->assertOk()
-            ->assertSee('theme-toggle', false)
-            ->assertSee("localStorage.getItem('theme')", false)
-            ->assertSee('rel="icon"', false);
+            ->assertSee('<meta name="theme-color" content="#0F4C47">', false)
+            ->assertSee('auth-bg', false)
+            ->assertSee('rel="icon"', false)
+            ->assertDontSee('theme-toggle', false)
+            ->assertDontSee("localStorage.getItem('theme')", false);
     }
 
-    public function test_halaman_aplikasi_punya_tombol_tema_di_topbar(): void
+    public function test_halaman_aplikasi_tidak_punya_tombol_mode_gelap(): void
     {
         $this->actingAs(User::factory()->create())->get('/dashboard')->assertOk()
-            ->assertSee('x-data="themeToggle"', false)
-            ->assertSee('Ganti ke mode gelap', false);
+            ->assertSee('<meta name="theme-color" content="#0F4C47">', false)
+            ->assertDontSee('themeToggle', false)
+            ->assertDontSee('Ganti ke mode gelap', false);
     }
 }
