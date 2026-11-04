@@ -293,3 +293,26 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 .auth-bg { min-height: 100vh; background: radial-gradient(1200px 600px at 10% -10%, #14B8A6 0%, transparent 60%), radial-gradient(900px 500px at 110% 110%, #0F766E 0%, transparent 55%), linear-gradient(160deg, #0F4C47 0%, #0B3B37 100%); }
 .auth-bg .wordmark { color: #FFFFFF; }
 .auth-bg .auth-card { box-shadow: 0 24px 60px rgba(2, 30, 28, .35); border: 0; }
+
+/* ---------- Latar halaman: gradasi ke hijau teal ---------- */
+:root { --page-grad: linear-gradient(160deg, #E4F5F1 0%, #C4EAE2 35%, #93D6CA 70%, #62C0B0 100%); }
+html, body.pt, .app, .app-main { background: transparent; }
+html { background: #C4EAE2; }
+/* Lapisan fixed: tetap menutup layar saat scroll, juga di Safari iOS */
+body.pt::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page-grad); pointer-events: none; }
+.topbar { background: rgba(255, 255, 255, .72); backdrop-filter: saturate(160%) blur(10px); -webkit-backdrop-filter: saturate(160%) blur(10px); border-bottom-color: rgba(13, 148, 136, .18); }
+.topbar .search { background: rgba(255, 255, 255, .85); }
+
+/* Kartu tampil jelas di atas gradasi */
+.content .card { border-color: rgba(13, 148, 136, .14); box-shadow: 0 1px 2px rgba(4, 47, 46, .05), 0 8px 24px rgba(4, 47, 46, .06); }
+.content .card.empty { box-shadow: none; }
+
+/* Semua blok .section di area konten jadi panel putih di atas gradasi */
+.content .section { background: var(--surface); border: 1px solid rgba(13, 148, 136, .14) !important; border-radius: var(--radius); padding: 16px 18px !important; box-shadow: 0 1px 2px rgba(4, 47, 46, .05), 0 8px 24px rgba(4, 47, 46, .06); }
+.content .col > .section + .section, .content .col > .section + * > .section:first-child { margin-top: 12px; }
+.content aside.col > * + * { margin-top: 12px; }
+@media (max-width: 760px) {
+    .content .section { padding: 14px !important; }
+    .dash-grid .legend { flex: 1 1 100%; }
+    .dash-grid .row.wrap:has(> .legend) { justify-content: center; }
+}
