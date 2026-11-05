@@ -6,26 +6,28 @@
 @endphp
 <x-layouts.app title="Dashboard" :crumbs="['Dashboard']">
     <div class="col" style="gap: 20px" x-data="dashboardPage(@js($cfg))">
-        <div class="page-head">
-            <div>
-                <h1 class="t-24">{{ $isAdmin ? 'Dashboard' : 'Backlog Saya' }}</h1>
-            </div>
-            @if ($projects->isNotEmpty())
-                <div class="row m-full">
-                    <label class="t-12 muted" for="dash-project">Project</label>
-                    <select id="dash-project" class="select" style="width: 260px; flex: 1 1 auto; min-width: 0" x-model.number="projectId" @change="load(true)">
-                        @foreach ($projects as $p)
-                            <option value="{{ $p->id }}">{{ $p->name }} ({{ $p->code }})</option>
-                        @endforeach
-                    </select>
+        <div class="col hero" style="gap: 16px">
+            <div class="page-head">
+                <div>
+                    <h1 class="t-24">{{ $isAdmin ? 'Dashboard' : 'Backlog Saya' }}</h1>
                 </div>
-            @endif
-        </div>
+                @if ($projects->isNotEmpty())
+                    <div class="row m-full">
+                        <label class="t-12 muted" for="dash-project">Project</label>
+                        <select id="dash-project" class="select" style="width: 260px; flex: 1 1 auto; min-width: 0" x-model.number="projectId" @change="load(true)">
+                            @foreach ($projects as $p)
+                                <option value="{{ $p->id }}">{{ $p->name }} ({{ $p->code }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
+            </div>
 
-        <div class="summary">
-            @foreach ($stats as $s)
-                <span @class(['late' => ! empty($s['danger'])])><b>{{ $s['value'] }}</b> {{ $s['label'] }}</span>
-            @endforeach
+            <div class="summary">
+                @foreach ($stats as $s)
+                    <span @class(['late' => ! empty($s['danger'])])><b>{{ $s['value'] }}</b> {{ $s['label'] }}</span>
+                @endforeach
+            </div>
         </div>
 
         @if (! $project)

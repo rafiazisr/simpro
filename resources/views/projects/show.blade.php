@@ -5,14 +5,14 @@
     $notDone = $stats['total'] - $stats['done'];
 @endphp
 <x-layouts.app :title="$project->name" :crumbs="['Project' => route('projects.index'), $project->name => route('projects.show', $project), 'Ringkasan']">
-    <x-project-header :project="$project" tab="ringkasan" />
-
-    <div class="summary">
-        <span><b>{{ $stats['total'] }}</b> backlog</span>
-        <span><b>{{ $stats['done'] }}</b> selesai</span>
-        <span><b>{{ $stats['ready_for_qa'] }}</b> menunggu QA</span>
-        <span @class(['late' => $stats['late']])><b>{{ $stats['late'] }}</b> terlambat</span>
-    </div>
+    <x-project-header :project="$project" tab="ringkasan">
+        <div class="summary">
+            <span><b>{{ $stats['total'] }}</b> backlog</span>
+            <span><b>{{ $stats['done'] }}</b> selesai</span>
+            <span><b>{{ $stats['ready_for_qa'] }}</b> menunggu QA</span>
+            <span @class(['late' => $stats['late']])><b>{{ $stats['late'] }}</b> terlambat</span>
+        </div>
+    </x-project-header>
 
     <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start">
         <div class="col" style="flex: 999 1 620px; min-width: 0">
