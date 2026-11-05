@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Notifications\ProjectAssigned;
 use App\Support\HtmlSanitizer;
 use App\Support\ProjectRoles;
+use App\Support\StatHints;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -99,8 +100,18 @@ class ProjectController extends Controller
         $total = $byStatus->sum('count');
         $done = $byStatus->filter(fn ($r) => $r['status']->category === StatusCategory::Done)->sum('count');
 
+        $readyQa = $project->backlogs()->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa))->getQuery();
+        $late = $project->backlogs()->notDone()->whereDate('end_date', '<', today())->getQuery();
+        $strip = [
+            ['label' => 'backlog', 'value' => $total, 'hint' => $total ? ($total - $done).' aktif' : null],
+            ['label' => 'selesai', 'value' => $done, 'hint' => $total ? round($done / $total * 100).'% dari total' : null],
+            ['label' => 'menunggu QA', 'value' => (clone $readyQa)->count(), ...StatHints::codes($readyQa)],
+            ['label' => 'terlambat', 'value' => (clone $late)->count(), 'alert' => true, ...StatHints::oldestLate($late)],
+        ];
+
         return view('projects.show', [
             'project' => $project,
+            'strip' => $strip,
             'tab' => 'ringkasan',
             'byStatus' => $byStatus,
             'stats' => [

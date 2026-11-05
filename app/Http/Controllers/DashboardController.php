@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Priority;
 use App\Enums\ProjectStatus;
 use App\Enums\StatusCategory;
 use App\Models\Backlog;
@@ -9,6 +10,7 @@ use App\Models\BacklogActivity;
 use App\Models\Project;
 use App\Models\Status;
 use App\Models\User;
+use App\Support\StatHints;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -119,24 +121,37 @@ class DashboardController extends Controller
     {
         $ids = $projects->pluck('id');
         $base = fn () => Backlog::query()->whereIn('project_id', $ids);
+        $active = $projects->where('status', ProjectStatus::Active)->count();
+        $total = $base()->count();
+        $done = $base()->whereHas('status', fn ($q) => $q->where('category', StatusCategory::Done))->count();
+        $readyQa = $base()->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa));
+        $late = $base()->notDone()->whereDate('end_date', '<', today());
 
         return [
-            ['label' => 'project aktif', 'value' => $projects->where('status', ProjectStatus::Active)->count(), 'icon' => 'folder', 'tone' => 'primary', 'hint' => 'dari '.$projects->count().' project'],
-            ['label' => 'backlog', 'value' => $base()->count(), 'icon' => 'list', 'tone' => 'blue', 'hint' => 'di semua project'],
-            ['label' => 'siap dites', 'value' => $base()->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa))->count(), 'icon' => 'check', 'tone' => 'amber', 'hint' => 'menunggu QA'],
-            ['label' => 'terlambat', 'value' => $late = $base()->notDone()->whereDate('end_date', '<', today())->count(), 'icon' => 'alert-triangle', 'danger' => $late > 0, 'tone' => $late > 0 ? 'red' : 'neutral', 'hint' => 'lewat tanggal selesai'],
+            ['label' => 'project aktif', 'value' => $active,
+                'hint' => $projects->count() > $active ? 'dari '.$projects->count().' project' : null],
+            ['label' => 'backlog', 'value' => $total,
+                'hint' => $total ? ($total - $done).' aktif · '.$done.' selesai' : null],
+            ['label' => 'siap dites', 'value' => (clone $readyQa)->count(), ...StatHints::codes($readyQa)],
+            ['label' => 'terlambat', 'value' => (clone $late)->count(), 'alert' => true, ...StatHints::oldestLate($late)],
         ];
     }
 
     private function userStats(User $user): array
     {
         $mine = fn () => Backlog::query()->assignedTo($user);
+        $activeCount = $mine()->notDone()->count();
+        $urgent = $mine()->notDone()->whereIn('priority', [Priority::High, Priority::Critical])->count();
+        $inQa = Backlog::where('programmer_id', $user->id)->whereHas('status', fn ($q) => $q->whereIn('category', self::TAB_CATEGORIES['qa']));
+        $toTest = Backlog::where('qa_id', $user->id)->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa));
+        $late = $mine()->notDone()->whereDate('end_date', '<', today());
 
         return [
-            ['label' => 'tugas aktif', 'value' => $mine()->notDone()->count(), 'icon' => 'list', 'tone' => 'blue', 'hint' => 'belum selesai'],
-            ['label' => 'sedang dites QA', 'value' => Backlog::where('programmer_id', $user->id)->whereHas('status', fn ($q) => $q->whereIn('category', self::TAB_CATEGORIES['qa']))->count(), 'icon' => 'send', 'tone' => 'violet', 'hint' => 'hasil kerja Anda'],
-            ['label' => 'perlu Anda tes', 'value' => Backlog::where('qa_id', $user->id)->whereHas('status', fn ($q) => $q->where('category', StatusCategory::ReadyForQa))->count(), 'icon' => 'check', 'tone' => 'amber', 'hint' => 'menunggu Anda'],
-            ['label' => 'selesai minggu ini', 'value' => $mine()->where('completed_at', '>=', now()->startOfWeek())->count(), 'icon' => 'zap', 'tone' => 'green', 'hint' => 'sejak Senin'],
+            ['label' => 'tugas aktif', 'value' => $activeCount,
+                'hint' => $urgent ? $urgent.' prioritas tinggi' : null],
+            ['label' => 'sedang dites QA', 'value' => (clone $inQa)->count(), ...StatHints::codes($inQa)],
+            ['label' => 'perlu Anda tes', 'value' => (clone $toTest)->count(), ...StatHints::codes($toTest)],
+            ['label' => 'terlambat', 'value' => (clone $late)->count(), 'alert' => true, ...StatHints::oldestLate($late)],
         ];
     }
 }
