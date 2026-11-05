@@ -27,6 +27,16 @@
     </div>
 </div>
 
+@if (session('toast_warn'))
+    <div class="toast-stack is-fixed" aria-live="polite">
+        <div class="toast warn" x-data="toast" x-show="show" x-transition.opacity>
+            <span class="t-ico"><x-icon name="alert-triangle" size="sm" /></span>
+            <div class="grow">{{ session('toast_warn') }}</div>
+            <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Tutup" @click="show = false"><x-icon name="x" size="sm" /></button>
+        </div>
+    </div>
+@endif
+
 @if (session('toast'))
     <div class="toast-stack is-fixed" aria-live="polite">
         <div class="toast success" x-data="toast" x-show="show" x-transition.opacity>

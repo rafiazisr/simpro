@@ -3,12 +3,23 @@
     <span class="wordmark" style="font-size: 22px">{{ config('app.name') }}</span>
 
     <div class="card auth-card" style="width: 100%; max-width: 380px; padding: 28px">
-        <form class="col" method="POST" action="{{ route('login.store') }}" style="gap: 18px" novalidate>
+        <form class="col" method="POST" action="{{ route('login.store') }}" style="gap: 18px" novalidate
+              x-data="{ sending: false }" @submit="if (sending) { $event.preventDefault() } sending = true">
             @csrf
             <div class="col" style="gap: 6px">
                 <h1 class="t-20">Masuk</h1>
                 <p class="muted">Gunakan email kantor Anda.</p>
             </div>
+
+            @if (session('session_expired'))
+                <div class="alert alert-warn" role="status">
+                    <x-icon name="alert-triangle" style="margin-top: 2px" />
+                    <div>
+                        <div class="fw-600">Halaman login sudah kedaluwarsa</div>
+                        <div class="t-12">Halaman ini terlalu lama terbuka atau Anda baru keluar di tab lain. Silakan masuk lagi.</div>
+                    </div>
+                </div>
+            @endif
 
             @if (session('status'))
                 <div class="alert alert-info" role="status"><x-icon name="check" style="margin-top: 2px" /><div>{{ session('status') }}</div></div>
@@ -62,7 +73,7 @@
 
             <label class="check"><input type="checkbox" name="remember" value="1" @checked(old('remember'))>Ingat saya</label>
 
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Masuk</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" :disabled="sending" x-text="sending ? 'Memproses…' : 'Masuk'">Masuk</button>
             <p class="t-12 muted" style="text-align: center">Lupa password? Hubungi Admin.</p>
         </form>
     </div>
