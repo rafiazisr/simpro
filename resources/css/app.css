@@ -288,29 +288,62 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 .sidebar .btn-ghost:hover { background: var(--side-hover); color: #FFFFFF; }
 .app-side { scrollbar-color: rgba(255, 255, 255, .2) transparent; }
 
-.topbar { border-bottom: 1px solid var(--border); box-shadow: inset 0 3px 0 var(--primary); }
+
 
 .auth-bg { min-height: 100vh; background: radial-gradient(1200px 600px at 10% -10%, #14B8A6 0%, transparent 60%), radial-gradient(900px 500px at 110% 110%, #0F766E 0%, transparent 55%), linear-gradient(160deg, #0F4C47 0%, #0B3B37 100%); }
 .auth-bg .wordmark { color: #FFFFFF; }
 .auth-bg .auth-card { box-shadow: 0 24px 60px rgba(2, 30, 28, .35); border: 0; }
 
-/* ---------- Latar halaman: gradasi ke hijau teal ---------- */
-:root { --page-grad: linear-gradient(160deg, #E4F5F1 0%, #C4EAE2 35%, #93D6CA 70%, #62C0B0 100%); }
-html, body.pt, .app, .app-main { background: transparent; }
-html { background: #C4EAE2; }
-/* Lapisan fixed: tetap menutup layar saat scroll, juga di Safari iOS */
-body.pt::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page-grad); pointer-events: none; }
-.topbar { background: rgba(255, 255, 255, .72); backdrop-filter: saturate(160%) blur(10px); -webkit-backdrop-filter: saturate(160%) blur(10px); border-bottom-color: rgba(13, 148, 136, .18); }
-.topbar .search { background: rgba(255, 255, 255, .85); }
+/* ---------- Latar halaman: teal solid, dibedakan dari sidebar ---------- */
+/* Sidebar = teal paling gelap, topbar = teal sedang, halaman = teal lebih terang */
+:root { --page-bg: #0F766E; --top-bg: #0C635C; }
+html { background: var(--page-bg); }
+.app-main { background: var(--page-bg); }
+.app-side { box-shadow: 1px 0 0 rgba(255, 255, 255, .06), 6px 0 24px rgba(2, 30, 28, .28); position: relative; z-index: 5; }
+.topbar { background: var(--top-bg); border-bottom: 1px solid rgba(255, 255, 255, .1); box-shadow: 0 2px 12px rgba(2, 30, 28, .18); backdrop-filter: none; -webkit-backdrop-filter: none; }
 
-/* Kartu tampil jelas di atas gradasi */
-.content .card { border-color: rgba(13, 148, 136, .14); box-shadow: 0 1px 2px rgba(4, 47, 46, .05), 0 8px 24px rgba(4, 47, 46, .06); }
-.content .card.empty { box-shadow: none; }
+/* Teks & garis yang langsung berada di latar teal menjadi terang */
+.app-main {
+  --text: #FFFFFF; --text-2: #E2F7F3; --text-3: #C2EDE5;
+  --border: rgba(255, 255, 255, .2); --border-strong: rgba(255, 255, 255, .34);
+  --bg: rgba(255, 255, 255, .08); --surface-2: rgba(255, 255, 255, .12); --surface-3: rgba(255, 255, 255, .2);
+  --primary: #5EEAD4; --primary-hover: #99F6E4; --primary-soft: rgba(94, 234, 212, .18); --primary-text: #CCFBF1; --ring: rgba(94, 234, 212, .45);
+  --danger-text: #FECACA; --warning-text: #FDE68A;
+  --p-low: #CBD5E1; --p-medium: #99F6E4; --p-high: #FDBA74; --p-critical: #FCA5A5;
+  color: var(--text);
+}
 
-/* Semua blok .section di area konten jadi panel putih di atas gradasi */
-.content .section { background: var(--surface); border: 1px solid rgba(13, 148, 136, .14) !important; border-radius: var(--radius); padding: 16px 18px !important; box-shadow: 0 1px 2px rgba(4, 47, 46, .05), 0 8px 24px rgba(4, 47, 46, .06); }
+/* Di dalam permukaan putih, warna dikembalikan ke versi gelap */
+.app-main :is(.card, .section, .modal, .drawer, .popover, .kcard, .editor, .alert, .seg, .input, .select, .textarea, .fake-input,
+  .btn-secondary, .btn-danger-outline, .filter-btn, .badge-outline, .kbd, .pg, .sw-tile, .ds-cell, .app-gantt, .search,
+  trix-toolbar, trix-editor, .table-wrap, .matrix) {
+  --text: #0B2E2B; --text-2: #2C4D49; --text-3: #5B7A75;
+  --border: #D3E7E2; --border-strong: #AFD3CB;
+  --bg: #EFF8F6; --surface-2: #E5F3F0; --surface-3: #CFE8E3;
+  --primary: #0D9488; --primary-hover: #0F766E; --primary-soft: #DDF3EF; --primary-text: #115E59; --ring: rgba(13, 148, 136, .28);
+  --danger-text: #B91C1C; --warning-text: #B45309;
+  --p-low: #64748B; --p-medium: #0D9488; --p-high: #EA580C; --p-critical: #DC2626;
+}
+.app-main :is(.input, .select, .textarea, .fake-input, .search) { color: var(--text); }
+/* Wadah putih menetapkan ulang warna teks (warna putih dari latar ikut terwariskan) */
+.app-main :is(.card, .section, .modal, .drawer, .popover, .kcard, .editor, .table-wrap, .matrix, .app-gantt) { color: var(--text); }
+
+/* Tombol utama di latar teal: putih dengan teks teal agar kontras */
+.app-main .btn-primary { background: #FFFFFF; color: #0F766E; box-shadow: 0 1px 2px rgba(2, 30, 28, .2); }
+.app-main .btn-primary:hover { background: #E6FFFA; }
+.app-main :is(.card, .section, .modal, .drawer, .popover) .btn-primary { background: var(--primary); color: #FFFFFF; box-shadow: none; }
+.app-main :is(.card, .section, .modal, .drawer, .popover) .btn-primary:hover { background: var(--primary-hover); }
+.app-main .btn-ghost:hover { color: #FFFFFF; }
+.app-main :is(.card, .section, .modal, .drawer, .popover) .btn-ghost:hover { color: var(--text); }
+
+/* Kartu dan panel */
+.content .card { border-color: transparent; box-shadow: 0 1px 2px rgba(2, 30, 28, .12), 0 10px 28px rgba(2, 30, 28, .14); }
+.content .card.empty { background: var(--surface); }
+.content .section { background: var(--surface); border: 0 !important; border-radius: var(--radius); padding: 16px 18px !important; box-shadow: 0 1px 2px rgba(2, 30, 28, .12), 0 10px 28px rgba(2, 30, 28, .14); }
 .content .col > .section + .section, .content .col > .section + * > .section:first-child { margin-top: 12px; }
 .content aside.col > * + * { margin-top: 12px; }
+/* Kotak warna legend Gantt diberi garis tepi agar terlihat di latar teal */
+.gantt-legend > span > span:first-child { box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .75); }
 @media (max-width: 760px) {
     .content .section { padding: 14px !important; }
     .dash-grid .legend { flex: 1 1 100%; }
