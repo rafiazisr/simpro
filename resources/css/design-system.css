@@ -1,10 +1,10 @@
 
 :root{
   /* Tema tunggal: hijau teal */
-  --bg:#EFF8F6;--surface:#FFFFFF;--surface-2:#E5F3F0;--surface-3:#CFE8E3;
-  --border:#D3E7E2;--border-strong:#AFD3CB;
-  --text:#0B2E2B;--text-2:#2C4D49;--text-3:#5B7A75;--text-inv:#FFFFFF;
-  --primary:#0D9488;--primary-hover:#0F766E;--primary-soft:#DDF3EF;--primary-text:#115E59;--ring:rgba(13,148,136,.28);
+  --bg:#F4F6F5;--surface:#FFFFFF;--surface-2:#EEF2F1;--surface-3:#E1E7E5;
+  --border:#E1E6E4;--border-strong:#C9D2CF;
+  --text:#121A19;--text-2:#3A4644;--text-3:#687573;--text-inv:#FFFFFF;
+  --primary:#0D9488;--primary-hover:#0F766E;--primary-soft:#E6F4F1;--primary-text:#0F766E;--ring:rgba(13,148,136,.28);
   --font:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;
   --danger:#DC2626;--danger-hover:#B91C1C;--danger-soft:#FEF2F2;--danger-text:#B91C1C;
   --success:#16A34A;--success-soft:#F0FDF4;--warning-soft:#FFFBEB;--warning-text:#B45309;
@@ -13,8 +13,8 @@
   --shadow-md:0 4px 12px rgba(4,47,46,.08),0 1px 3px rgba(4,47,46,.06);
   --shadow-lg:0 16px 40px rgba(4,47,46,.16);
   /* sidebar */
-  --side-bg:#0F4C47;--side-bg-2:#0B3B37;--side-text:#C6E7E1;--side-text-dim:#7FB5AC;
-  --side-hover:rgba(255,255,255,.07);--side-active:rgba(94,234,212,.16);--side-active-text:#FFFFFF;--side-accent:#5EEAD4;
+  --side-bg:#0F3F3B;--side-bg-2:#0F3F3B;--side-text:#C9E0DC;--side-text-dim:#86A9A3;
+  --side-hover:rgba(255,255,255,.06);--side-active:rgba(255,255,255,.1);--side-active-text:#FFFFFF;--side-accent:#2DD4BF;
   /* status */
   --s-todo:#94A3B8;--s-progress:#0EA5E9;--s-readyqa:#F59E0B;--s-testing:#8B5CF6;--s-done:#22C55E;--s-reopen:#EF4444;
   --st-todo-bg:#EEF2F4;--st-todo-tx:#475569;

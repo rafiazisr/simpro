@@ -271,8 +271,8 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
     .stat .num { font-size: 20px; line-height: 28px; }
 }
 
-/* ---------- Tema teal: sidebar gelap, topbar beraksen, halaman login ---------- */
-.app-side { background: linear-gradient(180deg, var(--side-bg) 0%, var(--side-bg-2) 100%); border-right: 0; }
+/* ---------- Tema: sidebar teal gelap sebagai identitas, area kerja netral ---------- */
+.app-side { background: var(--side-bg); border-right: 0; scrollbar-color: rgba(255, 255, 255, .2) transparent; }
 .sidebar { background: transparent; }
 .sidebar .wordmark { color: #FFFFFF; }
 .sidebar .nav-group { color: var(--side-text-dim); }
@@ -282,36 +282,22 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 .sidebar .nav-item:hover .ico { color: #FFFFFF; }
 .sidebar .nav-item.active { background: var(--side-active); color: var(--side-active-text); }
 .sidebar .nav-item.active .ico { color: var(--side-accent); }
-.sidebar .nav-item.active::before { content: ""; position: absolute; left: -12px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: var(--side-accent); }
+.sidebar .nav-item.active::before { content: ""; position: absolute; left: -12px; top: 9px; bottom: 9px; width: 3px; border-radius: 0 2px 2px 0; background: var(--side-accent); }
 .sidebar .nav-item .count { color: var(--side-text-dim); }
 .sidebar .btn-ghost { color: var(--side-text); }
 .sidebar .btn-ghost:hover { background: var(--side-hover); color: #FFFFFF; }
-.app-side { scrollbar-color: rgba(255, 255, 255, .2) transparent; }
 
-.topbar { border-bottom: 1px solid var(--border); box-shadow: inset 0 3px 0 var(--primary); }
+/* Topbar solid, tanpa efek */
+.topbar { background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: none; }
 
-.auth-bg { min-height: 100vh; background: radial-gradient(1200px 600px at 10% -10%, #14B8A6 0%, transparent 60%), radial-gradient(900px 500px at 110% 110%, #0F766E 0%, transparent 55%), linear-gradient(160deg, #0F4C47 0%, #0B3B37 100%); }
+/* Login: latar teal gelap polos */
+.auth-bg { min-height: 100vh; background: var(--side-bg); }
 .auth-bg .wordmark { color: #FFFFFF; }
-.auth-bg .auth-card { box-shadow: 0 24px 60px rgba(2, 30, 28, .35); border: 0; }
+.auth-bg .auth-card { border: 0; box-shadow: var(--shadow-lg); }
 
-/* ---------- Latar halaman: gradasi ke hijau teal ---------- */
-:root { --page-grad: linear-gradient(160deg, #A9DED4 0%, #84CDBF 35%, #57B7A7 70%, #2F9C8D 100%); }
-html, body.pt, .app, .app-main { background: transparent; }
-html { background: #84CDBF; }
-/* Teks abu-abu yang langsung di latar dipertegas; di dalam kartu tetap seperti biasa */
-.content { --text-3: #24504A; --text-2: #163F3A; }
-.content :is(.card, .section, .modal, .drawer, .popover, .input, .select, .textarea, .fake-input, .seg, .app-gantt, .btn-secondary, .alert) { --text-3: #5B7A75; --text-2: #2C4D49; }
-/* Lapisan fixed: tetap menutup layar saat scroll, juga di Safari iOS */
-body.pt::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page-grad); pointer-events: none; }
-.topbar { background: rgba(255, 255, 255, .72); backdrop-filter: saturate(160%) blur(10px); -webkit-backdrop-filter: saturate(160%) blur(10px); border-bottom-color: rgba(13, 148, 136, .18); }
-.topbar .search { background: rgba(255, 255, 255, .85); }
-
-/* Kartu tampil jelas di atas gradasi */
-.content .card { border-color: rgba(13, 148, 136, .14); box-shadow: 0 1px 2px rgba(4, 47, 46, .05), 0 8px 24px rgba(4, 47, 46, .06); }
-.content .card.empty { box-shadow: none; }
-
-/* Semua blok .section di area konten jadi panel putih di atas gradasi */
-.content .section { background: var(--surface); border: 1px solid rgba(13, 148, 136, .14) !important; border-radius: var(--radius); padding: 16px 18px !important; box-shadow: 0 1px 2px rgba(4, 47, 46, .05), 0 8px 24px rgba(4, 47, 46, .06); }
+/* Kartu & panel: garis tepi tipis, tanpa bayangan besar */
+.content .card { border: 1px solid var(--border); box-shadow: none; }
+.content .section { background: var(--surface); border: 1px solid var(--border) !important; border-radius: var(--radius); padding: 16px 18px !important; box-shadow: none; }
 .content .col > .section + .section, .content .col > .section + * > .section:first-child { margin-top: 12px; }
 .content aside.col > * + * { margin-top: 12px; }
 @media (max-width: 760px) {
