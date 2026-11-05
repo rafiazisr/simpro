@@ -48,8 +48,14 @@ class NotificationController extends Controller
             : back()->with('toast', 'Semua notifikasi ditandai sudah dibaca.');
     }
 
-    public function stream(Request $request): StreamedResponse
+    public function stream(Request $request): StreamedResponse|RedirectResponse
     {
+        // Dibuka langsung sebagai halaman (address bar / refresh), bukan oleh EventSource:
+        // arahkan ke dashboard daripada menampilkan isi stream mentah.
+        if (! str_contains((string) $request->header('Accept'), 'text/event-stream')) {
+            return redirect()->route('dashboard');
+        }
+
         $user = $request->user();
         $since = $request->header('Last-Event-ID') ?: $request->query('since');
 

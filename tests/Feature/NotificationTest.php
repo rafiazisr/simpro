@@ -141,7 +141,7 @@ class NotificationTest extends TestCase
         $since = now()->subMinute()->toIso8601String();
         $this->createBacklog();
 
-        $res = $this->actingAs($this->qa)->get('/notifications/stream?since='.urlencode($since));
+        $res = $this->actingAs($this->qa)->get('/notifications/stream?since='.urlencode($since), ['Accept' => 'text/event-stream']);
         $res->assertOk();
         $this->assertStringStartsWith('text/event-stream', $res->headers->get('Content-Type'));
 
@@ -151,7 +151,7 @@ class NotificationTest extends TestCase
         $this->assertStringContainsString('PHR-1 Integrasi login SSO', $body);
         $this->assertStringContainsString("event: unread\ndata: 1", $body);
 
-        $later = $this->actingAs($this->qa)->get('/notifications/stream?since='.urlencode(now()->addMinute()->toIso8601String()))->streamedContent();
+        $later = $this->actingAs($this->qa)->get('/notifications/stream?since='.urlencode(now()->addMinute()->toIso8601String()), ['Accept' => 'text/event-stream'])->streamedContent();
         $this->assertStringNotContainsString('event: notification', $later);
     }
 }

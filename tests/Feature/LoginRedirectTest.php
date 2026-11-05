@@ -59,4 +59,11 @@ class LoginRedirectTest extends TestCase
 
         $this->login($user)->assertRedirect(url('/notifications'));
     }
+
+    public function test_stream_dibuka_langsung_di_browser_diarahkan_ke_dashboard(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->get('/notifications/stream?since=x', ['Accept' => 'text/html,application/xhtml+xml'])
+            ->assertRedirect(route('dashboard'));
+    }
 }
