@@ -135,6 +135,14 @@ Alpine.data('notificationBell', (cfg) => ({
 
         source.addEventListener('notification', (e) => this.receive(JSON.parse(e.data)));
         source.addEventListener('unread', (e) => { this.unread = parseInt(e.data, 10) || 0; });
+
+        // Koneksi ditolak (mis. session habis -> 401): browser tidak menyambung ulang
+        // sendiri. Coba lagi tiap 30 detik agar pulih setelah login ulang di tab lain.
+        source.addEventListener('error', () => {
+            if (source.readyState !== EventSource.CLOSED) return;
+            clearTimeout(this._retry);
+            this._retry = setTimeout(() => this.connect(), 30000);
+        });
     },
 
     receive(n) {

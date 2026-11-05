@@ -27,6 +27,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(fn () => route('dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        // Endpoint latar belakang (SSE notifikasi) bukan halaman: tamu cukup dapat 401.
+        // Tanpa ini, Laravel mengarahkan ke login DAN mencatat URL stream sebagai tujuan,
+        // sehingga setelah login pengguna malah dibawa ke /notifications/stream.
+        $exceptions->shouldRenderJsonWhen(fn (Request $request) => $request->expectsJson()
+            || $request->routeIs('notifications.stream')
+            || str_contains((string) $request->header('Accept'), 'text/event-stream'));
+
         // 419: token CSRF tidak cocok (halaman terlalu lama terbuka, atau session
         // berganti karena login/logout di tab lain). Daripada menampilkan halaman
         // "Page Expired", arahkan pengguna kembali dengan pesan yang jelas.
