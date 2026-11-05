@@ -88,7 +88,7 @@
 
         <div class="row wrap t-12 muted" style="gap: 16px">
             <span class="row" style="gap: 6px"><span style="width: 14px; height: 8px; border-radius: 2px; background: #94A3B8"></span>Planned</span>
-            <span class="row" style="gap: 6px"><span style="width: 14px; height: 8px; border-radius: 2px; background: #0D9488"></span>Active</span>
+            <span class="row" style="gap: 6px"><span style="width: 14px; height: 8px; border-radius: 2px; background: #E2560B"></span>Active</span>
             <span class="row" style="gap: 6px"><span style="width: 14px; height: 8px; border-radius: 2px; background: #22C55E"></span>Done</span>
             <span class="row" style="gap: 6px"><span style="width: 2px; height: 12px; background: #EF4444"></span>Hari ini</span>
         </div>

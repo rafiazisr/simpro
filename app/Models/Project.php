@@ -16,7 +16,7 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public const COLORS = ['#0D9488', '#0284C7', '#D97706', '#16A34A', '#7C3AED', '#DB2777', '#EA580C', '#0891B2'];
+    public const COLORS = ['#E2560B', '#0284C7', '#16A34A', '#7C3AED', '#DB2777', '#0D9488', '#CA8A04', '#475569'];
 
     protected $fillable = [
         'code', 'name', 'description', 'start_date', 'end_date', 'status', 'color', 'done_at', 'created_by',

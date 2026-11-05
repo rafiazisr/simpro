@@ -7,17 +7,17 @@
 <x-layouts.app :title="$project->name" :crumbs="['Project' => route('projects.index'), $project->name => route('projects.show', $project), 'Ringkasan']">
     <x-project-header :project="$project" tab="ringkasan" />
 
-    <div class="summary">
-        <span><b>{{ $stats['total'] }}</b> backlog</span>
-        <span><b>{{ $stats['done'] }}</b> selesai</span>
-        <span><b>{{ $stats['ready_for_qa'] }}</b> menunggu QA</span>
-        <span @class(['late' => $stats['late']])><b>{{ $stats['late'] }}</b> terlambat</span>
+    <div class="kpi-grid">
+        <x-stat-card icon="list" :value="$stats['total']" label="backlog" hint="di project ini" tone="blue" />
+        <x-stat-card icon="check" :value="$stats['done']" label="selesai" :hint="($stats['total'] ? round($stats['done'] / $stats['total'] * 100) : 0).'% dari total'" tone="green" />
+        <x-stat-card icon="send" :value="$stats['ready_for_qa']" label="menunggu QA" hint="siap dites" tone="amber" />
+        <x-stat-card icon="alert-triangle" :value="$stats['late']" label="terlambat" hint="lewat tanggal selesai" :tone="$stats['late'] ? 'red' : 'neutral'" />
     </div>
 
     <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start">
         <div class="col" style="flex: 999 1 620px; min-width: 0">
             <section class="section">
-                <div class="section-head"><h2 class="section-title">Backlog per status</h2></div>
+                <div class="section-head"><h2 class="section-title"><span class="sec-ico"><x-icon name="list" size="sm" /></span>Backlog per status</h2></div>
                 @if ($stats['total'])
                     <div class="row" style="height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-bottom: 14px">
                         @foreach ($byStatus as $row)
@@ -35,7 +35,7 @@
             </section>
 
             <section class="section">
-                <div class="section-head"><h2 class="section-title">Deskripsi</h2></div>
+                <div class="section-head"><h2 class="section-title"><span class="sec-ico"><x-icon name="book" size="sm" /></span>Deskripsi</h2></div>
                 <div class="prose" style="font-size: 14px">
                     @if ($project->description)
                         {!! $project->description !!}
@@ -46,7 +46,7 @@
             </section>
 
             <section class="section">
-                <div class="section-head"><h2 class="section-title">Timeline</h2><span class="t-12 muted">Hari ke-{{ $daysIn }} dari {{ $daysTotal }}</span></div>
+                <div class="section-head"><h2 class="section-title"><span class="sec-ico"><x-icon name="calendar" size="sm" /></span>Timeline</h2><span class="t-12 muted">Hari ke-{{ $daysIn }} dari {{ $daysTotal }}</span></div>
                 <div class="col" style="gap: 8px">
                     <div style="position: relative; height: 24px; border-radius: 4px; background: var(--surface-2); overflow: hidden">
                         <span style="position: absolute; left: 0; top: 0; bottom: 0; width: {{ $pctTime }}%; background: var(--primary-soft); @if ($pctTime > 0 && $pctTime < 100) border-right: 2px solid var(--s-reopen) @endif"></span>
@@ -65,7 +65,7 @@
 
         <aside class="col" style="flex: 1 1 280px">
             <section class="section">
-                <div class="section-head"><h2 class="section-title">Anggota</h2><a class="link t-12" href="{{ route('projects.members.index', $project) }}">Kelola</a></div>
+                <div class="section-head"><h2 class="section-title"><span class="sec-ico"><x-icon name="users" size="sm" /></span>Anggota</h2><a class="link t-12" href="{{ route('projects.members.index', $project) }}">Kelola</a></div>
                 <div class="col" style="gap: 14px">
                     @foreach ($roleOptions as $key => $label)
                         @php $list = $membersByRole->get($key, collect()); @endphp

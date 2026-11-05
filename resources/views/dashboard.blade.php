@@ -9,6 +9,7 @@
         <div class="page-head">
             <div>
                 <h1 class="t-24">{{ $isAdmin ? 'Dashboard' : 'Backlog Saya' }}</h1>
+                <p class="sub">{{ \App\Support\Format::greeting(now()) }}, {{ auth()->user()->name }} · {{ \App\Support\Format::longDate(now()) }}</p>
             </div>
             @if ($projects->isNotEmpty())
                 <div class="row m-full">
@@ -22,9 +23,9 @@
             @endif
         </div>
 
-        <div class="summary">
+        <div class="kpi-grid">
             @foreach ($stats as $s)
-                <span @class(['late' => ! empty($s['danger'])])><b>{{ $s['value'] }}</b> {{ $s['label'] }}</span>
+                <x-stat-card :icon="$s['icon']" :value="$s['value']" :label="$s['label']" :hint="$s['hint'] ?? null" :tone="$s['tone'] ?? 'neutral'" />
             @endforeach
         </div>
 
@@ -40,7 +41,7 @@
             <div class="dash-grid">
                 <section class="section" style="border-top: 0; padding-top: 0">
                     <div class="section-head">
-                        <h2 class="section-title">{{ $isAdmin ? 'Status progres pengerjaan' : 'Progres pengerjaan Anda' }}</h2>
+                        <h2 class="section-title"><span class="sec-ico"><x-icon name="dashboard" size="sm" /></span>{{ $isAdmin ? 'Status progres pengerjaan' : 'Progres pengerjaan Anda' }}</h2>
                         <span class="t-12 muted" x-text="data.total + ' backlog'"></span>
                     </div>
                     <div class="row wrap" style="gap: 24px 40px; align-items: center; padding: 8px 0; position: relative">
@@ -72,7 +73,7 @@
                 </section>
 
                 <section class="section" style="border-top: 0; padding-top: 0">
-                    <div class="section-head"><h2 class="section-title">Aktivitas terbaru</h2><a class="link t-12" href="{{ route('notifications.index') }}">Notifikasi</a></div>
+                    <div class="section-head"><h2 class="section-title"><span class="sec-ico"><x-icon name="zap" size="sm" /></span>Aktivitas terbaru</h2><a class="link t-12" href="{{ route('notifications.index') }}">Notifikasi</a></div>
                     <div class="activity" x-html="data.activities_html"></div>
                 </section>
             </div>

@@ -34,7 +34,7 @@
                     $pct = $s->total_count ? (int) round($s->done_count / $s->total_count * 100) : 0;
                     $isActive = $s->status === App\Enums\SprintStatus::Active;
                 @endphp
-                <article class="card" @if ($isActive) style="border-color: var(--s-progress); box-shadow: 0 0 0 1px var(--s-progress)" @endif>
+                <article class="card" @if ($isActive) style="border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary)" @endif>
                     <div class="row" style="padding: 16px 18px; gap: 20px; align-items: flex-start; flex-wrap: wrap">
                         <div class="col grow" style="gap: 6px; flex: 1 1 320px">
                             <div class="row" style="gap: 10px"><span class="t-16">{{ $s->name }}</span><span class="{{ $s->status->badgeClass() }}"><span class="dot"></span>{{ $s->status->label() }}</span></div>

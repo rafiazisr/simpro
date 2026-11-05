@@ -113,7 +113,7 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 .app-gantt .gantt_grid_scale, .app-gantt .gantt_task_scale { background: var(--surface-2); border-color: var(--border); }
 .app-gantt .gantt_grid_head_cell, .app-gantt .gantt_scale_cell { color: var(--text-3); font-size: 12px; font-weight: 600; border-color: var(--border); }
 .app-gantt .gantt_scale_line { border-color: var(--border); }
-.app-gantt .gantt_scale_cell.weekend, .app-gantt .gantt_task_cell.weekend { background: rgba(13, 148, 136, .05); }
+.app-gantt .gantt_scale_cell.weekend, .app-gantt .gantt_task_cell.weekend { background: rgba(17, 19, 22, .025); }
 .app-gantt .gantt_grid_data .gantt_row, .app-gantt .gantt_task_row { border-color: var(--border); background: var(--surface); }
 .app-gantt .gantt_grid_data .gantt_row:hover, .app-gantt .gantt_task_row:hover { background: var(--surface-2); }
 .app-gantt .gantt_row.gantt_parent, .app-gantt .gantt_task_row.gantt_parent { background: var(--bg); }
@@ -305,3 +305,26 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
     .dash-grid .legend { flex: 1 1 100%; }
     .dash-grid .row.wrap:has(> .legend) { justify-content: center; }
 }
+
+/* ---------- Kartu statistik berikon ---------- */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.kpi { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.kpi-ico { width: 40px; height: 40px; flex: none; border-radius: 10px; display: grid; place-items: center; background: var(--k-bg); color: var(--k-fg); }
+.kpi-body { min-width: 0; }
+.kpi-num { font-size: 24px; line-height: 28px; font-weight: 700; letter-spacing: -.02em; color: var(--text); }
+.kpi-lbl { font-size: 13px; color: var(--text-2); }
+.kpi-lbl::first-letter { text-transform: uppercase; }
+.kpi-hint { font-size: 12px; color: var(--k-hint, var(--text-3)); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi.tone-neutral { --k-bg: var(--surface-2); --k-fg: var(--text-2); }
+.kpi.tone-primary { --k-bg: var(--primary-soft); --k-fg: var(--primary-text); }
+.kpi.tone-blue    { --k-bg: #E0F2FE; --k-fg: #0369A1; }
+.kpi.tone-amber   { --k-bg: #FEF3C7; --k-fg: #B45309; --k-hint: #B45309; }
+.kpi.tone-red     { --k-bg: #FEE2E2; --k-fg: #B91C1C; --k-hint: #B91C1C; }
+.kpi.tone-green   { --k-bg: #DCFCE7; --k-fg: #15803D; }
+.kpi.tone-violet  { --k-bg: #EDE9FE; --k-fg: #6D28D9; }
+@media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .kpi-hint { white-space: normal; } .kpi { padding: 12px 14px; gap: 12px; align-items: flex-start; } .kpi-ico { width: 36px; height: 36px; } .kpi-num { font-size: 20px; line-height: 24px; } }
+
+/* Ikon kecil di judul section */
+.section-title { display: inline-flex; align-items: center; gap: 8px; }
+.sec-ico { width: 24px; height: 24px; border-radius: 6px; display: inline-grid; place-items: center; background: var(--primary-soft); color: var(--primary-text); flex: none; }
