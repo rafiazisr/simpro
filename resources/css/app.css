@@ -295,9 +295,12 @@ trix-editor.editor-area { border: 0; padding: 12px 14px; outline: none; }
 .auth-bg .auth-card { box-shadow: 0 24px 60px rgba(2, 30, 28, .35); border: 0; }
 
 /* ---------- Latar halaman: gradasi ke hijau teal ---------- */
-:root { --page-grad: linear-gradient(160deg, #E4F5F1 0%, #C4EAE2 35%, #93D6CA 70%, #62C0B0 100%); }
+:root { --page-grad: linear-gradient(160deg, #A9DED4 0%, #84CDBF 35%, #57B7A7 70%, #2F9C8D 100%); }
 html, body.pt, .app, .app-main { background: transparent; }
-html { background: #C4EAE2; }
+html { background: #84CDBF; }
+/* Teks abu-abu yang langsung di latar dipertegas; di dalam kartu tetap seperti biasa */
+.content { --text-3: #24504A; --text-2: #163F3A; }
+.content :is(.card, .section, .modal, .drawer, .popover, .input, .select, .textarea, .fake-input, .seg, .app-gantt, .btn-secondary, .alert) { --text-3: #5B7A75; --text-2: #2C4D49; }
 /* Lapisan fixed: tetap menutup layar saat scroll, juga di Safari iOS */
 body.pt::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page-grad); pointer-events: none; }
 .topbar { background: rgba(255, 255, 255, .72); backdrop-filter: saturate(160%) blur(10px); -webkit-backdrop-filter: saturate(160%) blur(10px); border-bottom-color: rgba(13, 148, 136, .18); }
