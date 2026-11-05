@@ -3,11 +3,11 @@
     $pm = $project->members->firstWhere('pivot.project_role', 'pm');
     $tabCls = fn (string $t) => $tab === $t ? 'tab active' : 'tab';
 @endphp
-<div class="col hero" style="gap: 16px">
+<div class="col" style="gap: 16px">
     <div class="page-head">
         <div class="col" style="gap: 6px">
             <div class="row" style="gap: 10px">
-                <span class="proj-swatch" style="width: 12px; height: 12px; border-radius: 3px; background: {{ $project->color }}"></span>
+                <span style="width: 12px; height: 12px; border-radius: 3px; background: {{ $project->color }}"></span>
                 <span class="code">{{ $project->code }}</span>
                 <span class="{{ $project->status->badgeClass() }}"><span class="dot"></span>{{ $project->status->label() }}</span>
             </div>
@@ -44,5 +44,4 @@
         <a class="{{ $tabCls('anggota') }}" href="{{ route('projects.members.index', $project) }}">Anggota<span class="count">{{ $project->members->count() }}</span></a>
         <a class="{{ $tabCls('docs') }}" href="{{ route('projects.docs.index', $project) }}">Dokumentasi</a>
     </nav>
-    {{ $slot ?? '' }}
 </div>
