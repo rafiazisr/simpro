@@ -2,7 +2,7 @@
 <main class="auth-bg login-page">
     <section class="login-story" aria-labelledby="login-story-title">
         <div class="login-orbits" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-        <div class="login-story-brand"><span class="login-brand-mark" aria-hidden="true"><x-icon name="columns" size="20" /></span>{{ config('app.name') }}</div>
+        <div class="login-story-brand"><img class="login-brand-mark" src="{{ asset('images/logo-simpro.png') }}" alt="" width="60" height="52">{{ config('app.name') }}</div>
         <div class="login-story-content">
             <span class="login-eyebrow">RUANG KERJA TIM ANDA</span>
             <h2 id="login-story-title">Satu tempat.<br> Setiap langkah<br> <span>lebih terarah.</span></h2>
