@@ -14,7 +14,6 @@
 
     <section class="login-form-panel" aria-labelledby="login-title">
         <div class="login-form-wrap">
-        <span class="wordmark login-form-brand">{{ config('app.name') }}</span>
         <form class="col login-form" method="POST" action="{{ route('login.store') }}" novalidate
               x-data="{ sending: false }" @submit="if (sending) { $event.preventDefault() } sending = true">
             @csrf
