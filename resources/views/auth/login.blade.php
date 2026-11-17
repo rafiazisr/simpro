@@ -1,13 +1,25 @@
 <x-layouts.guest title="Masuk">
-<div class="auth-bg" style="padding: 32px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px">
-    <span class="wordmark" style="font-size: 22px">{{ config('app.name') }}</span>
+<main class="auth-bg login-page">
+    <section class="login-story" aria-labelledby="login-story-title">
+        <div class="login-orbits" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <div class="login-story-brand"><span class="login-brand-mark" aria-hidden="true"><x-icon name="columns" size="20" /></span>{{ config('app.name') }}</div>
+        <div class="login-story-content">
+            <span class="login-eyebrow">RUANG KERJA TIM ANDA</span>
+            <h2 id="login-story-title">Satu tempat.<br> Setiap langkah<br> <span>lebih terarah.</span></h2>
+            <p>Kelola project, pantau progres, dan berkolaborasi bersama tim. Dari rencana hingga selesai.</p>
+            <div class="login-story-tags" aria-hidden="true"><span>Project</span><i></i><span>Kolaborasi</span><i></i><span>Progres</span></div>
+        </div>
+        <p class="login-story-footer">Bersama tim, wujudkan rencana jadi hasil.</p>
+    </section>
 
-    <div class="card auth-card" style="width: 100%; max-width: 380px; padding: 28px">
-        <form class="col" method="POST" action="{{ route('login.store') }}" style="gap: 18px" novalidate
+    <section class="login-form-panel" aria-labelledby="login-title">
+        <div class="login-form-wrap">
+        <span class="wordmark login-form-brand">{{ config('app.name') }}</span>
+        <form class="col login-form" method="POST" action="{{ route('login.store') }}" novalidate
               x-data="{ sending: false }" @submit="if (sending) { $event.preventDefault() } sending = true">
             @csrf
-            <div class="col" style="gap: 6px">
-                <h1 class="t-20">Masuk</h1>
+            <div class="col login-form-heading">
+                <h1 id="login-title">Selamat datang kembali.</h1>
                 <p class="muted">Gunakan email kantor Anda.</p>
             </div>
 
@@ -76,6 +88,7 @@
             <button class="btn btn-primary btn-lg btn-block" type="submit" :disabled="sending" x-text="sending ? 'Memproses…' : 'Masuk'">Masuk</button>
             <p class="t-12 muted" style="text-align: center">Lupa password? Hubungi Admin.</p>
         </form>
-    </div>
-</div>
+        </div>
+    </section>
+</main>
 </x-layouts.guest>
